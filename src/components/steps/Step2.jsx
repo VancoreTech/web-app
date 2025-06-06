@@ -2,7 +2,7 @@
 
 import { User } from "lucide-react"
 
-export default function Step2({ accountType, setAccountType, onNext, isValid }) {
+export default function Step2({ accountType, setAccountType, onNext, isValid, onNavigateToSignIn }) {
   return (
     <div className="max-w-sm mx-auto px-3">
       <div className="lg:hidden flex justify-center mb-6">
@@ -62,7 +62,7 @@ export default function Step2({ accountType, setAccountType, onNext, isValid }) 
       </button>
 
       <p className="text-center text-gray-600">
-        Already have an account? <button className="text-blue-600 hover:underline">Sign in</button>
+        Already have an account? <button onClick={onNavigateToSignIn} className="text-blue-600 hover:underline">Sign in</button>
       </p>
     </div>
   )

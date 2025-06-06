@@ -1,11 +1,10 @@
 export default function Sidebar() {
   return (
     <div className="hidden xl:flex xl:w-[35%] h-screen relative overflow-hidden">
-      
       <div
         className="absolute inset-0 w-full h-full"
         style={{
-          background: "linear-gradient(135deg, #01042D 0%, #A31EFF 100%)"
+          background: "linear-gradient(135deg, #01042D 0%, #A31EFF 100%)",
         }}
       />
 
@@ -15,10 +14,10 @@ export default function Sidebar() {
           alt="SideBar"
           className="w-full h-full object-contain mix-blend-screen"
           style={{
-            filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.3))"
+            filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.3))",
           }}
         />
       </div>
     </div>
-  )
+  );
 }
