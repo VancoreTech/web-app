@@ -1,41 +1,48 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-export default function ForgotPasswordCode({ email, verificationCode, setVerificationCode, onSubmit, onNavigateToSignUp }) {
-  const inputRefs = useRef([])
+export default function ForgotPasswordCode({
+  email,
+  verificationCode,
+  setVerificationCode,
+  onSubmit,
+  onNavigateToSignUp,
+}) {
+  const inputRefs = useRef([]);
 
   useEffect(() => {
     if (inputRefs.current[0]) {
-      inputRefs.current[0].focus()
+      inputRefs.current[0].focus();
     }
-  }, [])
+  }, []);
 
   const handleChange = (index, value) => {
-    if (!/^[0-9]*$/.test(value)) return
+    if (!/^[0-9]*$/.test(value)) return;
 
-    const newCode = [...verificationCode]
-    newCode[index] = value
+    const newCode = [...verificationCode];
+    newCode[index] = value;
 
-    setVerificationCode(newCode)
+    setVerificationCode(newCode);
 
     if (value && index < 5 && inputRefs.current[index + 1]) {
-      inputRefs.current[index + 1].focus()
+      inputRefs.current[index + 1].focus();
     }
-  }
+  };
 
   const handleKeyDown = (index, e) => {
-    if (e.key === 'Backspace' && !verificationCode[index] && index > 0) {
-      inputRefs.current[index - 1].focus()
+    if (e.key === "Backspace" && !verificationCode[index] && index > 0) {
+      inputRefs.current[index - 1].focus();
     }
-  }
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if (verificationCode.every(digit => digit !== '')) {
-      onSubmit(verificationCode)
+    e.preventDefault();
+    if (verificationCode.every((digit) => digit !== "")) {
+      onSubmit(verificationCode);
     }
-  }
+  };
 
-  const isComplete = verificationCode.every(digit => digit !== '')
+  const isComplete = verificationCode.every((digit) => digit !== "");
 
   return (
     <div>
@@ -55,7 +62,7 @@ export default function ForgotPasswordCode({ email, verificationCode, setVerific
             {verificationCode.map((digit, index) => (
               <input
                 key={index}
-                ref={el => inputRefs.current[index] = el}
+                ref={(el) => (inputRefs.current[index] = el)}
                 type="text"
                 maxLength={1}
                 value={digit}
@@ -80,16 +87,22 @@ export default function ForgotPasswordCode({ email, verificationCode, setVerific
         </button>
 
         <p className="mt-4 text-sm text-center">
-          Don't have an account?{' '}
-          <button
+          Don't have an account?{" "}
+          {/* <button
             type="button"
             onClick={onNavigateToSignUp}
             className="text-blue-600 hover:text-blue-700 font-medium"
           >
             Sign up
-          </button>
+          </button> */}
+          <Link
+            to="/"
+            className="text-blue-600 hover:text-blue-700 font-medium"
+          >
+            Sign Up
+          </Link>
         </p>
       </form>
     </div>
-  )
-} 
+  );
+}

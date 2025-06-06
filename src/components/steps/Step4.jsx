@@ -1,5 +1,7 @@
 "use client";
 
+import { useNavigate, Link } from "react-router-dom";
+
 export default function Step4({
   goals,
   formData,
@@ -17,6 +19,7 @@ export default function Step4({
     "Create receipts",
     "Automate my sales and order processes",
   ];
+  const navigate = useNavigate();
 
   return (
     <div className="max-w-4xl mx-auto px-3 lg:pb-0 pb-10">
@@ -101,12 +104,15 @@ export default function Step4({
 
       <p className="text-center text-gray-600 text-sm">
         Already have an account?{" "}
-        <button
-          onClick={onNavigateToSignIn}
+        {/* <button
+          onClick={() => navigate("/signin")}
           className="text-blue-600 hover:underline"
         >
           Sign in
-        </button>
+        </button> */}
+        <Link to="/signin" className="text-blue-600 hover:underline">
+          Sign In
+        </Link>
       </p>
     </div>
   );
