@@ -16,6 +16,9 @@ export default function Step3({
 
   return (
     <div className=" w-[25rem] max-sm:w-full mx-auto px-2">
+      <div className="lg:hidden flex justify-center mb-6">
+        <img src="/vancore-logo.png" alt="Vancore Logo" className="h-8" />
+      </div>
       <h1 className="text-xl font-bold text-gray-900 mb-1 text-center">
         Create free account
       </h1>
@@ -120,7 +123,6 @@ export default function Step3({
               </svg>
             </div>
 
-            {/* Phone input */}
             <input
               type="tel"
               placeholder="Enter phone number"
@@ -133,7 +135,6 @@ export default function Step3({
               required
             />
 
-            {/* Verify button */}
             <button
               type="button"
               onClick={() => onVerifyClick("phone")}
@@ -149,7 +150,7 @@ export default function Step3({
               Verify
             </button>
 
-            {/* Dropdown for countries */}
+            
             {showDropdown && (
               <ul
                 className="absolute top-full left-0 z-10 w-40 mt-1 overflow-auto bg-white border border-gray-300 rounded shadow-lg max-h-40"

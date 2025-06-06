@@ -6,9 +6,9 @@ import PricingPage from "./components/PricingPage"
 import VerificationModal from "./components/VerificationModal"
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("registration") // "registration" or "pricing"
+  const [currentPage, setCurrentPage] = useState("registration") 
   const [showVerificationModal, setShowVerificationModal] = useState(false)
-  const [verificationType, setVerificationType] = useState("") // "email" or "phone"
+  const [verificationType, setVerificationType] = useState("") 
   const [verificationCode, setVerificationCode] = useState(["", "", "", "", "", ""])
   const [isVerifying, setIsVerifying] = useState(false)
   const [formData, setFormData] = useState({
@@ -31,7 +31,7 @@ export default function App() {
 
   const handleVerificationSubmit = () => {
     setIsVerifying(true)
-    // Simulate verification process
+    
     setTimeout(() => {
       setIsVerifying(false)
       setShowVerificationModal(false)
@@ -45,7 +45,7 @@ export default function App() {
       newCode[index] = value
       setVerificationCode(newCode)
 
-      // Auto-focus next input
+      
       if (value && index < 5) {
         const nextInput = document.getElementById(`code-${index + 1}`)
         if (nextInput) nextInput.focus()

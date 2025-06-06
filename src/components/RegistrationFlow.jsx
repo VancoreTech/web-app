@@ -23,11 +23,11 @@ export default function RegistrationFlow({ formData, setFormData, onVerifyClick,
   ]
 
   const getProgressStep = () => {
-    if (currentStep >= 7) return 4 // All steps complete
-    if (currentStep >= 6) return 4 // Password setup
-    if (currentStep >= 5) return 3 // Business information
-    if (currentStep >= 4) return 2 // Why Vancore
-    if (currentStep >= 1) return 1 // Create free account
+    if (currentStep >= 7) return 4 
+    if (currentStep >= 6) return 4 
+    if (currentStep >= 5) return 3 
+    if (currentStep >= 4) return 2 
+    if (currentStep >= 1) return 1 
     return 1
   }
 
@@ -53,8 +53,8 @@ export default function RegistrationFlow({ formData, setFormData, onVerifyClick,
     }))
   }
 
-  // Form validation functions
-  const isStep1Valid = () => true // Always valid for initial step
+  
+  const isStep1Valid = () => true 
 
   const isStep2Valid = () => accountType !== ""
 
@@ -160,10 +160,10 @@ export default function RegistrationFlow({ formData, setFormData, onVerifyClick,
       {currentStep < 7 && <Sidebar />}
 
       <div className={`flex-1 ${currentStep < 7 ? "xl:w-3/5" : "w-full"} flex flex-col h-screen`}>
-        {/* Progress Bar with top padding */}
+        
         {currentStep < 7 && <ProgressBar steps={steps} currentStep={getProgressStep()} />}
 
-        {/* Main Content with centered layout and proper spacing */}
+        
         <div className="flex-1 flex pt-20 justify-center px-8">
           <div className="w-full max-w-lg">{renderCurrentStep()}</div>
         </div>

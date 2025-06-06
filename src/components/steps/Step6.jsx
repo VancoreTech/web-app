@@ -8,6 +8,9 @@ export default function Step6({ formData, setFormData, onNext, isValid }) {
 
   return (
     <div className="max-w-[380px] mx-auto px-3">
+      <div className="lg:hidden flex justify-center mb-6">
+        <img src="/vancore-logo.png" alt="Vancore Logo" className="h-8" />
+      </div>
       <h1 className="text-2xl font-bold text-gray-900 mb-1 text-center">Set up password</h1>
       <p className="text-gray-600 mb-4 text-center text-sm">Create your unique sign in password</p>
 

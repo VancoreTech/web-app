@@ -3,19 +3,21 @@ export default function PricingPage() {
     <div className="min-h-screen bg-white mt-10 mb-10">
       <div className="px-4 py-8">
         <div className="max-w-[1200px] mx-auto">
-          {/* Header content */}
+          
           <div className="mb-12">
-            <div className="flex items-center mb-6">
-              <img src="/vancore-logo.png" alt="Vancore Logo" className="h-8 w-auto mr-2" />
-              <span className="text-xl font-semibold text-gray-900">Vancore</span>
+            <div className="flex lg:flex-row flex-col items-center mb-6">
+              <div className="flex items-center justify-center w-full lg:w-auto lg:justify-start mb-4 lg:mb-0">
+                <img src="/vancore-logo.png" alt="Vancore Logo" className="h-8 w-auto mr-2" />
+                <span className="text-xl font-semibold text-gray-900">Vancore</span>
+              </div>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">Subscription plan</h1>
-            <p className="text-gray-600 text-sm">Choose your preferred subscription plan</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-1 text-center lg:text-left">Subscription plan</h1>
+            <p className="text-gray-600 text-sm text-center lg:text-left">Choose your preferred subscription plan</p>
           </div>
 
-          {/* Grid container */}
+          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Starter Plan */}
+            
             <div className="bg-[#F8F9FF] rounded-xl p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
               <div className="w-8 h-8 mb-4">
                 <img src="/pricing-icon.png" alt="Pricing Icon" className="w-full h-full object-contain" />
@@ -46,7 +48,7 @@ export default function PricingPage() {
               </button>
             </div>
 
-            {/* Business Plan */}
+            
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 relative transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
               <div className="absolute -top-3 right-6">
                 <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-medium">Recommended</span>
@@ -81,7 +83,7 @@ export default function PricingPage() {
               </button>
             </div>
 
-            {/* Growth Plan */}
+            
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
               <div className="w-8 h-8 mb-4">
                 <img src="/pricing-icon.png" alt="Pricing Icon" className="w-full h-full object-contain" />
@@ -113,7 +115,6 @@ export default function PricingPage() {
               </button>
             </div>
 
-            {/* Enterprise Plan */}
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
               <div className="w-8 h-8 mb-4">
                 <img src="/pricing-icon.png" alt="Pricing Icon" className="w-full h-full object-contain" />

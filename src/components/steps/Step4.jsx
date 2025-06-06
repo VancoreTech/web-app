@@ -13,6 +13,9 @@ export default function Step4({ goals, formData, onGoalToggle, onNext, isValid }
 
   return (
     <div className="max-w-4xl mx-auto px-3">
+      <div className="lg:hidden flex justify-center mb-6">
+        <img src="/vancore-logo.png" alt="Vancore Logo" className="h-8" />
+      </div>
       <h1 className="text-2xl font-bold text-gray-900 mb-4 text-center">What do you need Vancore for?</h1>
       <p className="text-gray-600 mb-6 text-center text-sm">
         Choose your goal so we can match you with the right tools and features

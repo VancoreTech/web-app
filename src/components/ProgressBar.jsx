@@ -2,7 +2,7 @@ export default function ProgressBar({ steps, currentStep }) {
   return (
     <div className="w-full px-4 lg:px-8 pt-12">
       <div className="relative w-full">
-        {/* Step labels - hidden on mobile and tablet (below lg breakpoint) */}
+        
         <div className="hidden lg:flex justify-between mb-4 max-w-4xl mx-auto">
           {steps.map((step) => (
             <div key={step.id} className="flex-1 text-center">
@@ -13,14 +13,13 @@ export default function ProgressBar({ steps, currentStep }) {
           ))}
         </div>
 
-        {/* Progress bar container */}
+        
         <div className="relative h-4 flex items-center w-full lg:max-w-4xl lg:mx-auto">
-          {/* Mobile and Tablet: Full width with padding */}
+          
           <div className="relative w-full lg:hidden px-2">
-            {/* Background line (gray) */}
+            
             <div className="absolute h-0.5 bg-gray-300 left-2 right-2 top-1/2 transform -translate-y-1/2"></div>
 
-            {/* Active line (purple) */}
             <div
               className="absolute h-0.5 bg-purple-600 left-2 top-1/2 transform -translate-y-1/2 transition-all duration-300"
               style={{
@@ -28,7 +27,6 @@ export default function ProgressBar({ steps, currentStep }) {
               }}
             ></div>
 
-            {/* Circles */}
             <div className="absolute left-2 right-2 flex justify-between top-1/2 transform -translate-y-1/2">
               {steps.map((step) => (
                 <div
@@ -41,7 +39,6 @@ export default function ProgressBar({ steps, currentStep }) {
             </div>
           </div>
 
-          {/* Desktop: Original centered positioning */}
           <div
             className="relative hidden lg:block"
             style={{
@@ -50,10 +47,9 @@ export default function ProgressBar({ steps, currentStep }) {
               marginRight: `${100 / (2 * steps.length)}%`,
             }}
           >
-            {/* Background line (gray) */}
+            
             <div className="absolute h-0.5 bg-gray-300 left-0 right-0 top-1/2 transform -translate-y-1/2"></div>
 
-            {/* Active line (purple) */}
             <div
               className="absolute h-0.5 bg-purple-600 left-0 top-1/2 transform -translate-y-1/2 transition-all duration-300"
               style={{
@@ -61,7 +57,6 @@ export default function ProgressBar({ steps, currentStep }) {
               }}
             ></div>
 
-            {/* Circles */}
             <div className="absolute w-full flex justify-between top-1/2 transform -translate-y-1/2">
               {steps.map((step) => (
                 <div

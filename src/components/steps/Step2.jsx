@@ -5,6 +5,9 @@ import { User } from "lucide-react"
 export default function Step2({ accountType, setAccountType, onNext, isValid }) {
   return (
     <div className="max-w-sm mx-auto px-3">
+      <div className="lg:hidden flex justify-center mb-6">
+        <img src="/vancore-logo.png" alt="Vancore Logo" className="h-8" />
+      </div>
       <h1 className="text-2xl font-bold text-gray-900 mb-2 text-center">Create free account</h1>
       <p className="text-gray-600 mb-6 text-center text-sm">Choose your account type</p>
 

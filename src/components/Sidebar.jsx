@@ -1,7 +1,7 @@
 export default function Sidebar() {
   return (
     <div className="hidden xl:flex xl:w-[35%] h-screen relative overflow-hidden">
-      {/* Gradient Background */}
+      
       <div
         className="absolute inset-0 w-full h-full"
         style={{
@@ -9,7 +9,6 @@ export default function Sidebar() {
         }}
       />
 
-      {/* Dashboard Image Content */}
       <div className="relative z-10 w-full h-full flex items-center justify-center py-12">
         <img
           src="/sidebar1.png"
