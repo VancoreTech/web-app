@@ -1,4 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function PricingPage() {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/dashboard');
+  };
+
   return (
     <div className="min-h-screen bg-white mt-10 mb-10">
       <div className="px-4 py-8">
@@ -65,7 +73,8 @@ export default function PricingPage() {
                 ))}
               </div>
 
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg text-sm font-medium transition-colors duration-300">
+              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg text-sm font-medium transition-colors duration-300"
+                onClick={() => navigate('/dashboard')}>
                 Get started
               </button>
             </div>
