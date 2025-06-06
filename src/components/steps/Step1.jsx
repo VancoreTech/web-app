@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Mail } from "lucide-react";
 
-export default function Step1({ onNext, isValid }) {
+export default function Step1({ onNext, isValid, onNavigateToSignIn }) {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   return (
@@ -59,7 +59,7 @@ export default function Step1({ onNext, isValid }) {
 
       <p className="text-center text-gray-600 mb-4">
         Already have an account?{" "}
-        <button className="text-blue-600 hover:underline">Sign in</button>
+        <button onClick={onNavigateToSignIn} className="text-blue-600 hover:underline">Sign in</button>
       </p>
 
       <div className="flex justify-center space-x-1 p-4 ">
@@ -67,7 +67,7 @@ export default function Step1({ onNext, isValid }) {
           type="checkbox"
           id="terms-checkbox"
           checked={agreedToTerms}
-          onChange={(e) => setAgreedToTerms(e.target.checked)}
+          onChange={(e) => setAgreedToTerms(e.checked)}
           className="h-4 w-4 "
         />
         <label htmlFor="terms-checkbox" className="text-xs text-center max-md:text-start">

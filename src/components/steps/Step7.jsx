@@ -4,7 +4,7 @@ import { Check } from "lucide-react"
 
 export default function Step7({ onNavigateToPricing }) {
   return (
-    <div className="max-w-md mx-auto text-center">
+    <div className="text-center">
       <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
         <Check className="w-8 h-8 text-white" />
       </div>
@@ -14,7 +14,7 @@ export default function Step7({ onNavigateToPricing }) {
 
       <button
         onClick={onNavigateToPricing}
-        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg font-medium mb-4"
+        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg font-medium"
       >
         Proceed
       </button>

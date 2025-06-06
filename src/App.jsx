@@ -1,16 +1,26 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import RegistrationFlow from "./components/RegistrationFlow"
-import PricingPage from "./components/PricingPage"
-import VerificationModal from "./components/VerificationModal"
+import { useState } from "react";
+import RegistrationFlow from "./components/RegistrationFlow";
+import PricingPage from "./components/PricingPage";
+import SignInPage from "./components/SignInPage";
+import VerificationModal from "./components/VerificationModal";
+import ForgotPasswordFlow from "./components/ForgotPasswordFlow";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("registration") 
-  const [showVerificationModal, setShowVerificationModal] = useState(false)
-  const [verificationType, setVerificationType] = useState("") 
-  const [verificationCode, setVerificationCode] = useState(["", "", "", "", "", ""])
-  const [isVerifying, setIsVerifying] = useState(false)
+  const [currentPage, setCurrentPage] = useState("registration");
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
+
+  const [verificationType, setVerificationType] = useState("");
+  const [verificationCode, setVerificationCode] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
+  const [isVerifying, setIsVerifying] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -22,36 +32,34 @@ export default function App() {
     storeUrl: "",
     hasPhysicalStore: "",
     businessCategory: "",
-  })
+  });
 
   const handleVerifyClick = (type) => {
-    setVerificationType(type)
-    setShowVerificationModal(true)
-  }
+    setVerificationType(type);
+    setShowVerificationModal(true);
+  };
 
   const handleVerificationSubmit = () => {
-    setIsVerifying(true)
-    
+    setIsVerifying(true);
     setTimeout(() => {
-      setIsVerifying(false)
-      setShowVerificationModal(false)
-      setVerificationCode(["", "", "", "", "", ""])
-    }, 2000)
-  }
+      setIsVerifying(false);
+      setShowVerificationModal(false);
+      setVerificationCode(["", "", "", "", "", ""]);
+    }, 2000);
+  };
 
   const handleVerificationCodeChange = (index, value) => {
     if (value.length <= 1) {
-      const newCode = [...verificationCode]
-      newCode[index] = value
-      setVerificationCode(newCode)
+      const newCode = [...verificationCode];
+      newCode[index] = value;
+      setVerificationCode(newCode);
 
-      
       if (value && index < 5) {
-        const nextInput = document.getElementById(`code-${index + 1}`)
-        if (nextInput) nextInput.focus()
+        const nextInput = document.getElementById(`code-${index + 1}`);
+        if (nextInput) nextInput.focus();
       }
     }
-  }
+  };
 
   if (currentPage === "pricing") {
     return (
@@ -68,7 +76,25 @@ export default function App() {
           onSubmit={handleVerificationSubmit}
         />
       </>
-    )
+    );
+  }
+
+  if (currentPage === "signin") {
+    return (
+      <SignInPage
+        onNavigateToRegistration={() => setCurrentPage("registration")}
+        onNavigateToForgotPassword={() => setCurrentPage("forgot-password")}
+      />
+    );
+  }
+
+  if (currentPage === "forgot-password") {
+    return (
+      <ForgotPasswordFlow
+        onNavigateToSignIn={() => setCurrentPage("signin")}
+        onNavigateToSignUp={() => setCurrentPage("registration")}
+      />
+    );
   }
 
   return (
@@ -78,6 +104,7 @@ export default function App() {
         setFormData={setFormData}
         onVerifyClick={handleVerifyClick}
         onNavigateToPricing={() => setCurrentPage("pricing")}
+        onNavigateToSignIn={() => setCurrentPage("signin")}
       />
       <VerificationModal
         showModal={showVerificationModal}
@@ -90,5 +117,5 @@ export default function App() {
         onSubmit={handleVerificationSubmit}
       />
     </>
-  )
+  );
 }

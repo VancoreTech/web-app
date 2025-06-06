@@ -1,6 +1,6 @@
 "use client"
 
-export default function Step5({ formData, setFormData, onNext, isValid }) {
+export default function Step5({ formData, setFormData, onNext, isValid, onNavigateToSignIn }) {
   return (
     <div className="max-w-[380px] mx-auto px-3">
       <div className="lg:hidden flex justify-center mb-6">
@@ -120,7 +120,7 @@ export default function Step5({ formData, setFormData, onNext, isValid }) {
         </button>
 
         <p className="text-center text-[15px] text-gray-600">
-          Already have an account? <a href="#" className="text-blue-600 hover:underline">Sign in</a>
+          Already have an account? <button onClick={onNavigateToSignIn} className="text-blue-600 hover:underline">Sign in</button>
         </p>
       </form>
     </div>

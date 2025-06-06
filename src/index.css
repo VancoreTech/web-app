@@ -45,11 +45,9 @@ body,
   min-height: 100vh;
 }
 
-
 .vancore-gradient {
   background: linear-gradient(135deg, #01042d 0%, #a31eff 100%);
 }
-
 
 .transition-colors {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
@@ -57,12 +55,10 @@ body,
   transition-duration: 200ms;
 }
 
-
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
-
 
 input:focus,
 select:focus,
@@ -79,6 +75,6 @@ textarea:focus {
 
 
 .no-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none;
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
 }

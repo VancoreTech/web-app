@@ -6,6 +6,7 @@ export default function Step3({
   onVerifyClick,
   onNext,
   isValid,
+  onNavigateToSignIn,
 }) {
   const countries = [
     { code: "+234", name: "Nigeria", flag: "/nigerian-flag.svg" },
@@ -207,7 +208,10 @@ export default function Step3({
 
         <p className="text-center text-gray-600 text-xs">
           Already have an account?{" "}
-          <a href="#" className="text-blue-600 hover:underline">Sign in</a>
+          <a href="#" onClick={(e) => {
+            e.preventDefault();
+            onNavigateToSignIn();
+          }} className="text-blue-600 hover:underline">Sign in</a>
         </p>
       </form>
     </div>

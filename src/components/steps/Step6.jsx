@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function Step6({ formData, setFormData, onNext, isValid }) {
+export default function Step6({ formData, setFormData, onNext, isValid, onNavigateToSignIn }) {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -85,7 +85,7 @@ export default function Step6({ formData, setFormData, onNext, isValid }) {
         </button>
 
         <p className="text-center text-[15px] text-gray-600">
-          Already have an account? <a href="#" className="text-blue-600 hover:underline">Sign in</a>
+          Already have an account? <button onClick={onNavigateToSignIn} className="text-blue-600 hover:underline">Sign in</button>
         </p>
       </form>
     </div>
