@@ -1,13 +1,7 @@
-import React from 'react';
-import SideNav from '../components/SideNav';
+import React from "react";
 
 const Analytics = () => {
-  return (
-    <div className="flex">
-      <SideNav />
-      <div>Analytics</div>
-    </div>
-  );
+  return <div>Analytics</div>;
 };
 
 export default Analytics;

@@ -61,8 +61,8 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <SideNav />
-      <div className="flex-1 overflow-y-auto ml-64 bg-[#F9FAFB]">
+      {/* <SideNav /> */}
+      <div className="flex-1 overflow-y-auto ml- bg-[#F9FAFB]">
         {/* Top Navigation Bar */}
         <div className="px-8 py-4 flex justify-between items-center bg-[#F9FAFB]">
           {/* Breadcrumb */}

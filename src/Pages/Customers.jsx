@@ -1,13 +1,7 @@
-import React from 'react';
-import SideNav from '../components/SideNav';
+import React from "react";
 
 const Customers = () => {
-  return (
-    <div className="flex">
-      <SideNav />
-      <div>Customers</div>
-    </div>
-  );
+  return <div>Customers</div>;
 };
 
 export default Customers;

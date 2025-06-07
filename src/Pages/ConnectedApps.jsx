@@ -1,13 +1,7 @@
-import React from 'react';
-import SideNav from '../components/SideNav';
+import React from "react";
 
 const ConnectedApps = () => {
-  return (
-    <div className="flex">
-      <SideNav />
-      <div>ConnectedApps</div>
-    </div>
-  );
+  return <div>ConnectedApps</div>;
 };
 
 export default ConnectedApps;

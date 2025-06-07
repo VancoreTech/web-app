@@ -1,13 +1,7 @@
-import React from 'react';
-import SideNav from '../components/SideNav';
+import React from "react";
 
 const UserManagement = () => {
-  return (
-    <div className="flex">
-      <SideNav />
-      <div>UserManagement</div>
-    </div>
-  );
+  return <div>UserManagement</div>;
 };
 
 export default UserManagement;

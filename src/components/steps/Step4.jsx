@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "react-router-dom";
 export default function Step4({
   goals,
   formData,
@@ -101,12 +102,9 @@ export default function Step4({
 
       <p className="text-center text-gray-600 text-sm">
         Already have an account?{" "}
-        <button
-          onClick={onNavigateToSignIn}
-          className="text-blue-600 hover:underline"
-        >
+        <Link to="/signin" className="text-blue-600 hover:underline">
           Sign in
-        </button>
+        </Link>
       </p>
     </div>
   );

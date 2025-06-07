@@ -1,13 +1,7 @@
-import React from 'react';
-import SideNav from '../components/SideNav';
+import React from "react";
 
 const Campaigns = () => {
-  return (
-    <div className="flex">
-      <SideNav />
-      <div>Campaigns</div>
-    </div>
-  );
+  return <div>Campaigns</div>;
 };
 
 export default Campaigns;

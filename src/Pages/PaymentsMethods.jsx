@@ -1,13 +1,7 @@
-import React from 'react';
-import SideNav from '../components/SideNav';
+import React from "react";
 
 const PaymentsMethods = () => {
-  return (
-    <div className="flex">
-      <SideNav />
-      <div>PaymentsMethods</div>
-    </div>
-  );
+  return <div>PaymentsMethods</div>;
 };
 
 export default PaymentsMethods;
