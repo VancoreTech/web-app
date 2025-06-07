@@ -71,3 +71,87 @@ export const recentOrders = [
     status: "Completed"
   }
 ]; 
+
+// Orders data based on the screenshot
+export const ordersData = [
+  {
+    orderId: "00001",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Paid",
+    status: "Completed"
+  },
+  {
+    orderId: "00002",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Unpaid",
+    status: "Completed"
+  },
+  {
+    orderId: "00003",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Paid",
+    status: "Completed"
+  },
+  {
+    orderId: "00004",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Unpaid",
+    status: "Completed"
+  },
+  {
+    orderId: "00005",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Paid",
+    status: "Completed"
+  },
+  {
+    orderId: "00005",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Paid",
+    status: "Completed"
+  },
+  {
+    orderId: "00005",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Paid",
+    status: "Completed"
+  },
+  {
+    orderId: "00005",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Paid",
+    status: "Completed"
+  },
+  {
+    orderId: "00005",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Paid",
+    status: "Completed"
+  },
+  {
+    orderId: "00005",
+    orderName: "Two piece hoodie",
+    amount: "₦3,200.00",
+    date: "23/09/23, 09:11:04",
+    payment: "Paid",
+    status: "Completed"
+  }
+];

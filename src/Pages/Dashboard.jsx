@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SideNav from "../components/SideNav";
 import {
   LineChart,
   Line,
@@ -10,8 +9,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { statsData, salesData, recentOrders } from "../data/dashboardData";
-import { ChevronDown, Bell, Calendar, EyeOff } from "lucide-react";
+import { statsData, salesData, recentOrders } from "../data/data";
+import { ChevronDown, Calendar, EyeOff } from "lucide-react";
+import Navbar from "../components/Navbar";
 
 const Dashboard = () => {
   const [dateRange] = useState("Last 7 days");
@@ -61,38 +61,9 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <SideNav />
-      <div className="flex-1 overflow-y-auto ml-64 bg-[#F9FAFB]">
+      <div className="flex-1 overflow-y-auto bg-[#F9FAFB]">
         {/* Top Navigation Bar */}
-        <div className="px-8 py-4 flex justify-between items-center bg-[#F9FAFB]">
-          {/* Breadcrumb */}
-          <div className="flex items-center text-sm">
-            <span className="text-gray-400">Pages</span>
-            <span className="mx-2 text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">Dashboard</span>
-          </div>
-
-          {/* User Profile */}
-          <div className="flex items-center space-x-3">
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <Bell className="w-5 h-5 text-gray-500" />
-            </button>
-            <img
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Susan"
-              alt="Susan Sheidu"
-              className="w-8 h-8 rounded-full"
-            />
-            <div className="text-right">
-              <div className="text-sm font-medium text-gray-900">
-                Susan Sheidu
-              </div>
-              <div className="text-xs text-gray-500">susanstore.vancore</div>
-            </div>
-            <button className="ml-2">
-              <ChevronDown className="w-4 h-4 text-gray-400" />
-            </button>
-          </div>
-        </div>
+        <Navbar />
 
         {/* Registration Progress Banner */}
         <div className="mx-8 mb-6 p-6 rounded-lg bg-[#0A0B1E] text-white">

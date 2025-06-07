@@ -1,10 +1,8 @@
 import React from 'react';
-import SideNav from '../components/SideNav';
 
 const HelpSupport = () => {
   return (
-    <div className="flex">
-      <SideNav />
+    <div>
       <div>HelpSupport</div>
     </div>
   );
