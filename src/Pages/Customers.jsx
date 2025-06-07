@@ -3,8 +3,7 @@ import SideNav from '../components/SideNav';
 
 const Customers = () => {
   return (
-    <div className="flex">
-      <SideNav />
+    <div>
       <div>Customers</div>
     </div>
   );

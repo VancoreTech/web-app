@@ -1,11 +1,9 @@
 import React from 'react';
-import SideNav from '../components/SideNav';
 
 const UserManagement = () => {
   return (
-    <div className="flex">
-      <SideNav />
-      <div>UserManagement</div>
+    <div className="flex h-screen overflow-hidden">
+      <div className='flex-1 overflow-y-auto bg-[#F9FAFB]'>UserManagement</div>
     </div>
   );
 };

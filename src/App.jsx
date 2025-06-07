@@ -19,6 +19,8 @@ import Transactions from "./Pages/Transactions";
 import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
+import DashboardLayout from "./components/DashboardLayout";
+import CreateOrder from "./Pages/CreateOrder";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -75,21 +77,41 @@ export default function App() {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/user-management" element={<UserManagement />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/customers" element={<Customers />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/campaigns" element={<Campaigns />} />
-        <Route path="/discounts" element={<DiscountsCoupons />} />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/connected-apps" element={<ConnectedApps />} />
-        <Route path="/payment-methods" element={<PaymentsMethods />} />
-        <Route path="/support" element={<HelpSupport />} />
-        <Route path="*" element={
+    // <Router>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <RegistrationFlow
+            formData={formData}
+            setFormData={setFormData}
+            onVerifyClick={handleVerifyClick}
+          />
+        }
+      />
+      <Route path="/pricing" element={<PricingPage />} />
+      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordFlow />} />
+
+      <Route path="dashboard" element={<DashboardLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="user-management" element={<UserManagement />} />
+        <Route path="products" element={<Products />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="create-order" element={<CreateOrder />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="analytics" element={<Analytics />} />
+        <Route path="campaigns" element={<Campaigns />} />
+        <Route path="discounts" element={<DiscountsCoupons />} />
+        <Route path="transactions" element={<Transactions />} />
+        <Route path="connected-apps" element={<ConnectedApps />} />
+        <Route path="payment-methods" element={<PaymentsMethods />} />
+        <Route path="support" element={<HelpSupport />} />
+      </Route>
+
+      <Route
+        path="*"
+        element={
           <>
             {currentPage === "pricing" && (
               <>
@@ -106,11 +128,13 @@ export default function App() {
                 />
               </>
             )}
-            
+
             {currentPage === "signin" && (
               <SignInPage
                 onNavigateToRegistration={() => setCurrentPage("registration")}
-                onNavigateToForgotPassword={() => setCurrentPage("forgot-password")}
+                onNavigateToForgotPassword={() =>
+                  setCurrentPage("forgot-password")
+                }
               />
             )}
 
@@ -121,30 +145,23 @@ export default function App() {
               />
             )}
 
-            {currentPage === "registration" && (
-              <>
-                <RegistrationFlow
-                  formData={formData}
-                  setFormData={setFormData}
-                  onVerifyClick={handleVerifyClick}
-                  onNavigateToPricing={() => setCurrentPage("pricing")}
-                  onNavigateToSignIn={() => setCurrentPage("signin")}
-                />
-                <VerificationModal
-                  showModal={showVerificationModal}
-                  setShowModal={setShowVerificationModal}
-                  verificationType={verificationType}
-                  verificationCode={verificationCode}
-                  isVerifying={isVerifying}
-                  email={formData.email}
-                  onCodeChange={handleVerificationCodeChange}
-                  onSubmit={handleVerificationSubmit}
-                />
-              </>
-            )}
+            {/* {currentPage === "registration" && ( */}
+            <>
+              <VerificationModal
+                showModal={showVerificationModal}
+                setShowModal={setShowVerificationModal}
+                verificationType={verificationType}
+                verificationCode={verificationCode}
+                isVerifying={isVerifying}
+                email={formData.email}
+                onCodeChange={handleVerificationCodeChange}
+                onSubmit={handleVerificationSubmit}
+              />
+            </>
           </>
-        } />
-      </Routes>
-    </Router>
+        }
+      />
+    </Routes>
+    // </Router>
   );
 }
