@@ -100,7 +100,7 @@ const SideNav = () => {
       {/* Quick Links Section */}
       <div>
         <h2 className="text-sm text-gray-400 mb-2">Quick links</h2>
-        <nav className="space-y-3">
+        <nav className="space-y-2">
           {menuItems.map((item, index) => (
             <Link
               key={index}
@@ -112,7 +112,9 @@ const SideNav = () => {
               }`}
             >
               {item.icon}
-              <span className="text-sm">{item.label}</span>
+              <span className="" style={{ fontSize: "14px" }}>
+                {item.label}
+              </span>
             </Link>
           ))}
         </nav>

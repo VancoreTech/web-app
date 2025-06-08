@@ -1,10 +1,7 @@
 // Converted to JSX (no TypeScript types)
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ArrowLeft,
-  ChevronDown,
-} from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 import Navbar from "../components/Navbar";
 import ProductSelectionModal from "../components/ProductSelectionModal";
 import ConfirmModal from "../components/ConfirmModal";
@@ -40,24 +37,36 @@ const CreateOrder = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/photos?_limit=20');
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/photos?_limit=20"
+      );
       const data = await response.json();
       const transformedProducts = data.map((item, index) => ({
         id: item.id,
         name: `Thread muse ${index + 1}`,
-        price: 3200.00,
+        price: 3200.0,
         image: `https://picsum.photos/60/60?random=${item.id}`,
-        inStock: index === 4 ? 'Out of stock' : Math.random() > 0.5 ? 'Unlimited' : `${Math.floor(Math.random() * 20) + 1} in-stock`
+        inStock:
+          index === 4
+            ? "Out of stock"
+            : Math.random() > 0.5
+            ? "Unlimited"
+            : `${Math.floor(Math.random() * 20) + 1} in-stock`,
       }));
       setProducts(transformedProducts);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
       const fallbackProducts = Array.from({ length: 10 }, (_, index) => ({
         id: index + 1,
         name: `Thread muse ${index + 1}`,
-        price: 3200.00,
+        price: 3200.0,
         image: `https://picsum.photos/60/60?random=${index + 1}`,
-        inStock: index === 4 ? 'Out of stock' : Math.random() > 0.5 ? 'Unlimited' : `${Math.floor(Math.random() * 20) + 1} in-stock`
+        inStock:
+          index === 4
+            ? "Out of stock"
+            : Math.random() > 0.5
+            ? "Unlimited"
+            : `${Math.floor(Math.random() * 20) + 1} in-stock`,
       }));
       setProducts(fallbackProducts);
     } finally {
@@ -104,7 +113,7 @@ const CreateOrder = () => {
     setSearchTerm("");
   };
 
-  const filteredProducts = products.filter(product =>
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -177,7 +186,10 @@ const CreateOrder = () => {
         <div className="p-6">
           {/* Header */}
           <div className="mb-8 ">
-            <button onClick={() => navigate("/orders")} className="flex items-center text-gray-600 hover:text-gray-800 mb-4">
+            <button
+              onClick={() => navigate("/orders")}
+              className="flex items-center text-gray-600 hover:text-gray-800 mb-4"
+            >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back
             </button>
@@ -205,11 +217,16 @@ const CreateOrder = () => {
                     Customer
                   </label>
                   <div className="relative">
-                    <select 
+                    <select
                       value={formData.customer}
-                      onChange={(e) => handleInputChange('customer', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("customer", e.target.value)
+                      }
                       className="w-full px-4 py-3 border rounded-lg text-gray-500 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
+                      style={{
+                        backgroundColor: "#F6F8FA",
+                        borderColor: "#DFE1E7",
+                      }}
                     >
                       <option value="">Select customer</option>
                       <option value="customer1">Customer 1</option>
@@ -226,11 +243,16 @@ const CreateOrder = () => {
                       Sales channel
                     </label>
                     <div className="relative">
-                      <select 
+                      <select
                         value={formData.salesChannel}
-                        onChange={(e) => handleInputChange('salesChannel', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("salesChannel", e.target.value)
+                        }
                         className="w-full px-4 py-3 border rounded-lg text-gray-500 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
+                        style={{
+                          backgroundColor: "#F6F8FA",
+                          borderColor: "#DFE1E7",
+                        }}
                       >
                         <option value="">Select sales channel</option>
                         <option value="online">Online</option>
@@ -239,7 +261,7 @@ const CreateOrder = () => {
                       <ChevronDown className="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Order date
@@ -247,10 +269,15 @@ const CreateOrder = () => {
                     <input
                       type="text"
                       value={formData.orderDate}
-                      onChange={(e) => handleInputChange('orderDate', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("orderDate", e.target.value)
+                      }
                       placeholder="Enter order date"
                       className="w-full px-4 py-3 border rounded-lg text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
+                      style={{
+                        backgroundColor: "#F6F8FA",
+                        borderColor: "#DFE1E7",
+                      }}
                     />
                   </div>
                 </div>
@@ -305,7 +332,10 @@ const CreateOrder = () => {
                         </thead>
                         <tbody>
                           {selectedProducts.map((product) => (
-                            <tr key={product.id} className="border-b hover:bg-gray-50">
+                            <tr
+                              key={product.id}
+                              className="border-b hover:bg-gray-50"
+                            >
                               <td className="p-3">
                                 <input
                                   type="checkbox"
@@ -321,7 +351,9 @@ const CreateOrder = () => {
                                   onError={handleImageError}
                                 />
                               </td>
-                              <td className="p-3 text-gray-900">{product.name}</td>
+                              <td className="p-3 text-gray-900">
+                                {product.name}
+                              </td>
                               <td className="p-3">
                                 <span
                                   className={`px-2 py-1 rounded text-xs ${
@@ -354,9 +386,7 @@ const CreateOrder = () => {
                 <span className="text-blue-600 text-lg font-medium mr-2">
                   ≫
                 </span>
-                <h2 className="text-lg font-medium text-blue-600">
-                  Payment
-                </h2>
+                <h2 className="text-lg font-medium text-blue-600">Payment</h2>
               </div>
 
               <div className="space-y-6">
@@ -366,11 +396,16 @@ const CreateOrder = () => {
                       Payment method
                     </label>
                     <div className="relative">
-                      <select 
+                      <select
                         value={formData.paymentMethod}
-                        onChange={(e) => handleInputChange('paymentMethod', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("paymentMethod", e.target.value)
+                        }
                         className="w-full px-4 py-3 border rounded-lg text-gray-500 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
+                        style={{
+                          backgroundColor: "#F6F8FA",
+                          borderColor: "#DFE1E7",
+                        }}
                       >
                         <option value="">Select payment method</option>
                         <option value="card">Credit Card</option>
@@ -380,17 +415,22 @@ const CreateOrder = () => {
                       <ChevronDown className="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Payment status
                     </label>
                     <div className="relative">
-                      <select 
+                      <select
                         value={formData.paymentStatus}
-                        onChange={(e) => handleInputChange('paymentStatus', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("paymentStatus", e.target.value)
+                        }
                         className="w-full px-4 py-3 border rounded-lg text-gray-500 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
+                        style={{
+                          backgroundColor: "#F6F8FA",
+                          borderColor: "#DFE1E7",
+                        }}
                       >
                         <option value="">Select payment status</option>
                         <option value="paid">Paid</option>
@@ -408,11 +448,16 @@ const CreateOrder = () => {
                   </label>
                   <textarea
                     value={formData.additionalNotes}
-                    onChange={(e) => handleInputChange('additionalNotes', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("additionalNotes", e.target.value)
+                    }
                     placeholder="Enter an additional note"
                     rows={4}
                     className="w-full px-4 py-3 border rounded-lg text-gray-500 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
+                    style={{
+                      backgroundColor: "#F6F8FA",
+                      borderColor: "#DFE1E7",
+                    }}
                   />
                 </div>
               </div>
