@@ -18,6 +18,7 @@ import {
   ColumnsIcon,
 } from "lucide-react";
 import { StatsCard } from "../components/StatsCard";
+import Pagination from "../components/Pagination";
 
 const bagIcon = () => (
   <svg
@@ -39,40 +40,32 @@ const AvailabilityToggle = ({ status }) => {
 
   return (
     <>
-      <button
-        onClick={() => setEnabled(!enabled)}
-        className={`w-10 h-5 flex items-center rounded-full p-1 transition-colors duration-300 ${
-          enabled ? "bg-green-500" : "bg-gray-300"
-        }`}
-      >
-        <div
-          className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
-            enabled ? "translate-x-5" : "translate-x-0"
+      <div className="flex gap-3.5">
+        <span
+          className={`text-xs font-medium ${
+            enabled ? "text-[#027A48]" : "text-[#B42318]"
           }`}
-        />
-      </button>
-
-      <span
-        className={`text-xs font-medium ${
-          enabled ? "text-[#027A48]" : "text-[#B42318]"
-        }`}
-      >
-        {enabled ? "Enabled" : "Disabled"}
-      </span>
+        >
+          {enabled ? "Enabled" : "Disabled"}
+        </span>
+        <button
+          onClick={() => setEnabled(!enabled)}
+          className={`w-7 h-3.5 flex items-center rounded-full p-1 transition-colors duration-300 ${
+            enabled ? "bg-[#169D07]/50" : "bg-gray-300"
+          }`}
+        >
+          <div
+            className={`w-5 h-5  rounded-full shadow-md transform transition-transform duration-300 ${
+              enabled ? "translate-x-4" : "-translate-x-3"
+            } ${enabled ? "bg-[#169D07]" : "bg-white"}`}
+          />
+        </button>
+      </div>
     </>
   );
 };
 
-const ProductsTable = () => {
-  const [productData, setProductData] = useState("");
-  useEffect(() => {
-    fetch("https://dummyjson.com/products")
-      .then((res) => res.json())
-      // .then((data) => console.log(data.products))
-      .then((data) => setProductData(data.products));
-  }, []);
-
-  console.log(productData);
+const ProductsTable = ({ currentProducts }) => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
@@ -133,36 +126,45 @@ const ProductsTable = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {productData &&
-            productData.map((product, index) => (
-              <tr key={index} className="hover:bg-gray-50">
-                <td className="px-6 py-4">
-                  <input type="checkbox" className="rounded border-gray-300" />
-                </td>
-                <td className="px-6 py-4">
-                  <button className="text-gray-400 hover:text-gray-600">
-                    <MoreVertical className="w-5 h-5" />
-                  </button>
-                </td>
-                <td className="px-6 py-4">
-                  <img src={productData.images} alt="" />
-                </td>
-                <td className="px-6 py-4 text-xs text-gray-900">
-                  {product.title}
-                </td>
-                <td className="px-6 py-4 text-xs text-gray-900">
-                  {product.stock === "unlimited"
-                    ? "unlimited"
-                    : `${product.stock} in-stock`}
-                </td>
-                <td className="px-6 py-4 text-xs text-gray-900">
-                  ₦{product.price}
-                </td>
-                <td className="px-6 py-4 text-xs">
-                  <AvailabilityToggle status={product.availabilityStatus} />
-                </td>
-              </tr>
-            ))}
+          {currentProducts &&
+            currentProducts.map((product, index) => {
+              return (
+                <tr key={index} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">
+                    <input
+                      type="checkbox"
+                      className="rounded border-gray-300"
+                    />
+                  </td>
+                  <td className="px-6 py-4">
+                    <button className="text-gray-400 hover:text-gray-600">
+                      <MoreVertical className="w-5 h-5" />
+                    </button>
+                  </td>
+                  <td className="px-6 py-4">
+                    <img
+                      src={product.images[0]}
+                      alt="Product Image"
+                      className="w-12"
+                    />
+                  </td>
+                  <td className="px-6 py-4 text-xs text-gray-900">
+                    {product.title}
+                  </td>
+                  <td className="px-6 py-4 text-xs text-gray-900">
+                    {product.stock === "unlimited"
+                      ? "unlimited"
+                      : `${product.stock} in-stock`}
+                  </td>
+                  <td className="px-6 py-4 text-xs text-gray-900">
+                    ₦{product.price}
+                  </td>
+                  <td className="px-6 py-4 text-xs">
+                    <AvailabilityToggle status={product.availabilityStatus} />
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>
@@ -175,6 +177,39 @@ const CategoriesTable = () => {
 
 const Products = () => {
   const [activeTab, setActiveTab] = useState("products");
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
+
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [productData, setProductData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    fetch("https://dummyjson.com/products")
+      .then((res) => res.json())
+      // .then((data) => console.log(data.products))
+      .then((data) => setProductData(data.products));
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [entriesPerPage]);
+
+  const displayedProducts = productData.filter((product) =>
+    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const indexOfLastProduct = currentPage * entriesPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - entriesPerPage;
+  const currentProducts = displayedProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const totalPages = Math.ceil(displayedProducts.length / entriesPerPage);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -251,38 +286,60 @@ const Products = () => {
                 Categories
               </button>
             </div>
+          </section>
 
-            {/* Filter Box */}
-            <div className="bg-white rounded-lg border border-gray-200">
-              <div className="p-4 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="relative">
-                      <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                      <input
-                        type="text"
-                        placeholder="Search for user name, ID etc.."
-                        className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80"
-                      />
-                    </div>
+          {/* Filter Box */}
+          <div className="bg-white rounded-lg border border-gray-200">
+            <div className="p-4 border-b border-none">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="relative">
+                    <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-[#667085]" />
+                    <input
+                      type="text"
+                      placeholder="Search for user name, ID etc.."
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80 text-[]"
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                      <Filter className="w-4 h-4 mr-2" />
-                      Filter
-                    </button>
-                    <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      Select Date
-                    </button>
-                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Filter
+                  </button>
+                  <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    Select Date
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Tab content */}
-            {activeTab === "products" ? <ProductsTable /> : <CategoriesTable />}
-          </section>
+          {/* Tab content */}
+          {activeTab === "products" ? (
+            <ProductsTable
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              productData={productData}
+              currentProducts={currentProducts}
+            />
+          ) : (
+            <CategoriesTable />
+          )}
+
+          {/* Pagination */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+            entriesPerPage={entriesPerPage}
+            setEntriesPerPage={setEntriesPerPage}
+            indexOfFirstProduct={indexOfFirstProduct}
+            indexOfLastProduct={indexOfLastProduct}
+            totalEntries={displayedProducts.length}
+          />
         </div>
       </div>
     </div>
