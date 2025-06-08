@@ -151,7 +151,6 @@ export default function Step3({
               Verify
             </button>
 
-            
             {showDropdown && (
               <ul
                 className="absolute top-full left-0 z-10 w-40 mt-1 overflow-auto bg-white border border-gray-300 rounded shadow-lg max-h-40"
@@ -166,7 +165,11 @@ export default function Step3({
                       setShowDropdown(false);
                     }}
                   >
-                    <img src={country.flag} className="w-4 h-4 mr-1" alt="flag" />
+                    <img
+                      src={country.flag}
+                      className="w-4 h-4 mr-1"
+                      alt="flag"
+                    />
                     <span className="text-sm">
                       {country.name} ({country.code})
                     </span>
@@ -208,10 +211,9 @@ export default function Step3({
 
         <p className="text-center text-gray-600 text-xs">
           Already have an account?{" "}
-          <a href="#" onClick={(e) => {
-            e.preventDefault();
-            onNavigateToSignIn();
-          }} className="text-blue-600 hover:underline">Sign in</a>
+          <Link to="/signin" className="text-blue-600 hover:underline">
+            Sign in
+          </Link>
         </p>
       </form>
     </div>

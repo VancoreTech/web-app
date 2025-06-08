@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Step1({ onNext, isValid, onNavigateToSignIn }) {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
@@ -58,13 +59,10 @@ export default function Step1({ onNext, isValid, onNavigateToSignIn }) {
       </div>
 
       <p className="text-center text-gray-600 mb-4">
-        Already have an account?{" "}
-        <button
-          onClick={onNavigateToSignIn}
-          className="text-blue-600 hover:underline"
-        >
+        Already have an account?
+        <Link to="/signin" className="text-blue-600 hover:underline">
           Sign in
-        </button>
+        </Link>
       </p>
 
       <div className="flex justify-center space-x-1 p-4 ">
