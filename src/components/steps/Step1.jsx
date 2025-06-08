@@ -59,7 +59,12 @@ export default function Step1({ onNext, isValid, onNavigateToSignIn }) {
 
       <p className="text-center text-gray-600 mb-4">
         Already have an account?{" "}
-        <button onClick={onNavigateToSignIn} className="text-blue-600 hover:underline">Sign in</button>
+        <button
+          onClick={onNavigateToSignIn}
+          className="text-blue-600 hover:underline"
+        >
+          Sign in
+        </button>
       </p>
 
       <div className="flex justify-center space-x-1 p-4 ">
@@ -70,12 +75,15 @@ export default function Step1({ onNext, isValid, onNavigateToSignIn }) {
           onChange={(e) => setAgreedToTerms(e.checked)}
           className="h-4 w-4 "
         />
-        <label htmlFor="terms-checkbox" className="text-xs text-center max-md:text-start">
-          By signing up, you agree to be bound by our 
+        <label
+          htmlFor="terms-checkbox"
+          className="text-xs text-center max-md:text-start"
+        >
+          By signing up, you agree to be bound by our
           <a href="#" className="text-blue-600 hover:underline mx-1">
             Terms & Conditions
           </a>
-          as well as our 
+          as well as our
           <a href="#" className="text-blue-600 hover:underline mx-1">
             Privacy Policy
           </a>
