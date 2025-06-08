@@ -20,7 +20,7 @@ import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
 import DashboardLayout from "./components/DashboardLayout";
-import CreateOrder from "./Pages/CreateOrder";
+import CreateOrder from "./create-pages/CreateOrder";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
