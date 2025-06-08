@@ -17,7 +17,7 @@ export default function Step7() {
       </p>
 
       <button
-        onClick={navigate("/pricing")}
+        onClick={() => navigate("/pricing")}
         className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg font-medium"
       >
         Proceed
