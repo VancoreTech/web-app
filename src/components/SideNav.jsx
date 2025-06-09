@@ -17,67 +17,82 @@ import {
 } from "lucide-react";
 
 const SideNav = () => {
-  const location = useLocation();
+  const location = useLocation(); // Add this line to get the current location
+
+  // Helper function to check if menu item should be active
+  const isMenuItemActive = (item) => {
+    if (location.pathname === item.path) {
+      return true;
+    }
+    // Check if current path matches any sub-paths
+    if (item.subPaths) {
+      return item.subPaths.some(subPath => location.pathname === subPath);
+    }
+    return false;
+  };
+
   const menuItems = [
     {
       icon: <LayoutDashboard className="w-5 h-5" />,
       label: "Dashboard",
-      path: " ",
+      path: "/dashboard",
     },
     {
       icon: <Users className="w-5 h-5" />,
       label: "User management",
-      path: "user-management",
+      path: "/dashboard/user-management",
     },
     {
       icon: <Package className="w-5 h-5" />,
       label: "Products",
-      path: "products",
+      path: "/dashboard/products",
     },
     {
       icon: <ShoppingBag className="w-5 h-5" />,
       label: "Orders",
-      path: "orders",
+      path: "/dashboard/orders",
+      subPaths: ["/dashboard/create-order", "/dashboard/order-details"], // Add related paths here
     },
     {
       icon: <Users2 className="w-5 h-5" />,
       label: "Customers",
-      path: "customers",
+      path: "/dashboard/customers",
+      subPaths: ["/dashboard/add-customer", "/dashboard/customer-details", "/dashboard/edit-customer"],
     },
     {
       icon: <BarChart3 className="w-5 h-5" />,
       label: "Analytics",
-      path: "analytics",
+      path: "/dashboard/analytics",
     },
     {
       icon: <MessageSquare className="w-5 h-5" />,
       label: "Campaigns",
-      path: "campaigns",
+      path: "/dashboard/campaigns",
     },
     {
       icon: <Ticket className="w-5 h-5" />,
       label: "Discounts & Coupons",
-      path: "discounts",
+      path: "/dashboard/discounts",
     },
     {
       icon: <Receipt className="w-5 h-5" />,
       label: "Transactions",
-      path: "transactions",
+      path: "/dashboard/transactions",
     },
     {
       icon: <AppWindow className="w-5 h-5" />,
       label: "Connected apps",
-      path: "connected-apps",
+      path: "/dashboard/connected-apps",
     },
     {
       icon: <CreditCard className="w-5 h-5" />,
       label: "Payment methods",
-      path: "payment-methods",
+      path: "/dashboard/payment-methods",
     },
     {
       icon: <HelpCircle className="w-5 h-5" />,
       label: "Help & Support",
-      path: "support",
+      path: "/dashboard/support",
     },
   ];
 
@@ -106,7 +121,7 @@ const SideNav = () => {
               key={index}
               to={item.path}
               className={`flex items-center space-x-3 px-3 py-1.5 rounded-lg transition-colors ${
-                location.pathname === item.path
+                isMenuItemActive(item)
                   ? "bg-white/10 text-white"
                   : "text-gray-500 hover:bg-white/10 hover:text-white"
               }`}

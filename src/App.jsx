@@ -20,7 +20,10 @@ import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
 import DashboardLayout from "./components/DashboardLayout";
-import CreateOrder from "./Pages/CreateOrder";
+import CreateOrder from "./create-pages/CreateOrder";
+import OrderDetails from "./Pages/OrderDetails";
+import CustomerDetails from "./Pages/CustomerDetails";
+import AddCustomer from "./Pages/AddCustomer";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -99,7 +102,10 @@ export default function App() {
         <Route path="products" element={<Products />} />
         <Route path="orders" element={<Orders />} />
         <Route path="create-order" element={<CreateOrder />} />
+        <Route path="order-details" element={<OrderDetails />} />
         <Route path="customers" element={<Customers />} />
+        <Route path="customer-details" element={<CustomerDetails />} />
+        <Route path="add-customer" element={<AddCustomer />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="campaigns" element={<Campaigns />} />
         <Route path="discounts" element={<DiscountsCoupons />} />
