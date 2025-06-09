@@ -37,9 +37,9 @@ const Orders = () => {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <div className='flex-1 overflow-y-auto bg-[#F9FAFB]'>
+      <div className="flex-1 overflow-y-auto bg-[#F9FAFB]">
         <Navbar />
-        
+
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
@@ -50,7 +50,7 @@ const Orders = () => {
             <div className="flex items-center space-x-3">
               <button className="flex items-center px-4 py-2 border border-blue-600 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                 <ArrowUp className="w-4 h-4 mr-2 text-blue-600" />
-                <span className='text-blue-600'>Export CSV</span>
+                <span className="text-blue-600">Export CSV</span>
               </button>
               <button onClick={() => navigate('/dashboard/create-order')} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
                 <span className="mr-2">+</span>

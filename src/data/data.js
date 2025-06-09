@@ -6,23 +6,23 @@ export const statsData = {
   totalSales: { value: "₦3,224,320", change: -24.5, period: "vs 7 days ago" },
   totalSettled: { value: "₦3,224,320", change: -24.5, period: "vs 7 days ago" },
   totalOwed: { value: "₦3,224,320", change: 45, period: "vs 7 days ago" },
-  offlineSales: { value: "₦3,224,320", change: 45, period: "vs 7 days ago" }
+  offlineSales: { value: "₦3,224,320", change: 45, period: "vs 7 days ago" },
 };
 
 export const salesData = [
-    { name: 'Jan', onlineSales: 1800000, offlineSales: 1200000 },
-    { name: 'Feb', onlineSales: 2000000, offlineSales: 1300000 },
-    { name: 'Mar', onlineSales: 1800000, offlineSales: 1400000 },
-    { name: 'Apr', onlineSales: 2400000, offlineSales: 1000000 },
-    { name: 'May', onlineSales: 2600000, offlineSales: 1700000 },
-    { name: 'Jun', onlineSales: 3200000, offlineSales: 1800000 },
-    { name: 'Jul', onlineSales: 3600000, offlineSales: 1600000 },
-    { name: 'Aug', onlineSales: 3200000, offlineSales: 2000000 },
-    { name: 'Sep', onlineSales: 3400000, offlineSales: 2000000 },
-    { name: 'Oct', onlineSales: 4100000, offlineSales: 2000000 },
-    { name: 'Nov', onlineSales: 4000000, offlineSales: 2100000 },
-    { name: 'Dec', onlineSales: 4300000, offlineSales: 2200000 }
-  ];
+  { name: "Jan", onlineSales: 1800000, offlineSales: 1200000 },
+  { name: "Feb", onlineSales: 2000000, offlineSales: 1300000 },
+  { name: "Mar", onlineSales: 1800000, offlineSales: 1400000 },
+  { name: "Apr", onlineSales: 2400000, offlineSales: 1000000 },
+  { name: "May", onlineSales: 2600000, offlineSales: 1700000 },
+  { name: "Jun", onlineSales: 3200000, offlineSales: 1800000 },
+  { name: "Jul", onlineSales: 3600000, offlineSales: 1600000 },
+  { name: "Aug", onlineSales: 3200000, offlineSales: 2000000 },
+  { name: "Sep", onlineSales: 3400000, offlineSales: 2000000 },
+  { name: "Oct", onlineSales: 4100000, offlineSales: 2000000 },
+  { name: "Nov", onlineSales: 4000000, offlineSales: 2100000 },
+  { name: "Dec", onlineSales: 4300000, offlineSales: 2200000 },
+];
 
 export const recentOrders = [
   {
@@ -32,7 +32,7 @@ export const recentOrders = [
     date: "23/09/23, 09:11:04",
     payment: "Paid",
     shipping: "Unfulfilled",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00002",
@@ -41,7 +41,7 @@ export const recentOrders = [
     date: "23/09/23, 09:11:04",
     payment: "Unpaid",
     shipping: "Unfulfilled",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00003",
@@ -50,7 +50,7 @@ export const recentOrders = [
     date: "23/09/23, 09:11:04",
     payment: "Paid",
     shipping: "Unfulfilled",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00004",
@@ -59,7 +59,7 @@ export const recentOrders = [
     date: "23/09/23, 09:11:04",
     payment: "Unpaid",
     shipping: "Unfulfilled",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00005",
@@ -68,9 +68,9 @@ export const recentOrders = [
     date: "23/09/23, 09:11:04",
     payment: "Paid",
     shipping: "Unfulfilled",
-    status: "Completed"
-  }
-]; 
+    status: "Completed",
+  },
+];
 
 export const ordersData = [
   {
@@ -79,7 +79,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Paid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00002",
@@ -87,7 +87,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Unpaid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00003",
@@ -95,7 +95,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Paid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00004",
@@ -103,7 +103,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Unpaid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00005",
@@ -111,7 +111,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Paid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00006",
@@ -119,7 +119,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Paid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00007",
@@ -127,7 +127,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Paid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00008",
@@ -135,7 +135,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Paid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "00009",
@@ -143,7 +143,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Paid",
-    status: "Completed"
+    status: "Completed",
   },
   {
     orderId: "000010",
@@ -311,9 +311,7 @@ export const ordersData = [
     amount: "₦3,200.00",
     date: "23/09/23, 09:11:04",
     payment: "Paid",
-    status: "Completed"
-  }
-  
+  },
 ];
 
 export const customersData = [
