@@ -1,28 +1,39 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  ChevronDown,
-  Search,
-  Calendar,
-  Filter,
-  ArrowUp,
-  ArrowDown,
-  LucideWallet2,
-  Box,
-  Users2,
-  Command,
-  MoreVertical,
-} from "lucide-react";
-import Navbar from "../components/Navbar";
-import CreateOrder from "../create-pages/CreateOrder";
-import { StatsCard } from "../components/StatsCard";
-import { ordersData } from "../data/data";
-import Pagination from "../components/Pagination";
+import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ChevronDown, Search, Calendar, Filter, MoreHorizontal, ArrowUp, ChevronLeft, ChevronRight, LucideWallet2, Box, Users2, Command} from 'lucide-react';
+import Navbar from '../components/Navbar';
+
+import { ordersData } from '../data/data';
+import { StatsCard } from '../components/StatsCard';
+import Pagination from '../components/Pagination';
 
 const Orders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+
+  // Filter and paginate orders
+  const filteredOrders = useMemo(() => {
+    return ordersData.filter(order => 
+      order.orderName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.orderId.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm]);
+
+  const totalPages = Math.ceil(filteredOrders.length / entriesPerPage);
+  const indexOfFirstProduct = (currentPage - 1) * entriesPerPage;
+  const indexOfLastProduct = indexOfFirstProduct + entriesPerPage;
+  const currentOrders = filteredOrders.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -34,20 +45,17 @@ const Orders = () => {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h1 className="text-2xl font-semibold text-gray-900">Orders</h1>
-              <p className="text-sm text-gray-500">12 orders</p>
+              <p className="text-sm text-gray-500">{filteredOrders.length} orders</p>
             </div>
             <div className="flex items-center space-x-3">
               <button className="flex items-center px-4 py-2 border border-blue-600 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                 <ArrowUp className="w-4 h-4 mr-2 text-blue-600" />
                 <span className="text-blue-600">Export CSV</span>
               </button>
-              <Link
-                to="/dashboard/create-order"
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
-              >
+              <button onClick={() => navigate('/dashboard/create-order')} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
                 <span className="mr-2">+</span>
                 Create an order
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -65,7 +73,7 @@ const Orders = () => {
             <StatsCard
               icon={Box}
               title="Total orders"
-              value="22"
+              value={filteredOrders.length}
               change={45}
               period="vs 7 days ago"
               color="bg-[#B867BA]"
@@ -98,6 +106,8 @@ const Orders = () => {
                     <input
                       type="text"
                       placeholder="Search for user name, ID etc.."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
                       className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80"
                     />
                   </div>
@@ -114,101 +124,104 @@ const Orders = () => {
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left">
-                    <input
-                      type="checkbox"
-                      className="rounded border-gray-300"
-                    />
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    ACTION
-                    <ChevronDown className="w-4 h-4 inline ml-1" />
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    ORDER NO.
-                    <ChevronDown className="w-4 h-4 inline ml-1" />
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    ORDER NAME
-                    <ChevronDown className="w-4 h-4 inline ml-1" />
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    AMOUNT
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    DATE
-                    <ChevronDown className="w-4 h-4 inline ml-1" />
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    PAYMENT
-                    <ChevronDown className="w-4 h-4 inline ml-1" />
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    STATUS
-                    <ChevronDown className="w-4 h-4 inline ml-1" />
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {ordersData.map((order, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <input
-                        type="checkbox"
-                        className="rounded border-gray-300"
-                      />
-                    </td>
-                    <td className="px-6 py-4">
-                      <button className="text-gray-400 hover:text-gray-600">
-                        <MoreVertical className="w-5 h-5" />
-                      </button>
-                    </td>
-                    <td className="px-6 py-4 text-xs text-gray-900">
-                      {order.orderId}
-                    </td>
-                    <td className="px-6 py-4 text-xs text-gray-900">
-                      {order.orderName}
-                    </td>
-                    <td className="px-6 py-4 text-xs text-gray-900">
-                      {order.amount}
-                    </td>
-                    <td className="px-6 py-4 text-xs text-gray-900">
-                      {order.date}
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                        className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                          order.payment === "Paid"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-red-100 text-red-800"
-                        }`}
-                      >
-                        • {order.payment}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                        • {order.status}
-                      </span>
-                    </td>
+            {/* Table */}
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left">
+                      <input type="checkbox" className="rounded border-gray-300" />
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      ACTION
+                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      ORDER NO.
+                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      ORDER NAME
+                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      AMOUNT
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      DATE
+                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      PAYMENT
+                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      STATUS
+                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {currentOrders.map((order, index) => (
+                    <tr key={index} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        <input type="checkbox" className="rounded border-gray-300" />
+                      </td>
+                      <td className="px-6 py-4">
+                        <button className="text-gray-400 hover:text-gray-600">
+                          <MoreHorizontal className="w-5 h-5" />
+                        </button>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-900">
+                        {order.orderId}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-900">
+                        {order.orderName}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-900">
+                        {order.amount}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-900">
+                        {order.date}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                          order.payment === 'Paid' 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          • {order.payment}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                          • {order.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-          {/* Pagination */}
-          <Pagination
-            entriesPerPage={entriesPerPage}
-            setEntriesPerPage={setEntriesPerPage}
-          />
+            {/* Pagination */}
+            {ordersData && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+                entriesPerPage={entriesPerPage}
+                setEntriesPerPage={(value) => {
+                  setEntriesPerPage(value);
+                  setCurrentPage(1);
+                }}
+                indexOfFirstProduct={indexOfFirstProduct}
+                indexOfLastProduct={indexOfLastProduct}
+                totalEntries={filteredOrders.length}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
