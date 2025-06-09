@@ -7,7 +7,7 @@ const Navbar = () => {
   const paths = location.pathname.split("/").filter(Boolean);
 
   return (
-    <div className="px-8 py-4 flex justify-between items-center bg-[#F9FAFB]">
+    <div className="px-8 py-4 flex justify-between items-center bg-[#FAFAFA]">
       {/* Breadcrumb */}
       <div className="flex items-center text-sm capitalize text-gray-400">
         <span className="mr-2 text-gray-400">/</span>
@@ -18,9 +18,7 @@ const Navbar = () => {
             <span key={index} className="flex items-center">
               <span
                 className={`${
-                  index === paths.length - 1
-                    ? "text-gray-900 font-medium"
-                    : ""
+                  index === paths.length - 1 ? "text-gray-900 font-medium" : ""
                 }`}
               >
                 {segment}
@@ -44,9 +42,7 @@ const Navbar = () => {
           className="w-8 h-8 rounded-full"
         />
         <div className="text-right">
-          <div className="text-sm font-medium text-gray-900">
-            Susan Sheidu
-          </div>
+          <div className="text-sm font-medium text-gray-900">Susan Sheidu</div>
           <div className="text-xs text-gray-500">susanstore.vancore</div>
         </div>
         <button className="ml-2">

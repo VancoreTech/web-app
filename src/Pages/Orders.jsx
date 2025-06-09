@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ChevronDown,
   Search,
@@ -41,13 +41,13 @@ const Orders = () => {
                 <ArrowUp className="w-4 h-4 mr-2 text-blue-600" />
                 <span className="text-blue-600">Export CSV</span>
               </button>
-              <button
-                onClick={() => navigate("/dashboard/create-order ")}
+              <Link
+                to="/dashboard/create-order"
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
               >
                 <span className="mr-2">+</span>
                 Create an order
-              </button>
+              </Link>
             </div>
           </div>
 

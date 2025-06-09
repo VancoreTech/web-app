@@ -10,15 +10,13 @@ import {
   Search,
   Calendar,
   Filter,
-  MoreHorizontal,
-  DollarSign,
   Users,
-  ShoppingBag,
   MoreVertical,
   ColumnsIcon,
 } from "lucide-react";
 import { StatsCard } from "../components/StatsCard";
 import Pagination from "../components/Pagination";
+import { Link } from "react-router-dom";
 
 const bagIcon = () => (
   <svg
@@ -126,7 +124,7 @@ const ProductsTable = ({ currentProducts }) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {currentProducts &&
+          {currentProducts ? (
             currentProducts.map((product, index) => {
               return (
                 <tr key={index} className="hover:bg-gray-50">
@@ -164,7 +162,13 @@ const ProductsTable = ({ currentProducts }) => {
                   </td>
                 </tr>
               );
-            })}
+            })
+          ) : (
+            <h2>
+              You don't have any products yet. Click creeate a product to get
+              started.
+            </h2>
+          )}
         </tbody>
       </table>
     </div>
@@ -228,10 +232,17 @@ const Products = () => {
                 <ArrowUp className="w-4 h-4 mr-2 text-blue-600" />
                 <span className="text-blue-600">Export CSV</span>
               </button>
-              <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+              <Link
+                to={
+                  activeTab === "products"
+                    ? "/dashboard/create-product"
+                    : "/dashboard/create-category"
+                }
+                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
+              >
                 <span className="mr-2">+</span>
                 {activeTab === "products" ? "Add a product" : "Add a category"}
-              </button>
+              </Link>
             </div>
           </div>
           {/* StatsCards */}
@@ -330,16 +341,18 @@ const Products = () => {
           )}
 
           {/* Pagination */}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-            entriesPerPage={entriesPerPage}
-            setEntriesPerPage={setEntriesPerPage}
-            indexOfFirstProduct={indexOfFirstProduct}
-            indexOfLastProduct={indexOfLastProduct}
-            totalEntries={displayedProducts.length}
-          />
+          {productData && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              entriesPerPage={entriesPerPage}
+              setEntriesPerPage={setEntriesPerPage}
+              indexOfFirstProduct={indexOfFirstProduct}
+              indexOfLastProduct={indexOfLastProduct}
+              totalEntries={displayedProducts.length}
+            />
+          )}
         </div>
       </div>
     </div>

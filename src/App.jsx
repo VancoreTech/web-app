@@ -7,6 +7,8 @@ import SignInPage from "./components/SignInPage";
 import VerificationModal from "./components/VerificationModal";
 import ForgotPasswordFlow from "./components/ForgotPasswordFlow";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// SideBar Pages
 import Dashboard from "./Pages/Dashboard";
 import UserManagement from "./Pages/UserManagement";
 import Products from "./Pages/Products";
@@ -20,7 +22,11 @@ import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
 import DashboardLayout from "./components/DashboardLayout";
+
+// Create Pages
 import CreateOrder from "./create-pages/CreateOrder";
+import CreateProduct from "./create-pages/CreateProduct";
+import CreateCategory from "./create-pages/CreateCategory";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -96,9 +102,14 @@ export default function App() {
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="user-management" element={<UserManagement />} />
+
         <Route path="products" element={<Products />} />
+        <Route path="create-product" element={<CreateProduct />} />
+        <Route path="create-category" element={<CreateCategory />} />
+
         <Route path="orders" element={<Orders />} />
         <Route path="create-order" element={<CreateOrder />} />
+
         <Route path="customers" element={<Customers />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="campaigns" element={<Campaigns />} />
