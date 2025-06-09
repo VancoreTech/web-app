@@ -691,9 +691,9 @@ const Dashboard = () => {
                       width="60"
                       height="60"
                       filterUnits="userSpaceOnUse"
-                      color-interpolation-filters="sRGB"
+                      colorInterpolationFilters="sRGB"
                     >
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feFlood floodOpacity="0" result="BackgroundImageFix" />
                       <feColorMatrix
                         in="SourceAlpha"
                         type="matrix"
@@ -796,9 +796,9 @@ const Dashboard = () => {
                       width="60"
                       height="60"
                       filterUnits="userSpaceOnUse"
-                      color-interpolation-filters="sRGB"
+                      colorInterpolationFilters="sRGB"
                     >
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feFlood floodOpacity="0" result="BackgroundImageFix" />
                       <feColorMatrix
                         in="SourceAlpha"
                         type="matrix"
@@ -897,9 +897,9 @@ const Dashboard = () => {
                       width="60"
                       height="60"
                       filterUnits="userSpaceOnUse"
-                      color-interpolation-filters="sRGB"
+                      colorInterpolationFilters="sRGB"
                     >
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feFlood floodOpacity="0" result="BackgroundImageFix" />
                       <feColorMatrix
                         in="SourceAlpha"
                         type="matrix"
@@ -991,8 +991,8 @@ const Dashboard = () => {
                     />
                   </g>
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M39.924 25.7502H37.23C35.806 25.7502 34.749 26.8092 34.749 28.0002C34.749 29.1912 35.806 30.2502 37.229 30.2502H39.947C40.153 30.2372 40.242 30.0982 40.249 30.0142V25.9862C40.242 25.9022 40.153 25.7632 39.947 25.7512L39.924 25.7502ZM39.85 24.2502C39.9167 24.2495 39.98 24.2508 40.04 24.2542C40.91 24.3072 41.681 24.9642 41.746 25.8822C41.75 25.9422 41.75 26.0072 41.75 26.0672V29.9332C41.75 29.9932 41.75 30.0582 41.746 30.1182C41.681 31.0362 40.91 31.6932 40.039 31.7472C39.9797 31.7498 39.9163 31.7508 39.849 31.7502H37.231C35.086 31.7502 33.25 30.1222 33.25 28.0002C33.25 25.8782 35.086 24.2502 37.23 24.2502H39.85Z"
                     fill="white"
                   />
@@ -1001,8 +1001,8 @@ const Dashboard = () => {
                     fill="white"
                   />
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M39.85 24.25C39.9167 24.2494 39.98 24.2507 40.04 24.254C40.265 24.267 40.483 24.321 40.685 24.41C40.578 22.804 40.283 21.566 39.359 20.641C38.61 19.893 37.661 19.561 36.489 19.403L36.447 19.398L36.415 19.375L32.679 16.898C32.0308 16.4755 31.2738 16.2505 30.5 16.2505C29.7262 16.2505 28.9692 16.4755 28.321 16.898L24.586 19.375L24.553 19.398L24.511 19.403C23.339 19.561 22.39 19.893 21.641 20.641C20.893 21.39 20.561 22.339 20.403 23.511C20.25 24.651 20.25 26.106 20.25 27.944V28.056C20.25 29.894 20.25 31.35 20.403 32.489C20.561 33.661 20.893 34.61 21.641 35.359C22.39 36.107 23.339 36.439 24.511 36.597C25.651 36.75 27.106 36.75 28.944 36.75H32.056C33.894 36.75 35.35 36.75 36.489 36.597C37.661 36.439 38.61 36.107 39.359 35.359C40.283 34.434 40.578 33.196 40.685 31.589C40.4817 31.6797 40.2663 31.7324 40.039 31.747C39.9797 31.7497 39.9163 31.7507 39.849 31.75H39.168C39.054 33.092 38.797 33.8 38.298 34.298C37.875 34.721 37.295 34.975 36.289 35.11C35.262 35.248 33.907 35.25 32 35.25H29C27.093 35.25 25.739 35.248 24.71 35.11C23.705 34.975 23.125 34.721 22.702 34.298C22.279 33.875 22.025 33.295 21.89 32.289C21.752 31.262 21.75 29.907 21.75 28C21.75 26.093 21.752 24.739 21.89 23.71C22.025 22.705 22.279 22.125 22.702 21.702C23.125 21.279 23.705 21.025 24.711 20.89C25.739 20.752 27.093 20.75 29 20.75H32C33.907 20.75 35.262 20.752 36.29 20.89C37.295 21.025 37.875 21.279 38.298 21.702C38.797 22.2 39.054 22.909 39.168 24.25H39.85ZM28.944 19.25H32.056C32.5727 19.25 33.0593 19.251 33.516 19.253L31.85 18.148C31.05 17.618 29.95 17.618 29.15 18.148L27.483 19.253C27.9403 19.2504 28.427 19.2494 28.943 19.25"
                     fill="white"
                   />
@@ -1022,9 +1022,9 @@ const Dashboard = () => {
                       width="60"
                       height="60"
                       filterUnits="userSpaceOnUse"
-                      color-interpolation-filters="sRGB"
+                      colorInterpolationFilters="sRGB"
                     >
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feFlood floodOpacity="0" result="BackgroundImageFix" />
                       <feColorMatrix
                         in="SourceAlpha"
                         type="matrix"
@@ -1196,8 +1196,8 @@ const Dashboard = () => {
                     <path
                       d="M20.1427 13.488L21.0774 12.554C21.3252 12.3062 21.6612 12.167 22.0117 12.167C22.3621 12.167 22.6982 12.3062 22.946 12.554C23.1938 12.8018 23.333 13.1379 23.333 13.4883C23.333 13.8388 23.1938 14.1749 22.946 14.4227L22.012 15.3573M20.1427 13.488L14.6534 18.9773C13.9567 19.6747 13.608 20.0227 13.3707 20.4473C13.1334 20.872 12.8947 21.874 12.6667 22.8333C13.6254 22.6053 14.628 22.3667 15.0527 22.1293C15.4774 21.892 15.826 21.5433 16.5227 20.8467L22.012 15.3573M20.1427 13.488L22.012 15.3573M17.3334 22.8333H21.3334"
                       stroke="#19C00B"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                 </span>
@@ -1567,14 +1567,14 @@ const Dashboard = () => {
                       height="57.9167"
                       rx="9.26667"
                       fill="white"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <path
                       d="M24.659 25.1834V21.9401C24.659 20.6426 24.659 19.9939 24.9115 19.4983C25.1336 19.0624 25.488 18.708 25.9239 18.4859C26.4195 18.2334 27.0682 18.2334 28.3657 18.2334H37.169C38.4665 18.2334 39.1152 18.2334 39.6108 18.4859C40.0467 18.708 40.4011 19.0624 40.6232 19.4983C40.8757 19.9939 40.8757 20.6426 40.8757 21.9401V30.7434C40.8757 32.0409 40.8757 32.6896 40.6232 33.1851C40.4011 33.6211 40.0467 33.9755 39.6108 34.1976C39.1152 34.4501 38.4665 34.4501 37.169 34.4501H33.9257M21.4157 41.4001H30.219C31.5165 41.4001 32.1652 41.4001 32.6608 41.1476C33.0967 40.9255 33.4511 40.5711 33.6732 40.1351C33.9257 39.6396 33.9257 38.9909 33.9257 37.6934V28.8901C33.9257 27.5926 33.9257 26.9439 33.6732 26.4483C33.4511 26.0124 33.0967 25.658 32.6608 25.4359C32.1652 25.1834 31.5165 25.1834 30.219 25.1834H21.4157C20.1182 25.1834 19.4695 25.1834 18.9739 25.4359C18.538 25.658 18.1836 26.0124 17.9615 26.4483C17.709 26.9439 17.709 27.5926 17.709 28.8901V37.6934C17.709 38.9909 17.709 39.6396 17.9615 40.1351C18.1836 40.5711 18.538 40.9255 18.9739 41.1476C19.4695 41.4001 20.1182 41.4001 21.4157 41.4001Z"
                       stroke="white"
-                      stroke-width="1.7375"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.7375"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
 
@@ -1592,14 +1592,14 @@ const Dashboard = () => {
                       height="57.9167"
                       rx="9.26667"
                       fill="white"
-                      fill-opacity="0.2"
+                      fillOpacity="0.2"
                     />
                     <path
                       d="M26.1843 31.2744L32.7771 35.1162M32.7675 24.5175L26.1843 28.3593M38.1634 23.0599C38.1634 24.6592 36.8669 25.9557 35.2675 25.9557C33.6682 25.9557 32.3717 24.6592 32.3717 23.0599C32.3717 21.4606 33.6682 20.1641 35.2675 20.1641C36.8669 20.1641 38.1634 21.4606 38.1634 23.0599ZM26.58 29.8168C26.58 31.4162 25.2835 32.7127 23.6842 32.7127C22.0849 32.7127 20.7884 31.4162 20.7884 29.8168C20.7884 28.2175 22.0849 26.921 23.6842 26.921C25.2835 26.921 26.58 28.2175 26.58 29.8168ZM38.1634 36.5738C38.1634 38.1731 36.8669 39.4696 35.2675 39.4696C33.6682 39.4696 32.3717 38.1731 32.3717 36.5738C32.3717 34.9745 33.6682 33.678 35.2675 33.678C36.8669 33.678 38.1634 34.9745 38.1634 36.5738Z"
                       stroke="white"
-                      stroke-width="1.7375"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.7375"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                 </div>
@@ -1653,8 +1653,8 @@ const Dashboard = () => {
                           y2="41.116"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint1_linear_1707_14410"
@@ -1664,8 +1664,8 @@ const Dashboard = () => {
                           y2="23.5104"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint2_linear_1707_14410"
@@ -1675,8 +1675,8 @@ const Dashboard = () => {
                           y2="32.3907"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -1697,9 +1697,9 @@ const Dashboard = () => {
                     <path
                       d="M0.662537 22.2988C33.675 -1.888 85.2209 -10.573 129.817 22.2989"
                       stroke="url(#paint0_linear_1707_14436)"
-                      stroke-width="1.15833"
-                      stroke-linecap="round"
-                      stroke-dasharray="3.47 3.47"
+                      strokeWidth="1.15833"
+                      strokeLinecap="round"
+                      strokeDasharray="3.47 3.47"
                     />
                     <defs>
                       <linearGradient
@@ -1710,8 +1710,8 @@ const Dashboard = () => {
                         y2="7.2361"
                         gradientUnits="userSpaceOnUse"
                       >
-                        <stop stop-color="#1C2C48" stop-opacity="0" />
-                        <stop offset="1" stop-color="#096CED" />
+                        <stop stopColor="#1C2C48" stopOpacity="0" />
+                        <stop offset="1" stopColor="#096CED" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -1744,8 +1744,8 @@ const Dashboard = () => {
                           y2="43.5105"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint1_linear_1707_14419"
@@ -1755,8 +1755,8 @@ const Dashboard = () => {
                           y2="39.8053"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -1777,9 +1777,9 @@ const Dashboard = () => {
                     <path
                       d="M1.46667 0.846725C34.4792 25.0335 86.025 33.7185 130.621 0.84657"
                       stroke="url(#paint0_linear_1707_14437)"
-                      stroke-width="1.15833"
-                      stroke-linecap="round"
-                      stroke-dasharray="3.47 3.47"
+                      strokeWidth="1.15833"
+                      strokeLinecap="round"
+                      strokeDasharray="3.47 3.47"
                     />
                     <defs>
                       <linearGradient
@@ -1790,8 +1790,8 @@ const Dashboard = () => {
                         y2="15.9094"
                         gradientUnits="userSpaceOnUse"
                       >
-                        <stop stop-color="#1C2C48" stop-opacity="0" />
-                        <stop offset="1" stop-color="#096CED" />
+                        <stop stopColor="#1C2C48" stopOpacity="0" />
+                        <stop offset="1" stopColor="#096CED" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -1848,8 +1848,8 @@ const Dashboard = () => {
                           y2="19.4184"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint1_linear_1707_14426"
@@ -1859,8 +1859,8 @@ const Dashboard = () => {
                           y2="39.8046"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint2_linear_1707_14426"
@@ -1870,8 +1870,8 @@ const Dashboard = () => {
                           y2="41.6586"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint3_linear_1707_14426"
@@ -1881,8 +1881,8 @@ const Dashboard = () => {
                           y2="21.2719"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint4_linear_1707_14426"
@@ -1892,8 +1892,8 @@ const Dashboard = () => {
                           y2="17.5639"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint5_linear_1707_14426"
@@ -1903,8 +1903,8 @@ const Dashboard = () => {
                           y2="8.29728"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint6_linear_1707_14426"
@@ -1914,8 +1914,8 @@ const Dashboard = () => {
                           y2="17.5651"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                         <linearGradient
                           id="paint7_linear_1707_14426"
@@ -1925,8 +1925,8 @@ const Dashboard = () => {
                           y2="34.245"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#B90AEE" />
-                          <stop offset="1" stop-color="#6A0688" />
+                          <stop stopColor="#B90AEE" />
+                          <stop offset="1" stopColor="#6A0688" />
                         </linearGradient>
                       </defs>
                     </svg>

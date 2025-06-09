@@ -1,4 +1,3 @@
-// Converted to JSX (no TypeScript types)
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ChevronDown } from "lucide-react";
@@ -125,7 +124,7 @@ const CreateOrder = () => {
     if (hasFormData) {
       setShowCancelConfirmModal(true);
     } else {
-      navigate("/orders");
+      navigate("/dashboard/orders");
     }
   };
 
@@ -148,7 +147,13 @@ const CreateOrder = () => {
 
   const handleSuccessDone = () => {
     setShowSuccessModal(false);
-    navigate("/orders");
+    // Pass both form data and selected products to order details
+    navigate("/dashboard/order-details", {
+      state: {
+        orderData: formData,
+        selectedProducts: selectedProducts
+      }
+    });
   };
 
   const handleConfirmCancel = () => {
@@ -163,7 +168,7 @@ const CreateOrder = () => {
 
   const handleCancelSuccessDone = () => {
     setShowCancelSuccessModal(false);
-    navigate("/orders");
+    navigate("/dashboard/orders");
   };
 
   const isFormValid = () => {
@@ -186,10 +191,7 @@ const CreateOrder = () => {
         <div className="p-6">
           {/* Header */}
           <div className="mb-8 ">
-            <button
-              onClick={() => navigate("/orders")}
-              className="flex items-center text-gray-600 hover:text-gray-800 mb-4"
-            >
+            <button onClick={() => navigate("/dashboard/orders")} className="flex items-center gap-2 px-3 py-2 mb-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back
             </button>
@@ -267,7 +269,7 @@ const CreateOrder = () => {
                       Order date
                     </label>
                     <input
-                      type="text"
+                      type="date"
                       value={formData.orderDate}
                       onChange={(e) =>
                         handleInputChange("orderDate", e.target.value)
