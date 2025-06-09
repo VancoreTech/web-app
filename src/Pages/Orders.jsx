@@ -1,11 +1,33 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, Search, Calendar, Filter, MoreHorizontal, ArrowUp, ChevronLeft, ChevronRight, LucideWallet2, Box, Users2, Command} from 'lucide-react';
+import { Search, Calendar,LucideWallet2, Box, Users2, Command, ArrowUpToLine, ListFilter, MoreVertical} from 'lucide-react';
 import Navbar from '../components/Navbar';
 
 import { ordersData } from '../data/data';
 import { StatsCard } from '../components/StatsCard';
 import Pagination from '../components/Pagination';
+
+export const ArrowupDown = () => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8.39043 13.512C8.19027 13.7622 7.80973 13.7622 7.60957 13.512L4.64988 9.81235C4.38797 9.48497 4.62106 9 5.04031 9H10.9597C11.3789 9 11.612 9.48497 11.3501 9.81235L8.39043 13.512Z"
+        fill="#8A919F"
+      />
+      <path
+        d="M8.39043 2.48804C8.19027 2.23784 7.80973 2.23784 7.60957 2.48804L4.64988 6.18765C4.38797 6.51503 4.62106 7 5.04031 7H10.9597C11.3789 7 11.612 6.51503 11.3501 6.18765L8.39043 2.48804Z"
+        fill="#8A919F"
+      />
+    </svg>
+  );
+};
+
 
 const Orders = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +71,7 @@ const Orders = () => {
             </div>
             <div className="flex items-center space-x-3">
               <button className="flex items-center px-4 py-2 border border-blue-600 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                <ArrowUp className="w-4 h-4 mr-2 text-blue-600" />
+                <ArrowUpToLine className="w-4 h-4 mr-2 text-blue-600" />
                 <span className="text-blue-600">Export CSV</span>
               </button>
               <button onClick={() => navigate('/dashboard/create-order')} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
@@ -114,7 +136,7 @@ const Orders = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    <Filter className="w-4 h-4 mr-2" />
+                    <ListFilter className="w-4 h-4 mr-2" />
                     Filter
                   </button>
                   <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
@@ -134,31 +156,46 @@ const Orders = () => {
                       <input type="checkbox" className="rounded border-gray-300" />
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <div className="flex items-center">
                       ACTION
-                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                      <ArrowupDown className="w-4 h-4 ml-1" />
+                    </div>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      ORDER NO.
-                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                      <div className="flex items-center">
+                        ORDER NO.
+                        <ArrowupDown className="w-4 h-4 ml-1" />
+                      </div>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      ORDER NAME
-                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                      <div className="flex items-center">
+                        ORDER NAME
+                        <ArrowupDown className="w-4 h-4 ml-1" />
+                      </div>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      AMOUNT
+                      <div className="flex items-center">
+                        AMOUNT
+                        <ArrowupDown className="w-4 h-4 ml-1" />
+                      </div>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      DATE
-                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                      <div className="flex items-center">
+                        DATE
+                        <ArrowupDown className="w-4 h-4 ml-1" />
+                      </div>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      PAYMENT
-                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                      <div className="flex items-center">
+                        PAYMENT
+                        <ArrowupDown className="w-4 h-4 ml-1" />
+                      </div>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      STATUS
-                      <ChevronDown className="w-4 h-4 inline ml-1" />
+                      <div className="flex items-center">
+                        STATUS
+                        <ArrowupDown className="w-4 h-4 ml-1" />
+                      </div>
                     </th>
                   </tr>
                 </thead>
@@ -170,7 +207,7 @@ const Orders = () => {
                       </td>
                       <td className="px-6 py-4">
                         <button className="text-gray-400 hover:text-gray-600">
-                          <MoreHorizontal className="w-5 h-5" />
+                          <MoreVertical className="w-5 h-5" />
                         </button>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900">

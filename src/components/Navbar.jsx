@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, ChevronDown } from "lucide-react";
+import { BellDot, ChevronDown } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -34,7 +34,7 @@ const Navbar = () => {
       {/* User Profile */}
       <div className="flex items-center space-x-3">
         <button className="p-2 hover:bg-gray-100 rounded-lg">
-          <Bell className="w-5 h-5 text-gray-500" />
+          <BellDot className="w-5 h-5 text-gray-500" />
         </button>
         <img
           src="https://api.dicebear.com/7.x/avataaars/svg?seed=Susan"

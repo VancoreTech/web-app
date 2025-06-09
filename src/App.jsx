@@ -22,10 +22,14 @@ import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
 import DashboardLayout from "./components/DashboardLayout";
-import CreateOrder from "./create-pages/CreateOrder";
 import OrderDetails from "./Pages/OrderDetails";
 import CustomerDetails from "./Pages/CustomerDetails";
 import AddCustomer from "./Pages/AddCustomer";
+
+// Create Pages
+import CreateOrder from "./create-pages/CreateOrder";
+import CreateProduct from "./create-pages/CreateProduct";
+import CreateCategory from "./create-pages/CreateCategory";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -109,6 +113,7 @@ export default function App() {
         <Route path="orders" element={<Orders />} />
         <Route path="create-order" element={<CreateOrder />} />
         <Route path="order-details" element={<OrderDetails />} />
+
         <Route path="customers" element={<Customers />} />
         <Route path="customer-details" element={<CustomerDetails />} />
         <Route path="add-customer" element={<AddCustomer />} />
