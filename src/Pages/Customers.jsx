@@ -5,16 +5,16 @@ import {
   Calendar,
   Plus,
   Upload,
-  MoreHorizontal,
-  ChevronDown,
   Users2,
   Newspaper,
+  MoreVertical,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { customersData } from "../data/data";
 import { StatsCard } from "../components/StatsCard";
 import Pagination from "../components/Pagination";
+import { ArrowupDown } from "./Orders";
 
 const groupIcon = () => {
   return (
@@ -272,31 +272,31 @@ const Customers = () => {
                     <th className="text-left p-4 font-medium text-xs text-gray-700">
                       <div className="flex items-center gap-2">
                         ACTION
-                        <ChevronDown className="h-4 w-4" />
+                        <ArrowupDown className="h-4 w-4" />
                       </div>
                     </th>
                     <th className="text-left p-4 font-medium text-xs text-gray-700">
                       <div className="flex items-center gap-2">
                         NAME
-                        <ChevronDown className="h-4 w-4" />
+                        <ArrowupDown className="h-4 w-4" />
                       </div>
                     </th>
                     <th className="text-left p-4 font-medium text-xs text-gray-700">
                       <div className="flex items-center gap-2">
                         EMAIL ADDRESS
-                        <ChevronDown className="h-4 w-4" />
+                        <ArrowupDown className="h-4 w-4" />
                       </div>
                     </th>
                     <th className="text-left p-4 font-medium text-xs text-gray-700">
                       <div className="flex items-center gap-2">
                         PHONE NUMBER
-                        <ChevronDown className="h-4 w-4" />
+                        <ArrowupDown className="h-4 w-4" />
                       </div>
                     </th>
                     <th className="text-left p-4 font-medium text-xs text-gray-700">
                       <div className="flex items-center gap-2">
                         DATE ADDED
-                        <ChevronDown className="h-4 w-4" />
+                        <ArrowupDown className="h-4 w-4" />
                       </div>
                     </th>
                   </tr>
@@ -311,8 +311,8 @@ const Customers = () => {
                         <input type="checkbox" className="rounded" />
                       </td>
                       <td className="p-4">
-                        <button className="p-1 hover:bg-gray-100 rounded">
-                          <MoreHorizontal className="h-4 w-4" />
+                        <button className="p-1 text-gray-400 hover:text-gray-600 rounded">
+                          <MoreVertical className="h-4 w-4" />
                         </button>
                       </td>
                       <td className="p-4">
