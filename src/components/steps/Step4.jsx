@@ -30,7 +30,7 @@ export default function Step4({
         Choose your goal so we can match you with the right tools and features
       </p>
 
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      <div className=" grid grid-cols-2 gap-3 mb-6">
         {goalOptions.map((goal, index) => {
           const isSelected = formData.goals.includes(goal);
           const isFullWidth =
@@ -48,7 +48,13 @@ export default function Step4({
                 }`}
               >
                 <div className="flex-1 flex items-center min-w-0 px-3 py-1.5">
-                  <span className="text-[15px] text-gray-700">{goal}</span>
+                  <span
+                    className={`text-[11px] transition-colors duration-200 ${
+                      isSelected ? "text-black" : "text-gray-400"
+                    }`}
+                  >
+                    {goal}
+                  </span>
                 </div>
                 <div
                   className={`shrink-0 w-5 h-5 rounded border flex items-center justify-center transition-colors mx-3 ${
@@ -92,7 +98,7 @@ export default function Step4({
           className={`w-full max-w-sm py-3 px-6 rounded-lg font-medium mb-4 transition-colors duration-200 ${
             isValid
               ? "bg-blue-500 hover:bg-blue-600 text-white"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#0A6DEE80] text-white cursor-not-allowed"
           }`}
         >
           Proceed
