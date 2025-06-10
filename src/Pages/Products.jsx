@@ -64,6 +64,7 @@ const AvailabilityToggle = ({ status }) => {
 };
 
 const ProductsTable = ({ currentProducts }) => {
+  const modal = () => <div className="flex flex-col"></div>;
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
@@ -135,7 +136,10 @@ const ProductsTable = ({ currentProducts }) => {
                     />
                   </td>
                   <td className="px-6 py-4">
-                    <button className="text-gray-400 hover:text-gray-600">
+                    <button
+                      className="text-gray-400 hover:text-gray-600"
+                      onClick={() => setShowMore(!showMore)}
+                    >
                       <MoreVertical className="w-5 h-5" />
                     </button>
                   </td>
@@ -187,6 +191,7 @@ const Products = () => {
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [productData, setProductData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     fetch("https://dummyjson.com/products")
@@ -335,6 +340,8 @@ const Products = () => {
               productsPerPage={productsPerPage}
               productData={productData}
               currentProducts={currentProducts}
+              showMore={showMore}
+              setShowMore={setShowMore}
             />
           ) : (
             <CategoriesTable />
