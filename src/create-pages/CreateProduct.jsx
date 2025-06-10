@@ -133,9 +133,7 @@ function CreateProduct() {
                   px-4 py-3 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
               >
-                <option value="" disabled hidden>
-                  Select a category
-                </option>
+                <option value="">Select a category</option>
                 <option value="">Category 1</option>
                 <option value="">Category 2</option>
                 <option value="">Category 3</option>
@@ -147,57 +145,81 @@ function CreateProduct() {
             </div>
           </fieldset>
 
-          <div>
-            <fieldset>
-              <label htmlFor="product-name">Product name</label>
+          <div className="flex mt-5 justify-between">
+            <div className="flex flex-col w-6/12 mr-3 gap-0">
+              <label htmlFor="product-name" className="-mb-2">
+                Product name
+              </label>
 
               <input
                 type="text"
                 name="product-name"
                 id="product-name"
                 placeholder="Enter product name"
+                className="bg-[#ECEFF3]
+                  px-4 py-2.5 pr-4 appearance-none border-solid border-2
+                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
               />
-            </fieldset>
+            </div>
 
-            <fieldset>
-              <label htmlFor="pricing">Pricing</label>
+            <div className="flex flex-col w-6/12">
+              <label htmlFor="pricing" className="-mb-2">
+                Pricing
+              </label>
 
               <input
                 type="text"
                 name="pricing"
                 id="pricing"
                 placeholder="Enter amount"
+                className="bg-[#ECEFF3]
+                  px-4 py-2.5 pr-4 appearance-none border-solid border-2
+                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
               />
-            </fieldset>
+            </div>
           </div>
 
-          <fieldset>
-            <label htmlFor="discount-price">Discounted price(optional)</label>
+          <div className="flex mt-5 justify-between">
+            <div className="flex flex-col mr-3 w-6/12">
+              <label htmlFor="discount-price" className="-mb-2">
+                Discounted price(optional)
+              </label>
 
-            <input
-              type="text"
-              name="discount-price"
-              id="discount-price"
-              placeholder="Enter discounted amount"
-            />
+              <input
+                type="text"
+                name="discount-price"
+                id="discount-price"
+                placeholder="Enter discounted amount"
+                className="bg-[#ECEFF3]
+                  px-4 py-2.5 pr-4 appearance-none border-solid border-2
+                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+              />
+            </div>
 
-            <label htmlFor="cost-price">Cost price</label>
+            <div className="flex flex-col w-6/12">
+              <label htmlFor="cost-price" className="-mb-2">
+                Cost price
+              </label>
 
-            <input
-              type="text"
-              name="cost-price"
-              id="cost-price"
-              placeholder="Enter cost price"
-            />
-          </fieldset>
+              <input
+                type="text"
+                name="cost-price"
+                id="cost-price"
+                placeholder="Enter cost price"
+                className="bg-[#ECEFF3]
+                  px-4 py-2.5 pr-4 appearance-none border-solid border-2
+                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+              />
+            </div>
+          </div>
 
-          <fieldset>
+          <div className="w-full">
             <label htmlFor="description">Product description</label>
 
             <textarea name="description" id="description">
               Enter product description
             </textarea>
-          </fieldset>
+          </div>
 
           <fieldset>
             <label htmlFor="stock-quantity">Stock quantity</label>
@@ -231,6 +253,9 @@ function CreateProduct() {
                 name="max-limit"
                 id="max-limit"
                 placeholder="Enter maximum order limit"
+                className="bg-[#ECEFF3]
+                  px-4 py-3 pr-4 appearance-none border-solid border-2
+                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
               />
             </fieldset>
 
@@ -242,6 +267,9 @@ function CreateProduct() {
                 name="min-limit"
                 id="min-limit"
                 placeholder="Enter minimum order limit"
+                className="bg-[#ECEFF3]
+                  px-4 py-3 pr-4 appearance-none border-solid border-2
+                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
               />
             </fieldset>
           </div>

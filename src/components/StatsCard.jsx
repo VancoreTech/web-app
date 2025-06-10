@@ -13,7 +13,7 @@ export const StatsCard = ({
       <div
         className={`w-12 h-12 rounded-full flex items-center justify-center ${color}`}
       >
-        {Icon && <Icon className="w-6 h-6 text-white" />} 
+        {Icon && <Icon className="w-6 h-6 text-white" />}
       </div>
     </div>
     <div className="space-y-1">
