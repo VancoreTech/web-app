@@ -526,3 +526,221 @@ export const customersData = [
     dateAdded: '22-09-2025',
   }  
 ];
+
+export const customerGroupData = [
+  { 
+    id: 1,
+    groupName: "Premium Members", 
+    customerCount: 120, 
+    dateAdded: "2025-01-10" 
+  },
+  { 
+    id: 2,
+    groupName: "Loyal Customers", 
+    customerCount: 95, 
+    dateAdded: "2025-02-15"
+  },
+  { 
+    id: 3,
+    groupName: "New Subscribers", 
+    customerCount: 60,
+    dateAdded: "2025-03-01" 
+  },
+  { 
+    id: 4,
+    groupName: "Wholesale Buyers",
+    customerCount: 40,
+    dateAdded: "2025-01-20" 
+  },
+  { 
+    id: 5,
+    groupName: "Seasonal Shoppers",
+    customerCount: 80,
+    dateAdded: "2025-04-05" 
+  },
+  { 
+    id: 6,
+    groupName: "VIP Clients",
+    customerCount: 15, 
+    dateAdded: "2025-02-25" 
+  },
+  { 
+    id: 7,
+    groupName: "Newsletter Readers",
+    customerCount: 200,
+    dateAdded: "2025-01-30" 
+  },
+  { 
+    id: 8,
+    groupName: "Frequent Buyers", 
+    customerCount: 75, 
+    dateAdded: "2025-03-18" 
+  },
+  { 
+    id: 9,
+    groupName: "Occasional Shoppers", 
+    customerCount: 130, 
+    dateAdded: "2025-04-10" 
+  },
+  { 
+    id: 10,
+    groupName: "Corporate Accounts", 
+    customerCount: 25, 
+    dateAdded: "2025-02-10" 
+  },
+  { 
+    id: 11,
+    groupName: "Trial Users", 
+    customerCount: 50, 
+    dateAdded: "2025-01-05" 
+  },
+  { 
+    id: 12,
+    groupName: "Returning Customers", 
+    customerCount: 90, 
+    dateAdded: "2025-03-12" 
+  },
+  { 
+    id: 13,
+    groupName: "Referral Program", 
+    customerCount: 35, 
+    dateAdded: "2025-02-28" 
+  },
+  { 
+    id: 14,
+    groupName: "Social Media Leads", 
+    customerCount: 100, 
+    dateAdded: "2025-04-01" 
+  },
+  {
+    id: 15,
+    groupName: "Event Attendees", 
+    customerCount: 45, 
+    dateAdded: "2025-03-22" 
+  },
+  { 
+    id: 16,
+    groupName: "App Users", 
+    customerCount: 110, 
+    dateAdded: "2025-01-15" 
+  },
+  { 
+    id: 17,
+    groupName: "Discount Hunters", 
+    customerCount: 85, 
+    dateAdded: "2025-02-05" 
+  },
+  { 
+    id: 18,
+    groupName: "VIP Early Access", 
+    customerCount: 20, 
+    dateAdded: "2025-03-30" 
+  },
+  { 
+    id: 19,
+    groupName: "Beta Testers", 
+    customerCount: 55, 
+    dateAdded: "2025-04-12" 
+  },
+  { 
+    id: 20,
+    groupName: "International Buyers", 
+    customerCount: 70, 
+    dateAdded: "2025-01-25" 
+  },
+  { 
+    id: 21,
+    groupName: "Bulk Buyers", 
+    customerCount: 30, 
+    dateAdded: "2025-02-18" 
+  },
+  { 
+    id: 22,
+    groupName: "Gift Card Users", 
+    customerCount: 65, 
+    dateAdded: "2025-03-07" 
+  },
+  { 
+    id: 23,
+    groupName: "Mobile Shoppers", 
+    customerCount: 115, 
+    dateAdded: "2025-04-08"
+  },
+  { 
+    id: 24,
+    groupName: "Student Discounts", 
+    customerCount: 50, 
+    dateAdded: "2025-01-12" 
+  },
+  { 
+    id: 25,
+    groupName: "Lapsed Customers", 
+    customerCount: 40, 
+    dateAdded: "2025-02-22" 
+  },
+  { 
+    id: 26,
+    groupName: "Subscription Holders", 
+    customerCount: 90, 
+    dateAdded: "2025-03-25" 
+  },
+  { 
+    id: 27,
+    groupName: "Influencer Partners", 
+    customerCount: 25, 
+    dateAdded: "2025-04-03" 
+  },
+  {
+    id: 28,
+    groupName: "Trial Expired", 
+    customerCount: 30, 
+    dateAdded: "2025-01-08" 
+  },
+  { 
+    id: 29,
+    groupName: "Clearance Buyers", 
+    customerCount: 55, 
+    dateAdded: "2025-02-12" 
+  },
+  { 
+    id: 30,
+    groupName: "Newsletter Engaged", 
+    customerCount: 150, 
+    dateAdded: "2025-03-15" 
+  },
+];
+
+export const customerSubscribersData = [
+  { id: 1, email: "alice.jones@example.com", dateAdded: "2025-01-10" },
+  { id: 2, email: "bob.smith@example.com", dateAdded: "2025-01-15" },
+  { id: 3, email: "charlie.brown@example.com", dateAdded: "2025-01-20" },
+  { id: 4, email: "diana.prince@example.com", dateAdded: "2025-01-25" },
+  { id: 5, email: "emily.clark@example.com", dateAdded: "2025-01-30" },
+  { id: 6, email: "frank.miller@example.com", dateAdded: "2025-02-05" },
+  { id: 7, email: "grace.lee@example.com", dateAdded: "2025-02-10" },
+  { id: 8, email: "henry.walker@example.com", dateAdded: "2025-02-15" },
+  { id: 9, email: "isabella.king@example.com", dateAdded: "2025-02-20" },
+  { id: 10, email: "jack.wilson@example.com", dateAdded: "2025-02-25" },
+  { id: 11, email: "karen.young@example.com", dateAdded: "2025-03-01" },
+  { id: 12, email: "liam.scott@example.com", dateAdded: "2025-03-05" },
+  { id: 13, email: "mia.evans@example.com", dateAdded: "2025-03-10" },
+  { id: 14, email: "nathan.moore@example.com", dateAdded: "2025-03-15" },
+  { id: 15, email: "olivia.adams@example.com", dateAdded: "2025-03-20" },
+  { id: 16, email: "paul.baker@example.com", dateAdded: "2025-03-25" },
+  { id: 17, email: "quinn.carter@example.com", dateAdded: "2025-03-30" },
+  { id: 18, email: "rachel.davis@example.com", dateAdded: "2025-04-04" },
+  { id: 19, email: "samuel.evans@example.com", dateAdded: "2025-04-08" },
+  { id: 20, email: "tina.franklin@example.com", dateAdded: "2025-04-12" },
+  { id: 21, email: "uma.garcia@example.com", dateAdded: "2025-04-16" },
+  { id: 22, email: "victor.harris@example.com", dateAdded: "2025-04-20" },
+  { id: 23, email: "wendy.ivanov@example.com", dateAdded: "2025-04-24" },
+  { id: 24, email: "xander.jones@example.com", dateAdded: "2025-04-28" },
+  { id: 25, email: "yasmin.kelly@example.com", dateAdded: "2025-05-02" },
+  { id: 26, email: "zachary.lane@example.com", dateAdded: "2025-05-06" },
+  { id: 27, email: "amelia.martin@example.com", dateAdded: "2025-05-10" },
+  { id: 28, email: "brian.nelson@example.com", dateAdded: "2025-05-14" },
+  { id: 29, email: "clara.olsen@example.com", dateAdded: "2025-05-18" },
+  { id: 30, email: "daniel.perez@example.com", dateAdded: "2025-05-22" },
+];
+
+
