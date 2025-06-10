@@ -159,6 +159,16 @@ function CreateProduct() {
     description: "",
     stockQuantity: "",
   });
+
+  const requiredFields = [
+    "category",
+    "productName",
+    "pricing",
+    "costPrice",
+    "description",
+    "stockQuantity",
+  ];
+
   function addProduct(e) {
     e.preventDefault();
 
@@ -175,15 +185,6 @@ function CreateProduct() {
       maxLimit: data.get("max-limit"),
       minLimit: data.get("min-limit"),
     };
-
-    const requiredFields = [
-      "category",
-      "productName",
-      "pricing",
-      "costPrice",
-      "description",
-      "stockQuantity",
-    ];
 
     const fieldsAreFilled = requiredFields.every(
       (field) => product[field]?.trim() !== ""
@@ -203,8 +204,7 @@ function CreateProduct() {
   }
 
   const isDisabled =
-    images.length < 3 ||
-    requiredFieldKeys.some((key) => !formData[key]?.trim());
+    images.length < 3 || requiredFields.some((key) => !formData[key]?.trim());
 
   const handleCancel = () => {
     const hasFormData = Object.values(formData).some(
