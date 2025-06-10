@@ -11,13 +11,13 @@ import {
   ListFilter,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import DateSelector from "../components/DateSelector";
 import { useDateSelection } from "../hooks/UseDateSelection";
-import { customersData } from "../data/data";
+import { customersData, customerGroupData, customerSubscribersData } from "../data/data";
 import { StatsCard } from "../components/StatsCard";
 import Pagination from "../components/Pagination";
 import { ArrowupDown } from "./Orders";
+import Navbar from "../components/Navbar";
 
 const groupIcon = () => {
   return (
@@ -130,35 +130,54 @@ const Customers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
-
+  const [activeTab, setActiveTab] = useState("customers");
   const dateSelection = useDateSelection();
 
+  const getCurrentData = () => {
+    switch (activeTab) {
+      case "groups":
+        return customerGroupData;
+      case "subscribers":
+        return customerSubscribersData;
+      default:
+        return customersData;
+    }
+  };
 
-  const filteredCustomers = useMemo(() => {
+  const filteredData = useMemo(() => {
+    const currentData = getCurrentData();
     if (!searchTerm.trim()) {
-      return customersData;
+      return currentData;
     }
 
-    return customersData.filter((customer) => {
+    return currentData.filter((item) => {
       const searchLower = searchTerm.toLowerCase();
-      return (
-        customer.name.toLowerCase().includes(searchLower) ||
-        customer.email.toLowerCase().includes(searchLower) ||
-        customer.phone.toLowerCase().includes(searchLower) ||
-        customer.id.toString().toLowerCase().includes(searchLower)
-      );
+      if (activeTab === "customers") {
+        return (
+          item.name.toLowerCase().includes(searchLower) ||
+          item.email.toLowerCase().includes(searchLower) ||
+          item.phone.toLowerCase().includes(searchLower) ||
+          item.id.toString().toLowerCase().includes(searchLower)
+        );
+      } else if (activeTab === "groups") {
+        return (
+          item.groupName.toLowerCase().includes(searchLower) ||
+          item.id.toString().toLowerCase().includes(searchLower)
+        );
+      } else if (activeTab === "subscribers") {
+        return (
+          item.email.toLowerCase().includes(searchLower) ||
+          item.id.toString().toLowerCase().includes(searchLower)
+        );
+      }
+      return false;
     });
-  }, [searchTerm, customersData]);
+  }, [searchTerm, activeTab]);
 
-  const totalPages = Math.ceil(filteredCustomers.length / entriesPerPage);
+  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
   const indexOfFirstProduct = (currentPage - 1) * entriesPerPage;
   const indexOfLastProduct = indexOfFirstProduct + entriesPerPage;
-  const currentCustomers = filteredCustomers.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentItems = filteredData.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -166,9 +185,157 @@ const Customers = () => {
     }
   };
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setCurrentPage(1);
+    setSearchTerm("");
+  };
+
   React.useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
+
+  const renderTableHeaders = () => {
+    const baseHeaders = (
+      <>
+        <th className="text-left p-4">
+          <input type="checkbox" className="rounded" />
+        </th>
+        <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <div className="flex items-center gap-2">
+            ACTION
+            <ArrowupDown className="h-4 w-4" />
+          </div>
+        </th>
+      </>
+    );
+
+    if (activeTab === "groups") {
+      return (
+        <>
+          {baseHeaders}
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              GROUP NAME
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              NO. OF CUSTOMERS
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              DATE ADDED
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+        </>
+      );
+    } else if (activeTab === "subscribers") {
+      return (
+        <>
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              DATE ADDED
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              EMAIL ADDRESS
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+        </>
+      );
+    } else {
+      return (
+        <>
+          {baseHeaders}
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              NAME
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              EMAIL ADDRESS
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              PHONE NUMBER
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+          <th className="text-left p-4 font-medium text-xs text-gray-700">
+            <div className="flex items-center gap-2">
+              DATE ADDED
+              <ArrowupDown className="h-4 w-4" />
+            </div>
+          </th>
+        </>
+      );
+    }
+  };
+
+  const renderTableRows = () => {
+    return currentItems.map((item) => {
+      const baseCells = (
+        <>
+          <td className="p-4">
+            <input type="checkbox" className="rounded" />
+          </td>
+          <td className="p-4">
+            <button className="p-1 text-gray-400 hover:text-gray-600 rounded">
+              <MoreVertical className="h-4 w-4" />
+            </button>
+          </td>
+        </>
+      );
+
+      if (activeTab === "groups") {
+        return (
+          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+            {baseCells}
+            <td className="p-4">
+              <Link to={``} className="hover:text-blue-600 transition-colors">
+                {item.groupName}
+              </Link>
+            </td>
+            <td className="p-4 text-gray-600">{item.customerCount}</td>
+            <td className="p-4 text-gray-600">{item.dateAdded}</td>
+          </tr>
+        );
+      } else if (activeTab === "subscribers") {
+        return (
+          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+            <td className="p-4 text-gray-600">{item.dateAdded}</td>
+            <td className="p-4 text-gray-600">{item.email}</td>
+          </tr>
+        );
+      } else {
+        return (
+          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+            {baseCells}
+            <td className="p-4">
+              <Link to={``} className="hover:text-blue-600 transition-colors">
+                {item.name}
+              </Link>
+            </td>
+            <td className="p-4 text-gray-600">{item.email}</td>
+            <td className="p-4 text-gray-600">{item.phone}</td>
+            <td className="p-4 text-gray-600">{item.dateAdded}</td>
+          </tr>
+        );
+      }
+    });
+  };
 
   return (
     <div className="pb-10 bg-[#F9FAFB]">
@@ -179,7 +346,7 @@ const Customers = () => {
           <div>
             <h1 className="text-2xl font-semibold text-gray-900">Customers</h1>
             <p className="text-sm text-gray-600">
-              {filteredCustomers.length} customers
+              {filteredData.length} {activeTab}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -187,7 +354,7 @@ const Customers = () => {
               <Upload className="h-4 w-4 text-blue-600" />
               <span className="text-blue-600">Export CSV</span>
             </button>
-            <Link to="/dashboard/add-customer">
+            <Link to="/dashboard/create-customer">
               <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
                 <Plus className="h-4 w-4" />
                 Add new customer
@@ -201,7 +368,7 @@ const Customers = () => {
           <StatsCard
             icon={Users2}
             title="Total customers"
-            value={filteredCustomers.length}
+            value={customersData.length}
             change={-24.5}
             period="vs 7 days ago"
             color="bg-[#A4845D]"
@@ -210,7 +377,7 @@ const Customers = () => {
           <StatsCard
             icon={groupIcon}
             title="Customer group"
-            value="4"
+            value={customerGroupData.length}
             change={-24.5}
             period="vs 7 days ago"
             color="bg-[#82B004]"
@@ -219,7 +386,7 @@ const Customers = () => {
           <StatsCard
             icon={Newspaper}
             title="Newsletter subscribers"
-            value="2"
+            value={customerSubscribersData.length}
             change={45}
             period="vs 7 days ago"
             color="bg-[#E36308]"
@@ -227,15 +394,36 @@ const Customers = () => {
         </div>
 
         {/* Tabs */}
-        <div className=" border-gray-200 px-6 ">
+        <div className="border-gray-200 px-6">
           <div className="flex gap-8">
-            <button className="pb-2 border-b-2 border-blue-600 text-blue-600 font-medium">
+            <button
+              onClick={() => handleTabChange("customers")}
+              className={`pb-2 font-medium ${
+                activeTab === "customers"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
               Customers
             </button>
-            <button className="pb-2 text-gray-600 hover:text-gray-900">
+            <button
+              onClick={() => handleTabChange("groups")}
+              className={`pb-2 font-medium ${
+                activeTab === "groups"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
               Groups
             </button>
-            <button className="pb-2 text-gray-600 hover:text-gray-900">
+            <button
+              onClick={() => handleTabChange("subscribers")}
+              className={`pb-2 font-medium ${
+                activeTab === "subscribers"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
               Subscribers
             </button>
           </div>
@@ -249,22 +437,21 @@ const Customers = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search for user name, ID etc."
+                  placeholder={`Search for ${activeTab}...`}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div className="flex items-center gap-3">
-                  <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                    <ListFilter className="h-4 w-4" />
-                    Filter
-                  </button>
-                  <DateSelector 
-                    {...dateSelection} 
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-                  />
-                
+                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                  <ListFilter className="h-4 w-4" />
+                  Filter
+                </button>
+                <DateSelector
+                  {...dateSelection}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                />
               </div>
             </div>
           </div>
@@ -275,76 +462,17 @@ const Customers = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200">
-                    <th className="text-left p-4">
-                      <input type="checkbox" className="rounded" />
-                    </th>
-                    <th className="text-left p-4 font-medium text-xs text-gray-700">
-                      <div className="flex items-center gap-2">
-                        ACTION
-                        <ArrowupDown className="h-4 w-4" />
-                      </div>
-                    </th>
-                    <th className="text-left p-4 font-medium text-xs text-gray-700">
-                      <div className="flex items-center gap-2">
-                        NAME
-                        <ArrowupDown className="h-4 w-4" />
-                      </div>
-                    </th>
-                    <th className="text-left p-4 font-medium text-xs text-gray-700">
-                      <div className="flex items-center gap-2">
-                        EMAIL ADDRESS
-                        <ArrowupDown className="h-4 w-4" />
-                      </div>
-                    </th>
-                    <th className="text-left p-4 font-medium text-xs text-gray-700">
-                      <div className="flex items-center gap-2">
-                        PHONE NUMBER
-                        <ArrowupDown className="h-4 w-4" />
-                      </div>
-                    </th>
-                    <th className="text-left p-4 font-medium text-xs text-gray-700">
-                      <div className="flex items-center gap-2">
-                        DATE ADDED
-                        <ArrowupDown className="h-4 w-4" />
-                      </div>
-                    </th>
+                    {renderTableHeaders()}
                   </tr>
                 </thead>
                 <tbody className="bg-white rounded-lg border border-gray-200 shadow-sm">
-                  {currentCustomers.map((customer) => (
-                    <tr
-                      key={customer.id}
-                      className="border-b border-gray-200 hover:bg-gray-50"
-                    >
-                      <td className="p-4">
-                        <input type="checkbox" className="rounded" />
-                      </td>
-                      <td className="p-4">
-                        <button className="p-1 text-gray-400 hover:text-gray-600 rounded">
-                          <MoreVertical className="h-4 w-4" />
-                        </button>
-                      </td>
-                      <td className="p-4">
-                        <Link
-                          to={``}
-                          className=" hover:text-blue-600 transition-colors"
-                        >
-                          {customer.name}
-                        </Link>
-                      </td>
-                      <td className="p-4 text-gray-600">{customer.email}</td>
-                      <td className="p-4 text-gray-600">{customer.phone}</td>
-                      <td className="p-4 text-gray-600">
-                        {customer.dateAdded}
-                      </td>
-                    </tr>
-                  ))}
+                  {renderTableRows()}
                 </tbody>
               </table>
             </div>
 
             {/* Pagination */}
-            {customersData && (
+            {filteredData.length > 0 && (
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -356,7 +484,7 @@ const Customers = () => {
                 }}
                 indexOfFirstProduct={indexOfFirstProduct}
                 indexOfLastProduct={indexOfLastProduct}
-                totalEntries={filteredCustomers.length}
+                totalEntries={filteredData.length}
               />
             )}
           </div>

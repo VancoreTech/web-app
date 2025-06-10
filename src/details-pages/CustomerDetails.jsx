@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Search, Filter, Calendar, MoreHorizontal, ArrowUpDown, Edit } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const CustomerDetails = () => {
   const { id } = useParams();
@@ -48,18 +49,19 @@ const CustomerDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+      <Navbar />
+      <div className=" mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/customers">
+            <Link to="/dashboard/customers">
               <button className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
                 <ArrowLeft className="h-4 w-4" />
                 Back
               </button>
             </Link>
           </div>
-          <Link to="/edit-customer">
+          <Link to="/dashboard/edit-customer">
             <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
               <Edit className="h-4 w-4" />
               Edit details
