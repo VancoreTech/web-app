@@ -95,6 +95,12 @@ const ImageUpload = () => {
 };
 
 function CreateProduct() {
+  function addProduct(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const productName = formData.get("product-name");
+    console.log(productName);
+  }
   return (
     <div>
       <Navbar />
@@ -109,7 +115,10 @@ function CreateProduct() {
 
         <h2 className="text-[#101828] font-semibold text-3xl">Add a Product</h2>
 
-        <div className="bg-white rounded-[10px] py-5 px-7 mt-10">
+        <form
+          onSubmit={addProduct}
+          className="bg-white rounded-[10px] py-5 pl-8 pr-16 mt-10 "
+        >
           <h3 className="text-[#0a6dee] flex items-center gap-2 mb-6">
             {arrows}
             Product image
@@ -131,7 +140,7 @@ function CreateProduct() {
                 id="category"
                 className="w-full bg-[#ECEFF3]
                   px-4 py-3 pr-4 appearance-none border-solid border-2
-                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+                  border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
               >
                 <option value="">Select a category</option>
                 <option value="">Category 1</option>
@@ -141,15 +150,13 @@ function CreateProduct() {
                 <option value="">Category 5</option>
               </select>
 
-              <ChevronDown className="absolute inset-y-0 top-7 right-4 pointer-events-none" />
+              <ChevronDown className="absolute inset-y-0 top-5 right-4 pointer-events-none" />
             </div>
           </fieldset>
 
           <div className="flex mt-5 justify-between">
             <div className="flex flex-col w-6/12 mr-3 gap-0">
-              <label htmlFor="product-name" className="-mb-2">
-                Product name
-              </label>
+              <label htmlFor="product-name">Product name</label>
 
               <input
                 type="text"
@@ -158,14 +165,12 @@ function CreateProduct() {
                 placeholder="Enter product name"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
-                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+                  border-[#EBEBEB] rounded-lg mt-1  "
               />
             </div>
 
-            <div className="flex flex-col w-6/12">
-              <label htmlFor="pricing" className="-mb-2">
-                Pricing
-              </label>
+            <div className="flex flex-col w-6/12 ml-4">
+              <label htmlFor="pricing">Pricing</label>
 
               <input
                 type="text"
@@ -174,16 +179,14 @@ function CreateProduct() {
                 placeholder="Enter amount"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
-                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+                  border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
               />
             </div>
           </div>
 
-          <div className="flex mt-5 justify-between">
+          <div className="flex mt-5 mb-5 justify-between">
             <div className="flex flex-col mr-3 w-6/12">
-              <label htmlFor="discount-price" className="-mb-2">
-                Discounted price(optional)
-              </label>
+              <label htmlFor="discount-price">Discounted price(optional)</label>
 
               <input
                 type="text"
@@ -192,14 +195,12 @@ function CreateProduct() {
                 placeholder="Enter discounted amount"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
-                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+                  border-[#EBEBEB] mt-1 rounded-lg placeholder:text-[#B5B4B4]"
               />
             </div>
 
-            <div className="flex flex-col w-6/12">
-              <label htmlFor="cost-price" className="-mb-2">
-                Cost price
-              </label>
+            <div className="flex flex-col w-1/2 ml-4">
+              <label htmlFor="cost-price">Cost price</label>
 
               <input
                 type="text"
@@ -208,44 +209,75 @@ function CreateProduct() {
                 placeholder="Enter cost price"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
-                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+                  border-[#EBEBEB] mt-1 rounded-lg  placeholder:text-[#B5B4B4]"
               />
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="w-full mb-5">
             <label htmlFor="description">Product description</label>
 
-            <textarea name="description" id="description">
-              Enter product description
-            </textarea>
+            <textarea
+              name="description"
+              id="description"
+              className="bg-[#ECEFF3]
+                  px-4 py-2.5 pr-4 appearance-none border-solid border-2 w-full
+                  border-[#EBEBEB] rounded-lg mt-1 text-[#B5B4B4]"
+              defaultValue="Enter product description"
+            />
           </div>
 
-          <fieldset>
-            <label htmlFor="stock-quantity">Stock quantity</label>
+          <div className="flex justify-between">
+            <div className="flex flex-col w-1/2">
+              <label htmlFor="stock-quantity">Stock quantity</label>
 
-            <input
-              type="text"
-              name="stock-quantity"
-              id="stock-quantity"
-              placeholder="Enter stock quantity"
-            />
-
-            <p>Is the stock quantity limited?</p>
-
-            <div>
-              <input type="radio" name="yes" id="yes" />
-              <label htmlFor="yes">Yes</label>
+              <input
+                type="text"
+                name="stock-quantity"
+                id="stock-quantity"
+                placeholder="Enter stock quantity"
+                className="bg-[#ECEFF3]
+                  px-4 py-2.5 pr-4 appearance-none border-solid border-2
+                  border-[#EBEBEB] mt-1 rounded-lg mr-3 placeholder:text-[#B5B4B4]"
+              />
             </div>
 
-            <div>
-              <input type="radio" name="no" id="no" />
-              <label htmlFor="no">No</label>
-            </div>
-          </fieldset>
+            <div className="w-1/2 ml-5">
+              <p>Is the stock quantity limited?</p>
+              <div className="flex justify-between gap-3">
+                <div
+                  className="bg-[#ECEFF3]
+                  px-4 py-2.5 pr-4 appearance-none border-solid border-2 w-1/2
+                  border-[#EBEBEB] mt-1 rounded-lg placeholder:text-[#B5B4B4]"
+                >
+                  <input
+                    type="radio"
+                    name="stockLimited"
+                    id="yes"
+                    className="mr-1 accent-[#0A6DEE]"
+                  />
+                  <label htmlFor="yes">Yes</label>
+                </div>
 
-          <div>
-            <fieldset>
+                <div
+                  className="bg-[#ECEFF3]
+                  px-4 py-2.5 pr-4 appearance-none border-solid border-2 w-1/2
+                  border-[#EBEBEB] mt-1 rounded-lg  placeholder:text-[#B5B4B4]"
+                >
+                  <input
+                    type="radio"
+                    name="stockLimited"
+                    id="no"
+                    className="mr-1"
+                  />
+                  <label htmlFor="no">No</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex mt-5 mb-5 justify-between">
+            <div className="flex flex-col w-[48%] mr-">
               <label htmlFor="max-limit">Maximum order limit(optional)</label>
 
               <input
@@ -255,11 +287,11 @@ function CreateProduct() {
                 placeholder="Enter maximum order limit"
                 className="bg-[#ECEFF3]
                   px-4 py-3 pr-4 appearance-none border-solid border-2
-                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+                  border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
               />
-            </fieldset>
+            </div>
 
-            <fieldset>
+            <div className="flex flex-col w-[49%]">
               <label htmlFor="min-limit">Minimum order limit(optional)</label>
 
               <input
@@ -269,11 +301,20 @@ function CreateProduct() {
                 placeholder="Enter minimum order limit"
                 className="bg-[#ECEFF3]
                   px-4 py-3 pr-4 appearance-none border-solid border-2
-                  border-[#EBEBEB] rounded-lg mt-3 text-[#B5B4B4]"
+                  border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
               />
-            </fieldset>
+            </div>
           </div>
-        </div>
+
+          <div className="flex justify-end py-2 gap-5">
+            <button className="bg-white text-black px-12 py-2 text-sm font-semibold rounded-lg border border-[#ECEFF3]">
+              Cancel
+            </button>
+            <button className="bg-[#0A6DEE] text-white px-12 py-2 text-sm font-semibold rounded-lg">
+              Proceed
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
