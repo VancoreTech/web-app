@@ -2,7 +2,10 @@ import React, { useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronDown, FileUpIcon } from "lucide-react";
-// import arrows from "../assets/arrows.png";
+import exclamation from "../assets/exclamation.svg";
+import success from "../assets/success.svg";
+import ConfirmModal from "../components/ConfirmModal";
+import SuccessModal from "../components/SuccessModal";
 
 const arrows = (
   <svg
@@ -95,6 +98,62 @@ const ImageUpload = () => {
 };
 
 function CreateProduct() {
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showCancelConfirmModal, setShowCancelConfirmModal] = useState(false);
+  const [showCancelSuccessModal, setShowCancelSuccessModal] = useState(false);
+  const [showProductModal, setShowProductModal] = useState(false);
+
+  const handleCancel = () => {
+    const hasFormData = Object.values(formData).some(
+      (value) => value.trim() !== ""
+    );
+
+    if (hasFormData) {
+      setShowCancelConfirmModal(true);
+    } else {
+      navigate("/dashboard/products");
+    }
+  };
+
+  const handleConfirmOrder = () => {
+    console.log("Order created successfully", {
+      ...formData,
+      selectedProducts,
+    });
+    setShowConfirmModal(false);
+    setShowSuccessModal(true);
+  };
+
+  const handleCancelConfirm = () => {
+    setShowConfirmModal(false);
+  };
+
+  const handleSuccessDone = () => {
+    setShowSuccessModal(false);
+    navigate("/dashboard/product-details", {
+      state: {
+        orderData: formData,
+        selectedProducts: selectedProducts,
+      },
+    });
+  };
+
+  const handleConfirmCancel = () => {
+    console.log("Order creation cancelled");
+    setShowCancelConfirmModal(false);
+    setShowCancelSuccessModal(true);
+  };
+
+  const handleCancelCancelConfirm = () => {
+    setShowCancelConfirmModal(false);
+  };
+
+  const handleCancelSuccessDone = () => {
+    setShowCancelSuccessModal(false);
+    navigate("/dashboard/products");
+  };
+
   function addProduct(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -105,7 +164,7 @@ function CreateProduct() {
     <div>
       <Navbar />
 
-      <div className="p-10">
+      <div className="p-10 relative">
         <Link
           to="/dashboard/products"
           className="bg-white flex items-center content-center gap-2 text-[#344054] text-sm rounded-md  w-24 px-4 py-2 mb-4"
@@ -222,8 +281,8 @@ function CreateProduct() {
               id="description"
               className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2 w-full
-                  border-[#EBEBEB] rounded-lg mt-1 text-[#B5B4B4]"
-              defaultValue="Enter product description"
+                  border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
+              placeholder="Enter product description"
             />
           </div>
 
@@ -307,13 +366,54 @@ function CreateProduct() {
           </div>
 
           <div className="flex justify-end py-2 gap-5">
-            <button className="bg-white text-black px-12 py-2 text-sm font-semibold rounded-lg border border-[#ECEFF3]">
+            <button
+              className="bg-white text-black px-12 py-2 text-sm font-semibold rounded-lg border border-[#ECEFF3]"
+              onClick={handleCancel}
+            >
               Cancel
             </button>
-            <button className="bg-[#0A6DEE] text-white px-12 py-2 text-sm font-semibold rounded-lg">
+            <button
+              type="submit"
+              onClick={() => setShowConfirmModal(!showConfirm)}
+              className="bg-[#0A6DEE] text-white px-12 py-2 text-sm font-semibold rounded-lg"
+            >
               Proceed
             </button>
           </div>
+
+          {/* Confirm Modal */}
+          <ConfirmModal
+            isOpen={showConfirmModal}
+            title="Confirm action"
+            message="Are you sure you want to create this product?"
+            onConfirm={handleConfirmOrder}
+            onCancel={handleCancelConfirm}
+          />
+
+          {/* Success Modal */}
+          <SuccessModal
+            isOpen={showSuccessModal}
+            title="Success"
+            message="You have successfully created this order."
+            onDone={handleSuccessDone}
+          />
+
+          {/* Cancel Confirm Modal */}
+          <ConfirmModal
+            isOpen={showCancelConfirmModal}
+            title="Confirm action"
+            message="Are you sure you want to trash this order?"
+            onConfirm={handleConfirmCancel}
+            onCancel={handleCancelCancelConfirm}
+          />
+
+          {/* Cancel Success Modal */}
+          <SuccessModal
+            isOpen={showCancelSuccessModal}
+            title="Success"
+            message="You have successfully trashed this order."
+            onDone={handleCancelSuccessDone}
+          />
         </form>
       </div>
     </div>
