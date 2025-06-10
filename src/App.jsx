@@ -29,6 +29,7 @@ import CreateProduct from "./create-pages/CreateProduct";
 import CreateCategory from "./create-pages/CreateCategory";
 import CreateCustomer from "./create-pages/CreateCustomer";
 import EditCustomer from "./Pages/EditCustomer";
+import ProductDetails from "./details-pages/ProductDetails";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -108,6 +109,7 @@ export default function App() {
         <Route path="products" element={<Products />} />
         <Route path="create-product" element={<CreateProduct />} />
         <Route path="create-category" element={<CreateCategory />} />
+        <Route path="product-details" element={<ProductDetails />} />
 
         <Route path="orders" element={<Orders />} />
         <Route path="create-order" element={<CreateOrder />} />
