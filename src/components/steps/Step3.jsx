@@ -40,7 +40,7 @@ export default function Step3({
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, firstName: e.target.value }))
             }
-            className="w-full p-3 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
             required
           />
@@ -57,7 +57,7 @@ export default function Step3({
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, lastName: e.target.value }))
             }
-            className="w-full p-3 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
             required
           />
@@ -75,14 +75,14 @@ export default function Step3({
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, email: e.target.value }))
               }
-              className="flex-1 p-3 text-sm border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 p-2.5 text-sm border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
               required
             />
             <button
               type="button"
               onClick={() => onVerifyClick("email")}
-              className="px-3 py-2 text-sm text-white rounded-r-md"
+              className="px-3 py-2.5 text-sm text-white rounded-r-md"
               style={{ backgroundColor: "#5704E3" }}
               onMouseOver={(e) =>
                 (e.currentTarget.style.backgroundColor = "#4701C0")
@@ -132,7 +132,7 @@ export default function Step3({
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, phone: e.target.value }))
               }
-              className="flex-1 p-3 text-sm border-t border-b focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 p-2.5 text-sm border-t border-b focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
               required
             />
@@ -140,7 +140,7 @@ export default function Step3({
             <button
               type="button"
               onClick={() => onVerifyClick("phone")}
-              className="px-3 py-2 text-sm text-white rounded-r-md"
+              className="px-3 py-2.5 text-sm text-white rounded-r-md"
               style={{ backgroundColor: "#5704E3" }}
               onMouseOver={(e) =>
                 (e.currentTarget.style.backgroundColor = "#4701C0")
@@ -192,7 +192,7 @@ export default function Step3({
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, referralCode: e.target.value }))
             }
-            className="w-full p-3 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
           />
         </div>

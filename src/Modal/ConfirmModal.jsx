@@ -1,5 +1,5 @@
 import React from "react";
-import { AlertTriangle } from "lucide-react";
+import AlertIcon from "../components/AlertIcon";
 
 const ConfirmModal = ({
   isOpen,
@@ -15,13 +15,20 @@ const ConfirmModal = ({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
-        <div className="flex items-center mb-6">
-          <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center mr-4">
-            <AlertTriangle className="w-6 h-6 text-white" />
-          </div>
+        <div className="flex items-center mb-4">
           <div>
-            <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-            <p className="text-gray-600 mt-1">{message}</p>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center pb-4">
+              <AlertIcon
+                width={24}
+                height={24}
+                fill="#6A6767"
+                className="w-7 h-7"
+              />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+              <p className="text-gray-600 mt-1">{message}</p>
+            </div>
           </div>
         </div>
 
