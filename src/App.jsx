@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import RegistrationFlow from "./components/RegistrationFlow";
 import PricingPage from "./components/PricingPage";
@@ -21,9 +20,8 @@ import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
 import DashboardLayout from "./components/DashboardLayout";
-import OrderDetails from "./Pages/OrderDetails";
-import CustomerDetails from "./Pages/CustomerDetails";
-
+import OrderDetails from "./details-pages/OrderDetails";
+import CustomerDetails from "./details-pages/CustomerDetails";
 
 // Create Pages
 import CreateOrder from "./create-pages/CreateOrder";
@@ -106,7 +104,7 @@ export default function App() {
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="user-management" element={<UserManagement />} />
-        
+
         <Route path="products" element={<Products />} />
         <Route path="create-product" element={<CreateProduct />} />
         <Route path="create-category" element={<CreateCategory />} />

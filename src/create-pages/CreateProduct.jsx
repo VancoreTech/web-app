@@ -1,11 +1,18 @@
 import React, { useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ChevronDown, FileUpIcon } from "lucide-react";
-import exclamation from "../assets/exclamation.svg";
-import success from "../assets/success.svg";
-import ConfirmModal from "../components/ConfirmModal";
-import SuccessModal from "../components/SuccessModal";
+import {
+  ArrowLeft,
+  ChevronDown,
+  Delete,
+  DeleteIcon,
+  FileUpIcon,
+  LucideDelete,
+  XIcon,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import ConfirmModal from "../Modal/ConfirmModal";
+import SuccessModal from "../Modal/SuccessModal";
 
 const arrows = (
   <svg
@@ -16,39 +23,48 @@ const arrows = (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M10.1571 13.2106L4.50006 18.8676L3.08606 17.4536L8.03606 12.5036L3.08606 7.55365L4.50006 6.13965L10.1571 11.7966C10.3445 11.9842 10.4498 12.2385 10.4498 12.5036C10.4498 12.7688 10.3445 13.0231 10.1571 13.2106Z"
       fill="#0A6DEE"
-      fill-opacity="0.36"
+      fillOpacity="0.36"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M16.1571 13.2106L10.5001 18.8676L9.08606 17.4536L14.0361 12.5036L9.08606 7.55365L10.5001 6.13965L16.1571 11.7966C16.3445 11.9842 16.4498 12.2385 16.4498 12.5036C16.4498 12.7688 16.3445 13.0231 16.1571 13.2106Z"
       fill="#0A6DEE"
-      fill-opacity="0.8"
+      fillOpacity="0.8"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M22.1571 13.2106L16.5001 18.8676L15.0861 17.4536L20.0361 12.5036L15.0861 7.55365L16.5001 6.13965L22.1571 11.7966C22.3445 11.9842 22.4498 12.2385 22.4498 12.5036C22.4498 12.7688 22.3445 13.0231 22.1571 13.2106Z"
       fill="#0A6DEE"
     />
   </svg>
 );
 
-const ImageUpload = () => {
+const ImageUpload = ({ images, setImages }) => {
   const fileInputRef = useRef();
   const [isDragging, setIsDragging] = useState(false);
 
   const handleFileClick = () => fileInputRef.current.click();
 
+  const isDuplicate = (file, images) =>
+    images.some(
+      (img) =>
+        img.name === file.name &&
+        img.size === file.size &&
+        img.lastModified === file.lastModified
+    );
+
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
     const files = Array.from(e.dataTransfer.files);
-    console.log("Dropped files:", files);
+    const uniqueFiles = files.filter((file) => !isDuplicate(file, images));
+    setImages((prev) => [...prev, ...uniqueFiles]);
   };
 
   const handleDragOver = (e) => {
@@ -79,6 +95,7 @@ const ImageUpload = () => {
       </div>
 
       <button
+        type="button"
         onClick={handleFileClick}
         className="bg-[#ECEFF3] text-xs text-blue-900 font-medium py-3 px-5 rounded-full hover:bg-gray-200 transition"
       >
@@ -88,11 +105,35 @@ const ImageUpload = () => {
       <input
         type="file"
         ref={fileInputRef}
-        onChange={(e) => console.log(e.target.files)}
+        onChange={(e) => {
+          const files = Array.from(e.target.files);
+          setImages((prev) => [...prev, ...files]);
+        }}
         className="hidden"
         multiple
         accept="image/*"
       />
+
+      {images && (
+        <div className="flex flex-wrap items-center gap-2 ">
+          {images.map((img, index) => (
+            <div key={index} className="relative inline-block">
+              <img
+                src={URL.createObjectURL(img)}
+                alt={`upload-${index}`}
+                className="w-20 h-20 border-2 object-cover rounded-lg "
+              />
+
+              <XIcon
+                className="cursor-pointer absolute top-0 right-0"
+                onClick={() => {
+                  setImages((prev) => prev.filter((_, i) => i !== index));
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -102,7 +143,68 @@ function CreateProduct() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showCancelConfirmModal, setShowCancelConfirmModal] = useState(false);
   const [showCancelSuccessModal, setShowCancelSuccessModal] = useState(false);
-  const [showProductModal, setShowProductModal] = useState(false);
+  const [images, setImages] = useState([]);
+
+  function getImage(e) {
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
+
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    category: "",
+    productName: "",
+    pricing: "",
+    costPrice: "",
+    description: "",
+    stockQuantity: "",
+  });
+  function addProduct(e) {
+    e.preventDefault();
+
+    const data = new FormData(e.target);
+    const product = {
+      category: data.get("category"),
+      productName: data.get("product-name"),
+      pricing: data.get("pricing"),
+      discountPrice: data.get("discount-price"),
+      costPrice: data.get("cost-price"),
+      description: data.get("description"),
+      stockQty: data.get("stock-quantity"),
+      stockLimited: data.get("stock-limited"),
+      maxLimit: data.get("max-limit"),
+      minLimit: data.get("min-limit"),
+    };
+
+    const requiredFields = [
+      "category",
+      "productName",
+      "pricing",
+      "costPrice",
+      "description",
+      "stockQuantity",
+    ];
+
+    const fieldsAreFilled = requiredFields.every(
+      (field) => product[field]?.trim() !== ""
+    );
+
+    const hasEnoughImages = images.length >= 3;
+
+    if (!fieldsAreFilled || !hasEnoughImages) {
+      alert(
+        "Please fill out all required fields and upload at least 3 images."
+      );
+      return;
+    }
+
+    setFormData(product);
+    setShowConfirmModal(true);
+  }
+
+  const isDisabled =
+    images.length < 3 ||
+    requiredFieldKeys.some((key) => !formData[key]?.trim());
 
   const handleCancel = () => {
     const hasFormData = Object.values(formData).some(
@@ -119,7 +221,6 @@ function CreateProduct() {
   const handleConfirmOrder = () => {
     console.log("Order created successfully", {
       ...formData,
-      selectedProducts,
     });
     setShowConfirmModal(false);
     setShowSuccessModal(true);
@@ -133,8 +234,7 @@ function CreateProduct() {
     setShowSuccessModal(false);
     navigate("/dashboard/product-details", {
       state: {
-        orderData: formData,
-        selectedProducts: selectedProducts,
+        productData: formData,
       },
     });
   };
@@ -154,12 +254,6 @@ function CreateProduct() {
     navigate("/dashboard/products");
   };
 
-  function addProduct(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const productName = formData.get("product-name");
-    console.log(productName);
-  }
   return (
     <div>
       <Navbar />
@@ -183,7 +277,7 @@ function CreateProduct() {
             Product image
           </h3>
 
-          <ImageUpload />
+          <ImageUpload images={images} setImages={setImages} />
 
           <h3 className="text-[#0a6dee] flex items-center gap-2 mb-6">
             {arrows}
@@ -197,16 +291,20 @@ function CreateProduct() {
               <select
                 name="category"
                 id="category"
+                value={formData.category}
                 className="w-full bg-[#ECEFF3]
                   px-4 py-3 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, category: e.target.value }))
+                }
               >
                 <option value="">Select a category</option>
-                <option value="">Category 1</option>
-                <option value="">Category 2</option>
-                <option value="">Category 3</option>
-                <option value="">Category 4</option>
-                <option value="">Category 5</option>
+                <option value="one">Category 1</option>
+                <option value="two">Category 2</option>
+                <option value="three">Category 3</option>
+                <option value="four">Category 4</option>
+                <option value="five">Category 5</option>
               </select>
 
               <ChevronDown className="absolute inset-y-0 top-5 right-4 pointer-events-none" />
@@ -220,11 +318,18 @@ function CreateProduct() {
               <input
                 type="text"
                 name="product-name"
+                value={formData.productName}
                 id="product-name"
                 placeholder="Enter product name"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] rounded-lg mt-1  "
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    productName: e.target.value,
+                  }))
+                }
               />
             </div>
 
@@ -234,11 +339,15 @@ function CreateProduct() {
               <input
                 type="text"
                 name="pricing"
+                value={formData.pricing}
                 id="pricing"
                 placeholder="Enter amount"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, pricing: e.target.value }))
+                }
               />
             </div>
           </div>
@@ -251,10 +360,17 @@ function CreateProduct() {
                 type="text"
                 name="discount-price"
                 id="discount-price"
+                value={formData.discountPrice}
                 placeholder="Enter discounted amount"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] mt-1 rounded-lg placeholder:text-[#B5B4B4]"
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    discountPrice: e.target.value,
+                  }))
+                }
               />
             </div>
 
@@ -265,10 +381,17 @@ function CreateProduct() {
                 type="text"
                 name="cost-price"
                 id="cost-price"
+                value={formData.costPrice}
                 placeholder="Enter cost price"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] mt-1 rounded-lg  placeholder:text-[#B5B4B4]"
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    costPrice: e.target.value,
+                  }))
+                }
               />
             </div>
           </div>
@@ -279,10 +402,17 @@ function CreateProduct() {
             <textarea
               name="description"
               id="description"
+              value={formData.description}
               className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2 w-full
                   border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
               placeholder="Enter product description"
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  description: e.target.value,
+                }))
+              }
             />
           </div>
 
@@ -294,10 +424,17 @@ function CreateProduct() {
                 type="text"
                 name="stock-quantity"
                 id="stock-quantity"
+                value={formData.stockQuantity}
                 placeholder="Enter stock quantity"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] mt-1 rounded-lg mr-3 placeholder:text-[#B5B4B4]"
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    stockQuantity: e.target.value,
+                  }))
+                }
               />
             </div>
 
@@ -313,6 +450,7 @@ function CreateProduct() {
                     type="radio"
                     name="stockLimited"
                     id="yes"
+                    value="yes"
                     className="mr-1 accent-[#0A6DEE]"
                   />
                   <label htmlFor="yes">Yes</label>
@@ -327,6 +465,7 @@ function CreateProduct() {
                     type="radio"
                     name="stockLimited"
                     id="no"
+                    value="no"
                     className="mr-1"
                   />
                   <label htmlFor="no">No</label>
@@ -343,10 +482,14 @@ function CreateProduct() {
                 type="text"
                 name="max-limit"
                 id="max-limit"
+                value={formData.maxLimit}
                 placeholder="Enter maximum order limit"
                 className="bg-[#ECEFF3]
                   px-4 py-3 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, maxLimit: e.target.value }))
+                }
               />
             </div>
 
@@ -357,10 +500,14 @@ function CreateProduct() {
                 type="text"
                 name="min-limit"
                 id="min-limit"
+                value={formData.minLimit}
                 placeholder="Enter minimum order limit"
                 className="bg-[#ECEFF3]
                   px-4 py-3 pr-4 appearance-none border-solid border-2
                   border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4]"
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, minLimit: e.target.value }))
+                }
               />
             </div>
           </div>
@@ -374,7 +521,8 @@ function CreateProduct() {
             </button>
             <button
               type="submit"
-              onClick={() => setShowConfirmModal(!showConfirm)}
+              onClick={() => setShowConfirmModal(!showConfirmModal)}
+              disabled={isDisabled}
               className="bg-[#0A6DEE] text-white px-12 py-2 text-sm font-semibold rounded-lg"
             >
               Proceed
@@ -394,7 +542,7 @@ function CreateProduct() {
           <SuccessModal
             isOpen={showSuccessModal}
             title="Success"
-            message="You have successfully created this order."
+            message="You have successfully created this product."
             onDone={handleSuccessDone}
           />
 
@@ -402,7 +550,7 @@ function CreateProduct() {
           <ConfirmModal
             isOpen={showCancelConfirmModal}
             title="Confirm action"
-            message="Are you sure you want to trash this order?"
+            message="Are you sure you want to trash this product?"
             onConfirm={handleConfirmCancel}
             onCancel={handleCancelCancelConfirm}
           />
@@ -411,7 +559,7 @@ function CreateProduct() {
           <SuccessModal
             isOpen={showCancelSuccessModal}
             title="Success"
-            message="You have successfully trashed this order."
+            message="You have successfully trashed this product."
             onDone={handleCancelSuccessDone}
           />
         </form>
