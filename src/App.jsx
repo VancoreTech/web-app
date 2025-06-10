@@ -1,10 +1,9 @@
-"use client";
 
 import { useState } from "react";
 import RegistrationFlow from "./components/RegistrationFlow";
 import PricingPage from "./components/PricingPage";
 import SignInPage from "./components/SignInPage";
-import VerificationModal from "./components/VerificationModal";
+import VerificationModal from "./Modal/VerificationModal";
 import ForgotPasswordFlow from "./components/ForgotPasswordFlow";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -24,12 +23,14 @@ import HelpSupport from "./Pages/HelpSupport";
 import DashboardLayout from "./components/DashboardLayout";
 import OrderDetails from "./Pages/OrderDetails";
 import CustomerDetails from "./Pages/CustomerDetails";
-import AddCustomer from "./Pages/AddCustomer";
+
 
 // Create Pages
 import CreateOrder from "./create-pages/CreateOrder";
 import CreateProduct from "./create-pages/CreateProduct";
 import CreateCategory from "./create-pages/CreateCategory";
+import CreateCustomer from "./create-pages/CreateCustomer";
+import EditCustomer from "./Pages/EditCustomer";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -105,7 +106,7 @@ export default function App() {
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="user-management" element={<UserManagement />} />
-
+        
         <Route path="products" element={<Products />} />
         <Route path="create-product" element={<CreateProduct />} />
         <Route path="create-category" element={<CreateCategory />} />
@@ -116,7 +117,8 @@ export default function App() {
 
         <Route path="customers" element={<Customers />} />
         <Route path="customer-details" element={<CustomerDetails />} />
-        <Route path="add-customer" element={<AddCustomer />} />
+        <Route path="create-customer" element={<CreateCustomer />} />
+        <Route path="edit-customer" element={<EditCustomer />} />
 
         <Route path="analytics" element={<Analytics />} />
         <Route path="campaigns" element={<Campaigns />} />

@@ -187,7 +187,7 @@ const Customers = () => {
               <Upload className="h-4 w-4 text-blue-600" />
               <span className="text-blue-600">Export CSV</span>
             </button>
-            <Link to="/dashboard/add-customer">
+            <Link to="/dashboard/create-customer">
               <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
                 <Plus className="h-4 w-4" />
                 Add new customer

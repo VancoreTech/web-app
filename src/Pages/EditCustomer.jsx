@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const EditCustomer = () => {
   const [formData, setFormData] = useState({
@@ -33,9 +34,10 @@ const EditCustomer = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <Navbar />
+      <div className="mx-auto space-y-6">
         <div className="flex items-center gap-4">
-          <Link to="/customers">
+          <Link to="/dashboard/customer-details">
             <button className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
               <ArrowLeft className="h-4 w-4" />
               Back

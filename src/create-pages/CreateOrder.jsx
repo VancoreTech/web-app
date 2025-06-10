@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import Navbar from "../components/Navbar";
-import ProductSelectionModal from "../components/ProductSelectionModal";
-import ConfirmModal from "../components/ConfirmModal";
-import SuccessModal from "../components/SuccessModal";
+import ProductSelectionModal from "../Modal/ProductSelectionModal";
+import ConfirmModal from "../Modal/ConfirmModal";
+import SuccessModal from "../Modal/SuccessModal";
 
 const CreateOrder = () => {
   const navigate = useNavigate();
@@ -233,6 +233,14 @@ const CreateOrder = () => {
                       <option value="">Select customer</option>
                       <option value="customer1">Customer 1</option>
                       <option value="customer2">Customer 2</option>
+                      <option value="customer3">Customer 3</option>
+                      <option value="customer4">Customer 4</option>
+                      <option value="customer5">Customer 5</option>
+                      <option value="customer6">Customer 6</option>
+                      <option value="customer7">Customer 7</option>
+                      <option value="customer8">Customer 8</option>
+                      <option value="customer9">Customer 9</option>
+                      <option value="customer10">Customer 10</option>
                     </select>
                     <ChevronDown className="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
                   </div>
