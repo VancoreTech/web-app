@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Calendar,LucideWallet2, Box, Users2, Command, ArrowUpToLine, ListFilter, MoreVertical} from 'lucide-react';
+import { Search, LucideWallet2, Box, Users2, Command, ArrowUpToLine, ListFilter, MoreVertical} from 'lucide-react';
 import Navbar from '../components/Navbar';
-
+import DateSelector from '../components/DateSelector';
+import { useDateSelection } from '../hooks/UseDateSelection';
 import { ordersData } from '../data/data';
 import { StatsCard } from '../components/StatsCard';
 import Pagination from '../components/Pagination';
@@ -28,12 +29,14 @@ export const ArrowupDown = () => {
   );
 };
 
-
 const Orders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+
+  // Use the custom hook for date selection
+  const dateSelection = useDateSelection();
 
   // Filter and paginate orders
   const filteredOrders = useMemo(() => {
@@ -91,7 +94,6 @@ const Orders = () => {
               period="vs 7 days ago"
               color="bg-[#6E90C7]"
             />
-
             <StatsCard
               icon={Box}
               title="Total orders"
@@ -139,10 +141,7 @@ const Orders = () => {
                     <ListFilter className="w-4 h-4 mr-2" />
                     Filter
                   </button>
-                  <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    Select Date
-                  </button>
+                  <DateSelector {...dateSelection} />
                 </div>
               </div>
             </div>
@@ -156,10 +155,10 @@ const Orders = () => {
                       <input type="checkbox" className="rounded border-gray-300" />
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center">
-                      ACTION
-                      <ArrowupDown className="w-4 h-4 ml-1" />
-                    </div>
+                      <div className="flex items-center">
+                        ACTION
+                        <ArrowupDown className="w-4 h-4 ml-1" />
+                      </div>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <div className="flex items-center">

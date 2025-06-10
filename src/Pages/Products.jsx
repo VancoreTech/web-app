@@ -13,8 +13,11 @@ import {
   Users,
   MoreVertical,
   ColumnsIcon,
+  ListFilter,
 } from "lucide-react";
 import { StatsCard } from "../components/StatsCard";
+import DateSelector from "../components/DateSelector";
+import { useDateSelection } from '../hooks/UseDateSelection';
 import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
 
@@ -187,6 +190,7 @@ const Products = () => {
   const [activeTab, setActiveTab] = useState("products");
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
+  const dateSelection = useDateSelection();
 
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [productData, setProductData] = useState([]);
@@ -321,13 +325,10 @@ const Products = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    <Filter className="w-4 h-4 mr-2" />
+                    <ListFilter className="w-4 h-4 mr-2" />
                     Filter
                   </button>
-                  <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    Select Date
-                  </button>
+                  <DateSelector {...dateSelection} />
                 </div>
               </div>
             </div>
