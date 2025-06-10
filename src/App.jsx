@@ -25,8 +25,6 @@ import DashboardLayout from "./components/DashboardLayout";
 import OrderDetails from "./Pages/OrderDetails";
 import CustomerDetails from "./Pages/CustomerDetails";
 import AddCustomer from "./Pages/AddCustomer";
-import CreateProduct from "./create-pages/CreateProduct";
-import CreateCategory from "./create-pages/CreateCategory";
 
 // Create Pages
 import CreateOrder from "./create-pages/CreateOrder";

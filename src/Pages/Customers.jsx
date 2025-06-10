@@ -8,9 +8,12 @@ import {
   Users2,
   Newspaper,
   MoreVertical,
+  ListFilter,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import DateSelector from "../components/DateSelector";
+import { useDateSelection } from "../hooks/UseDateSelection";
 import { customersData } from "../data/data";
 import { StatsCard } from "../components/StatsCard";
 import Pagination from "../components/Pagination";
@@ -108,7 +111,7 @@ const groupIcon = () => {
           />
           <feBlend
             mode="normal"
-            in2="effect1_dropShadow_1104_20608"
+            in2="effect2_dropShadow_1104_20608"
             result="effect2_dropShadow_1104_20608"
           />
           <feBlend
@@ -127,6 +130,11 @@ const Customers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
+
+  const dateSelection = useDateSelection();
+
 
   const filteredCustomers = useMemo(() => {
     if (!searchTerm.trim()) {
@@ -248,14 +256,15 @@ const Customers = () => {
                 />
               </div>
               <div className="flex items-center gap-3">
-                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                  <Filter className="h-4 w-4" />
-                  Filter
-                </button>
-                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                  <Calendar className="h-4 w-4" />
-                  Select Date
-                </button>
+                  <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                    <ListFilter className="h-4 w-4" />
+                    Filter
+                  </button>
+                  <DateSelector 
+                    {...dateSelection} 
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                  />
+                
               </div>
             </div>
           </div>
