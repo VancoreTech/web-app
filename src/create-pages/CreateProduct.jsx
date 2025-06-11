@@ -10,40 +10,10 @@ import {
   LucideDelete,
   XIcon,
 } from "lucide-react";
+import arrows from "../assets/arrows.svg";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../Modal/ConfirmModal";
 import SuccessModal from "../Modal/SuccessModal";
-
-const arrows = (
-  <svg
-    width="24"
-    height="25"
-    viewBox="0 0 24 25"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M10.1571 13.2106L4.50006 18.8676L3.08606 17.4536L8.03606 12.5036L3.08606 7.55365L4.50006 6.13965L10.1571 11.7966C10.3445 11.9842 10.4498 12.2385 10.4498 12.5036C10.4498 12.7688 10.3445 13.0231 10.1571 13.2106Z"
-      fill="#0A6DEE"
-      fillOpacity="0.36"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M16.1571 13.2106L10.5001 18.8676L9.08606 17.4536L14.0361 12.5036L9.08606 7.55365L10.5001 6.13965L16.1571 11.7966C16.3445 11.9842 16.4498 12.2385 16.4498 12.5036C16.4498 12.7688 16.3445 13.0231 16.1571 13.2106Z"
-      fill="#0A6DEE"
-      fillOpacity="0.8"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M22.1571 13.2106L16.5001 18.8676L15.0861 17.4536L20.0361 12.5036L15.0861 7.55365L16.5001 6.13965L22.1571 11.7966C22.3445 11.9842 22.4498 12.2385 22.4498 12.5036C22.4498 12.7688 22.3445 13.0231 22.1571 13.2106Z"
-      fill="#0A6DEE"
-    />
-  </svg>
-);
 
 const ImageUpload = ({ images, setImages }) => {
   const fileInputRef = useRef();
@@ -218,8 +188,8 @@ function CreateProduct() {
     }
   };
 
-  const handleConfirmOrder = () => {
-    console.log("Order created successfully", {
+  const handleConfirmProduct = () => {
+    console.log("Product created successfully", {
       ...formData,
     });
     setShowConfirmModal(false);
@@ -273,14 +243,14 @@ function CreateProduct() {
           className="bg-white rounded-[10px] py-5 pl-8 pr-16 mt-10 "
         >
           <h3 className="text-[#0a6dee] flex items-center gap-2 mb-6">
-            {arrows}
+            <img src={arrows} alt="" />
             Product image
           </h3>
 
           <ImageUpload images={images} setImages={setImages} />
 
           <h3 className="text-[#0a6dee] flex items-center gap-2 mb-6">
-            {arrows}
+            <img src={arrows} alt="" />
             Product Details
           </h3>
 
@@ -323,7 +293,7 @@ function CreateProduct() {
                 placeholder="Enter product name"
                 className="bg-[#ECEFF3]
                   px-4 py-2.5 pr-4 appearance-none border-solid border-2
-                  border-[#EBEBEB] rounded-lg mt-1  "
+                  border-[#EBEBEB] rounded-lg mt-1 placeholder:text-[#B5B4B4] "
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
@@ -534,7 +504,7 @@ function CreateProduct() {
             isOpen={showConfirmModal}
             title="Confirm action"
             message="Are you sure you want to create this product?"
-            onConfirm={handleConfirmOrder}
+            onConfirm={handleConfirmProduct}
             onCancel={handleCancelConfirm}
           />
 
