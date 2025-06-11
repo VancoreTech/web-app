@@ -29,8 +29,15 @@ import CreateProduct from "./create-pages/CreateProduct";
 import CreateCategory from "./create-pages/CreateCategory";
 import CreateCustomer from "./create-pages/CreateCustomer";
 import EditCustomer from "./Pages/EditCustomer";
-import ProductDetails from "./details-pages/ProductDetails";
 import CategoryDetails from "./details-pages/CategoryDetails";
+import EditProduct from "./Pages/EditProduct";
+
+//PRODUCT DETAILS
+import ProductDetails from "./Pages/product-details/ProductDetails";
+import ProductLayout from "./Pages/product-details/ProductLayout";
+import History from "./Pages/product-details/History";
+import AllOrders from "./Pages/product-details/AllOrders";
+import Inventory from "./Pages/product-details/Inventory";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -110,7 +117,14 @@ export default function App() {
         <Route path="products" element={<Products />} />
         <Route path="create-product" element={<CreateProduct />} />
         <Route path="create-category" element={<CreateCategory />} />
-        <Route path="product-details" element={<ProductDetails />} />
+        <Route path="product-details" element={<ProductLayout />}>
+          <Route index element={<ProductDetails />} />
+          <Route path="history" element={<History />} />
+
+          <Route path="all-orders" element={<AllOrders />} />
+          <Route path="inventory" element={<Inventory />} />
+        </Route>
+        <Route path="edit-product" element={<EditProduct />} />
         <Route path="category-details" element={<CategoryDetails />} />
 
         <Route path="orders" element={<Orders />} />
