@@ -128,6 +128,8 @@ function CreateProduct() {
     costPrice: "",
     description: "",
     stockQuantity: "",
+    minimum: "",
+    maximum: "",
   });
 
   const requiredFields = [
@@ -228,7 +230,7 @@ function CreateProduct() {
     <div>
       <Navbar />
 
-      <div className="p-10 relative">
+      <div className="py-10 px-7 relative">
         <Link
           to="/dashboard/products"
           className="bg-white flex items-center content-center gap-2 text-[#344054] text-sm rounded-md  w-24 px-4 py-2 mb-4"

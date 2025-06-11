@@ -1,12 +1,22 @@
-import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Search, LucideWallet2, Box, Users2, Command, ArrowUpToLine, ListFilter, MoreVertical} from 'lucide-react';
-import Navbar from '../components/Navbar';
-import DateSelector from '../components/DateSelector';
-import { useDateSelection } from '../hooks/UseDateSelection';
-import { ordersData } from '../data/data';
-import { StatsCard } from '../components/StatsCard';
-import Pagination from '../components/Pagination';
+import React, { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Search,
+  LucideWallet2,
+  Box,
+  Users2,
+  Command,
+  ArrowUpToLine,
+  ListFilter,
+  MoreVertical,
+} from "lucide-react";
+import Navbar from "../components/Navbar";
+import DateSelector from "../components/DateSelector";
+import { useDateSelection } from "../hooks/UseDateSelection";
+import { ordersData } from "../data/data";
+import { StatsCard } from "../components/StatsCard";
+import Pagination from "../components/Pagination";
+import More from "../Modal/More";
 
 export const ArrowupDown = () => {
   return (
@@ -32,7 +42,8 @@ export const ArrowupDown = () => {
 const Orders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showMore, setShowMore] = useState(false);
   const navigate = useNavigate();
 
   // Use the custom hook for date selection
@@ -40,9 +51,10 @@ const Orders = () => {
 
   // Filter and paginate orders
   const filteredOrders = useMemo(() => {
-    return ordersData.filter(order => 
-      order.orderName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.orderId.toLowerCase().includes(searchTerm.toLowerCase())
+    return ordersData.filter(
+      (order) =>
+        order.orderName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.orderId.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm]);
 
@@ -70,14 +82,19 @@ const Orders = () => {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h1 className="text-2xl font-semibold text-gray-900">Orders</h1>
-              <p className="text-sm text-gray-500">{filteredOrders.length} orders</p>
+              <p className="text-sm text-gray-500">
+                {filteredOrders.length} orders
+              </p>
             </div>
             <div className="flex items-center space-x-3">
               <button className="flex items-center px-4 py-2 border border-blue-600 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                 <ArrowUpToLine className="w-4 h-4 mr-2 text-blue-600" />
                 <span className="text-blue-600">Export CSV</span>
               </button>
-              <button onClick={() => navigate('/dashboard/create-order')} className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+              <button
+                onClick={() => navigate("/dashboard/create-order")}
+                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
+              >
                 <span className="mr-2">+</span>
                 Create an order
               </button>
@@ -152,7 +169,10 @@ const Orders = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left">
-                      <input type="checkbox" className="rounded border-gray-300" />
+                      <input
+                        type="checkbox"
+                        className="rounded border-gray-300"
+                      />
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <div className="flex items-center">
@@ -202,10 +222,16 @@ const Orders = () => {
                   {currentOrders.map((order, index) => (
                     <tr key={index} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
-                        <input type="checkbox" className="rounded border-gray-300" />
+                        <input
+                          type="checkbox"
+                          className="rounded border-gray-300"
+                        />
                       </td>
                       <td className="px-6 py-4">
-                        <button className="text-gray-400 hover:text-gray-600">
+                        <button
+                          className="text-gray-400 hover:text-gray-600"
+                          onClick={() => setShowMore(!showMore)}
+                        >
                           <MoreVertical className="w-5 h-5" />
                         </button>
                       </td>
@@ -222,11 +248,13 @@ const Orders = () => {
                         {order.date}
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                          order.payment === 'Paid' 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-red-100 text-red-800'
-                        }`}>
+                        <span
+                          className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                            order.payment === "Paid"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                          }`}
+                        >
                           • {order.payment}
                         </span>
                       </td>
@@ -239,6 +267,8 @@ const Orders = () => {
                   ))}
                 </tbody>
               </table>
+
+              {showMore && <More />}
             </div>
 
             {/* Pagination */}

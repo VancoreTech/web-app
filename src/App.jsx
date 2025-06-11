@@ -19,12 +19,14 @@ import Transactions from "./Pages/Transactions";
 import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
+
 import DashboardLayout from "./components/DashboardLayout"; 
 import EditGroup from "./Pages/EditGroup";
 
 // Details Pages
 import ProductDetails from "./details-pages/ProductDetails";
 import CategoryDetails from "./details-pages/CategoryDetails";
+
 import OrderDetails from "./details-pages/OrderDetails";
 import CustomerDetails from "./details-pages/CustomerDetails";
 import CustomerGroupDetails from "./details-pages/CustomerGroupDetails";
@@ -35,8 +37,8 @@ import CreateProduct from "./create-pages/CreateProduct";
 import CreateCategory from "./create-pages/CreateCategory";
 import CreateCustomer from "./create-pages/CreateCustomer";
 import EditCustomer from "./Pages/EditCustomer";
-import CreateGroup from "./create-pages/CreateGroup";
-
+import ProductDetails from "./details-pages/ProductDetails";
+import CategoryDetails from "./details-pages/CategoryDetails";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -116,7 +118,14 @@ export default function App() {
         <Route path="products" element={<Products />} />
         <Route path="create-product" element={<CreateProduct />} />
         <Route path="create-category" element={<CreateCategory />} />
-        <Route path="product-details" element={<ProductDetails />} />
+        <Route path="product-details" element={<ProductLayout />}>
+          <Route index element={<ProductDetails />} />
+          <Route path="history" element={<History />} />
+
+          <Route path="all-orders" element={<AllOrders />} />
+          <Route path="inventory" element={<Inventory />} />
+        </Route>
+        <Route path="edit-product" element={<EditProduct />} />
         <Route path="category-details" element={<CategoryDetails />} />
 
         <Route path="orders" element={<Orders />} />
@@ -127,6 +136,7 @@ export default function App() {
         <Route path="customer-details" element={<CustomerDetails />} />
         <Route path="create-customer" element={<CreateCustomer />} />
         <Route path="edit-customer" element={<EditCustomer />} />
+
         <Route path="create-group" element={<CreateGroup />} />
         <Route path="customer-group-details" element={<CustomerGroupDetails />} />
         <Route path="edit-group" element={<EditGroup />} />
