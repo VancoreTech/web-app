@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Search,
@@ -45,6 +45,21 @@ const Orders = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showMore, setShowMore] = useState(false);
   const navigate = useNavigate();
+
+  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+  const dropDownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+        setOpenDropdownIndex(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Use the custom hook for date selection
   const dateSelection = useDateSelection();
@@ -228,12 +243,29 @@ const Orders = () => {
                         />
                       </td>
                       <td className="px-6 py-4">
-                        <button
-                          className="text-gray-400 hover:text-gray-600"
-                          onClick={() => setShowMore(!showMore)}
+                        <div
+                          className="relative inline-block"
+                          ref={openDropdownIndex === index ? dropDownRef : null}
                         >
-                          <MoreVertical className="w-5 h-5" />
-                        </button>
+                          <button
+                            className="text-gray-400 hover:text-gray-600"
+                            onClick={() =>
+                              setOpenDropdownIndex(
+                                openDropdownIndex === index ? null : index
+                              )
+                            }
+                          >
+                            <MoreVertical className="w-5 h-5" />
+                          </button>
+                          {openDropdownIndex === index && (
+                            <More
+                              destinations={[
+                                "/dashboard/order-details",
+                                "/dashboard/edit-category",
+                              ]}
+                            />
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900">
                         {order.orderId}

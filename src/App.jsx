@@ -20,6 +20,9 @@ import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
 import DashboardLayout from "./components/DashboardLayout";
+
+// Details Pages
+import CategoryDetails from "./details-pages/CategoryDetails";
 import OrderDetails from "./details-pages/OrderDetails";
 import CustomerDetails from "./details-pages/CustomerDetails";
 import CustomerGroupDetails from "./details-pages/CustomerGroupDetails";
@@ -30,8 +33,17 @@ import CreateProduct from "./create-pages/CreateProduct";
 import CreateCategory from "./create-pages/CreateCategory";
 import CreateCustomer from "./create-pages/CreateCustomer";
 import EditCustomer from "./Pages/EditCustomer";
-import ProductDetails from "./details-pages/ProductDetails";
-import CategoryDetails from "./details-pages/CategoryDetails";
+// import CategoryDetails from "./details-pages/CategoryDetails";
+import EditProduct from "./Pages/EditProduct";
+import CreateGroup from "./create-pages/CreateGroup";
+
+//PRODUCT DETAILS
+import ProductDetails from "./Pages/product-details/ProductDetails";
+import ProductLayout from "./Pages/product-details/ProductLayout";
+import History from "./Pages/product-details/History";
+import AllOrders from "./Pages/product-details/AllOrders";
+import Inventory from "./Pages/product-details/Inventory";
+import EditCategory from "./Pages/EditCategory";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -120,6 +132,7 @@ export default function App() {
         </Route>
         <Route path="edit-product" element={<EditProduct />} />
         <Route path="category-details" element={<CategoryDetails />} />
+        <Route path="edit-category" element={<EditCategory />} />
 
         <Route path="orders" element={<Orders />} />
         <Route path="create-order" element={<CreateOrder />} />
@@ -129,7 +142,11 @@ export default function App() {
         <Route path="customer-details" element={<CustomerDetails />} />
         <Route path="create-customer" element={<CreateCustomer />} />
         <Route path="edit-customer" element={<EditCustomer />} />
-
+        <Route path="create-group" element={<CreateGroup />} />
+        <Route
+          path="customer-group-details"
+          element={<CustomerGroupDetails />}
+        />
         <Route path="analytics" element={<Analytics />} />
         <Route path="campaigns" element={<Campaigns />} />
         <Route path="discounts" element={<DiscountsCoupons />} />

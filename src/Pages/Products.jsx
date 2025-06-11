@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import {
   ArrowUp,
@@ -64,10 +64,9 @@ const AvailabilityToggle = ({ status }) => {
 
 const ProductsTable = ({
   currentProducts,
-  showMore,
-  setShowMore,
   openDropdownIndex,
   setOpenDropdownIndex,
+  dropDownRef,
 }) => {
   return (
     <div className="overflow-x-auto relative inline-block">
@@ -140,7 +139,10 @@ const ProductsTable = ({
                     />
                   </td>
                   <td className="px-6 py-4">
-                    <div className="relative inline-block">
+                    <div
+                      className="relative inline-block"
+                      ref={openDropdownIndex === index ? dropDownRef : null}
+                    >
                       <button
                         className="text-gray-400 hover:text-gray-600"
                         onClick={() =>
@@ -197,7 +199,12 @@ const ProductsTable = ({
   );
 };
 
-const CategoriesTable = ({ currentProducts }) => {
+const CategoriesTable = ({
+  currentProducts,
+  openDropdownIndex,
+  setOpenDropdownIndex,
+  dropDownRef,
+}) => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
@@ -259,12 +266,29 @@ const CategoriesTable = ({ currentProducts }) => {
                     />
                   </td>
                   <td className="px-6 py-4">
-                    <button
-                      className="text-gray-400 hover:text-gray-600"
-                      onClick={() => setShowMore(!showMore)}
+                    <div
+                      className="relative inline-block"
+                      ref={openDropdownIndex === index ? dropDownRef : null}
                     >
-                      <MoreVertical className="w-5 h-5" />
-                    </button>
+                      <button
+                        className="text-gray-400 hover:text-gray-600"
+                        onClick={() =>
+                          setOpenDropdownIndex(
+                            openDropdownIndex === index ? null : index
+                          )
+                        }
+                      >
+                        <MoreVertical className="w-5 h-5" />
+                      </button>
+                      {openDropdownIndex === index && (
+                        <More
+                          destinations={[
+                            "/dashboard/category-details",
+                            "/dashboard/edit-category",
+                          ]}
+                        />
+                      )}
+                    </div>
                   </td>
 
                   <td className="px-6 py-4 text-xs text-gray-900">
@@ -292,6 +316,21 @@ const Products = () => {
   const dateSelection = useDateSelection();
 
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+  const dropDownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+        setOpenDropdownIndex(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [productData, setProductData] = useState([]);
@@ -615,6 +654,7 @@ const Products = () => {
                 setShowMore={setShowMore}
                 openDropdownIndex={openDropdownIndex}
                 setOpenDropdownIndex={setOpenDropdownIndex}
+                dropDownRef={dropDownRef}
               />
             ) : (
               <CategoriesTable
@@ -628,6 +668,7 @@ const Products = () => {
                 categoryFilter={categoryFilter}
                 openDropdownIndex={openDropdownIndex}
                 setOpenDropdownIndex={setOpenDropdownIndex}
+                dropDownRef={dropDownRef}
               />
             )}
 

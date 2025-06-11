@@ -13,7 +13,7 @@ const activeStyles = {
 
 function ProductLayout() {
   return (
-    <div>
+    <div className="bg-[#FAFAFA]">
       <Navbar />
 
       <div className="py-10 px-7">
@@ -34,24 +34,23 @@ function ProductLayout() {
             </span>
           </div>
 
-          <button className="flex bg-white items-center gap-1 rounded-lg px-3 py-2 border border-[#D0D5DD]">
-            <Calendar />
+          <button className="flex bg-white items-center gap-2 rounded-lg px-3 py-2 border border-[#D0D5DD]">
+            <Calendar className="w-5 h-5" />
             Select Date
           </button>
         </div>
 
         {/* <div className="bg-[#E9EBFC] mt-5 rounded w-full pt-4 -pb-2"> */}
-        <img src={productimage} alt="Product Image" className="my-6" />
+        <img src={productimage} alt="Product Image" className="mt-6" />
         {/* </div> */}
       </div>
 
-      <div className="flex justify-evenly w-4/5">
+      <div className="flex justify-evenly gap-10 w-11/12">
         <NavLink
-          //   className="text-[#475467]"
           className={({ isActive }) =>
             ` relative px-2 pb-2 text-sm capitalize ${
               isActive
-                ? "text-[#4705E3] after:content-[''] after:absolute after:right-[-80%] after:bottom-0 after:w-[250%] after:h-[2px] after:bg-[#4705E3] :transition-all after:duration-300"
+                ? "text-[#4705E3] font-bold after:content-[''] after:absolute after:right-[-100%] after:bottom-0 after:w-[300%] after:h-[1px] after:bg-[#4705E3] :transition-all after:duration-300"
                 : "text-[#475467]"
             }`
           }
@@ -64,7 +63,7 @@ function ProductLayout() {
           className={({ isActive }) =>
             ` relative px-2 pb-2 text-sm capitalize ${
               isActive
-                ? "text-[#4705E3] after:content-[''] after:absolute after:right-[-80%] after:bottom-0 after:w-[250%] after:h-[2px] after:bg-[#4705E3] :transition-all after:duration-300"
+                ? "text-[#4705E3] font-bold after:content-[''] after:absolute after:right-[-100%] after:bottom-0 after:w-[300%] after:h-[1px] after:bg-[#4705E3] :transition-all after:duration-300"
                 : "text-[#475467]"
             }`
           }
@@ -76,7 +75,7 @@ function ProductLayout() {
           className={({ isActive }) =>
             ` relative px-2 pb-2 text-sm capitalize ${
               isActive
-                ? "text-[#4705E3] after:content-[''] after:absolute after:right-[-80%] after:bottom-0 after:w-[250%] after:h-[2px] after:bg-[#4705E3] :transition-all after:duration-300"
+                ? "text-[#4705E3] font-bold after:content-[''] after:absolute after:right-[-80%] after:bottom-0 after:w-[250%] after:h-[1px] after:bg-[#4705E3] :transition-all after:duration-300"
                 : "text-[#475467]"
             }`
           }
@@ -88,7 +87,7 @@ function ProductLayout() {
           className={({ isActive }) =>
             ` relative px-2 pb-2 text-sm capitalize ${
               isActive
-                ? "text-[#4705E3] after:content-[''] after:absolute after:right-[-80%] after:bottom-0 after:w-[250%] after:h-[2px] after:bg-[#4705E3] :transition-all after:duration-300"
+                ? "text-[#4705E3] font-bold after:content-[''] after:absolute after:right-[-80%] after:bottom-0 after:w-[250%] after:h-[1px] after:bg-[#4705E3] :transition-all after:duration-300"
                 : "text-[#475467]"
             }`
           }
@@ -96,6 +95,41 @@ function ProductLayout() {
         >
           Inventory
         </NavLink>
+      </div>
+
+      <div className="flex gap-3 w-95% pl-7 pr-7 mt-6 pb-3 justify-evenly ">
+        <div class="relative w-1/4 h-20 bg-white border border-[#EBEBEB] rounded-md shadow-sm flex items-center px-4">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#0BB158] rounded-l-md"></div>
+
+          <div class="pl-2">
+            <p class="text-sm text-gray-500">Total in-stock</p>
+            <p class="text-2xl font-semibold text-gray-900">46</p>
+          </div>
+        </div>
+        <div class="relative w-1/4 h-20 bg-white border border-[#EBEBEB] rounded-md shadow-sm flex items-center px-4">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#B10B0B] rounded-l-md"></div>
+
+          <div class="pl-2">
+            <p class="text-sm text-gray-500">Total sold</p>
+            <p class="text-2xl font-semibold text-gray-900">23</p>
+          </div>
+        </div>
+        <div class="relative w-1/4 h-20 bg-white border border-[#EBEBEB] rounded-md shadow-sm flex items-center px-4">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#ABB10B] rounded-l-md"></div>
+
+          <div class="pl-2">
+            <p class="text-sm text-gray-500">Total added</p>
+            <p class="text-2xl font-semibold text-gray-900">13</p>
+          </div>
+        </div>
+        <div class="relative w-1/4 h-20 bg-white border border-[#EBEBEB] rounded-md shadow-sm flex items-center px-4">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#0B9BB1] rounded-l-md"></div>
+
+          <div class="pl-2">
+            <p class="text-sm text-gray-500">Total removed</p>
+            <p class="text-2xl font-semibold text-gray-900">6</p>
+          </div>
+        </div>
       </div>
 
       <Outlet />
