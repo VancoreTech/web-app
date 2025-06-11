@@ -46,6 +46,7 @@ const SideNav = () => {
       icon: <Package className="w-5 h-5" />,
       label: "Products",
       path: "/dashboard/products",
+      subPaths: ["/dashboard/create-product", "/dashboard/product-details"],
     },
     {
       icon: <ShoppingBag className="w-5 h-5" />,
@@ -57,7 +58,7 @@ const SideNav = () => {
       icon: <Users2 className="w-5 h-5" />,
       label: "Customers",
       path: "/dashboard/customers",
-      subPaths: ["/dashboard/create-customer", "/dashboard/customer-details", "/dashboard/edit-customer"],
+      subPaths: ["/dashboard/create-customer", "/dashboard/customer-details", "/dashboard/edit-customer", "/dashboard/create-group", "/dashboard/customer-group-details"],
     },
     {
       icon: <BarChart3 className="w-5 h-5" />,

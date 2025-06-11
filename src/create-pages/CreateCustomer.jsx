@@ -92,20 +92,47 @@ const CreateCustomer = () => {
   };
 
   const isFormValid = () => {
-    const requiredFields = [
+    const orderDetailsFields = [
       "firstName",
       "lastName", 
       "email",
       "phone",
-      "address"
+      "address",
+      "customer"
     ];
-    return requiredFields.every((field) => formData[field].trim() !== "");
+    
+    const shippingDetailsFields = [
+      "shippingAddress",
+      "country",
+      "state",
+      "city"
+    ];
+    
+    // Check if all order details fields are filled
+    const orderDetailsValid = orderDetailsFields.every((field) => formData[field].trim() !== "");
+    
+    // Check if all shipping details fields are filled
+    const shippingDetailsValid = shippingDetailsFields.every((field) => formData[field].trim() !== "");
+    
+    // Check billing address fields only if "same as shipping" is not checked
+    let billingDetailsValid = true;
+    if (!formData.sameAsShipping) {
+      const billingDetailsFields = [
+        "billingAddress",
+        "billingCountry",
+        "billingState",
+        "billingCity"
+      ];
+      billingDetailsValid = billingDetailsFields.every((field) => formData[field].trim() !== "");
+    }
+    
+    return orderDetailsValid && shippingDetailsValid && billingDetailsValid;
   };
 
   const isProceedDisabled = !isFormValid();
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] ">
+    <div className="min-h-screen bg-[#F9FAFB]">
       <Navbar />
       <div className=" mx-auto p-6">
         <div className="flex items-center gap-4">
@@ -556,7 +583,6 @@ const CreateCustomer = () => {
           </div>
         </div>
 
-        {/* Confirm Customer Creation Modal */}
         <ConfirmModal
           isOpen={showConfirmModal}
           title="Confirm action"
@@ -565,7 +591,6 @@ const CreateCustomer = () => {
           onCancel={handleCancelConfirm}
         />
 
-        {/* Success Modal */}
         <SuccessModal
           isOpen={showSuccessModal}
           title="Success"
@@ -573,7 +598,6 @@ const CreateCustomer = () => {
           onDone={handleSuccessDone}
         />
 
-        {/* Cancel Confirm Modal */}
         <ConfirmModal
           isOpen={showCancelConfirmModal}
           title="Confirm action"
@@ -582,7 +606,6 @@ const CreateCustomer = () => {
           onCancel={handleCancelCancelConfirm}
         />
 
-        {/* Cancel Success Modal */}
         <SuccessModal
           isOpen={showCancelSuccessModal}
           title="Success"

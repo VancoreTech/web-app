@@ -13,7 +13,11 @@ import {
 import { Link } from "react-router-dom";
 import DateSelector from "../components/DateSelector";
 import { useDateSelection } from "../hooks/UseDateSelection";
-import { customersData, customerGroupData, customerSubscribersData } from "../data/data";
+import {
+  customersData,
+  customerGroupData,
+  customerSubscribersData,
+} from "../data/data";
 import { StatsCard } from "../components/StatsCard";
 import Pagination from "../components/Pagination";
 import { ArrowupDown } from "./Orders";
@@ -177,7 +181,10 @@ const Customers = () => {
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
   const indexOfFirstProduct = (currentPage - 1) * entriesPerPage;
   const indexOfLastProduct = indexOfFirstProduct + entriesPerPage;
-  const currentItems = filteredData.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentItems = filteredData.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -188,6 +195,16 @@ const Customers = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setCurrentPage(1);
+    setSearchTerm("");
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Clear search
+  const clearSearch = () => {
     setSearchTerm("");
   };
 
@@ -301,7 +318,10 @@ const Customers = () => {
 
       if (activeTab === "groups") {
         return (
-          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+          <tr
+            key={item.id}
+            className="border-b border-gray-200 hover:bg-gray-50"
+          >
             {baseCells}
             <td className="p-4">
               <Link to={``} className="hover:text-blue-600 transition-colors">
@@ -314,14 +334,20 @@ const Customers = () => {
         );
       } else if (activeTab === "subscribers") {
         return (
-          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+          <tr
+            key={item.id}
+            className="border-b border-gray-200 hover:bg-gray-50"
+          >
             <td className="p-4 text-gray-600">{item.dateAdded}</td>
             <td className="p-4 text-gray-600">{item.email}</td>
           </tr>
         );
       } else {
         return (
-          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+          <tr
+            key={item.id}
+            className="border-b border-gray-200 hover:bg-gray-50"
+          >
             {baseCells}
             <td className="p-4">
               <Link to={``} className="hover:text-blue-600 transition-colors">
@@ -335,6 +361,32 @@ const Customers = () => {
         );
       }
     });
+  };
+
+  const renderEmptyState = () => {
+    return (
+      <div className="px-6 py-12 text-center">
+        <div className="text-gray-400 mb-2">
+          <Search className="w-12 h-12 mx-auto mb-4" />
+        </div>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          No {activeTab} found
+        </h3>
+        <p className="text-gray-500 mb-4">
+          {searchTerm
+            ? `No ${activeTab} match your search for "${searchTerm}"`
+            : `No ${activeTab} available`}
+        </p>
+        {searchTerm && (
+          <button
+            onClick={clearSearch}
+            className="text-blue-600 hover:text-blue-800 font-medium"
+          >
+            Clear search
+          </button>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -354,11 +406,18 @@ const Customers = () => {
               <Upload className="h-4 w-4 text-blue-600" />
               <span className="text-blue-600">Export CSV</span>
             </button>
-            <Link to="/dashboard/create-customer">
-              <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
-                <Plus className="h-4 w-4" />
-                Add new customer
-              </button>
+            <Link
+              to={
+                activeTab === "groups" || activeTab === "subscribers"
+                  ? "/dashboard/create-group"
+                  : "/dashboard/create-customer"
+              }
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              <Plus size={18} />
+              {activeTab === "groups" || activeTab === "subscribers"
+                ? "Add New Group"
+                : "Add New Customer"}
             </Link>
           </div>
         </div>
@@ -433,15 +492,31 @@ const Customers = () => {
           {/* Search and Filters */}
           <div className="border border-gray-200 bg-white rounded-lg px-6 py-6">
             <div className="flex items-center justify-between gap-4">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder={`Search for ${activeTab}...`}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+              <div className="flex items-center space-x-4">
+                <div className="relative flex-1 max-w-md">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder={`Search for ${activeTab}...`}
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={clearSearch}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+                {searchTerm && (
+                  <div className="text-sm text-gray-600">
+                    {filteredData.length} result
+                    {filteredData.length !== 1 ? "s" : ""} found
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-3">
                 <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
@@ -459,19 +534,25 @@ const Customers = () => {
           {/* Table */}
           <div className="">
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    {renderTableHeaders()}
-                  </tr>
-                </thead>
-                <tbody className="bg-white rounded-lg border border-gray-200 shadow-sm">
-                  {renderTableRows()}
-                </tbody>
-              </table>
+              {currentItems.length > 0 ? (
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      {renderTableHeaders()}
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                    {renderTableRows()}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                  {renderEmptyState()}
+                </div>
+              )}
             </div>
 
-            {/* Pagination */}
+            {/* Pagination - only show if there are results */}
             {filteredData.length > 0 && (
               <Pagination
                 currentPage={currentPage}
@@ -483,7 +564,10 @@ const Customers = () => {
                   setCurrentPage(1);
                 }}
                 indexOfFirstProduct={indexOfFirstProduct}
-                indexOfLastProduct={indexOfLastProduct}
+                indexOfLastProduct={Math.min(
+                  indexOfLastProduct,
+                  filteredData.length
+                )}
                 totalEntries={filteredData.length}
               />
             )}
