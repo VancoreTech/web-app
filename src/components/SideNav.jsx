@@ -46,6 +46,7 @@ const SideNav = () => {
       icon: <Package className="w-5 h-5" />,
       label: "Products",
       path: "/dashboard/products",
+      subPaths: ["/dashboard/create-product", "/dashboard/product-details"],
     },
     {
       icon: <ShoppingBag className="w-5 h-5" />,
