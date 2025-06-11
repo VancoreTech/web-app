@@ -191,6 +191,16 @@ const Customers = () => {
     setSearchTerm("");
   };
 
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Clear search
+  const clearSearch = () => {
+    setSearchTerm("");
+  };
+
   React.useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
@@ -337,6 +347,33 @@ const Customers = () => {
     });
   };
 
+  const renderEmptyState = () => {
+    return (
+      <div className="px-6 py-12 text-center">
+        <div className="text-gray-400 mb-2">
+          <Search className="w-12 h-12 mx-auto mb-4" />
+        </div>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          No {activeTab} found
+        </h3>
+        <p className="text-gray-500 mb-4">
+          {searchTerm 
+            ? `No ${activeTab} match your search for "${searchTerm}"`
+            : `No ${activeTab} available`
+          }
+        </p>
+        {searchTerm && (
+          <button
+            onClick={clearSearch}
+            className="text-blue-600 hover:text-blue-800 font-medium"
+          >
+            Clear search
+          </button>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="pb-10 bg-[#F9FAFB]">
       <div className="mx-auto space-y-6">
@@ -433,15 +470,30 @@ const Customers = () => {
           {/* Search and Filters */}
           <div className="border border-gray-200 bg-white rounded-lg px-6 py-6">
             <div className="flex items-center justify-between gap-4">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder={`Search for ${activeTab}...`}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+              <div className="flex items-center space-x-4">
+                <div className="relative flex-1 max-w-md">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder={`Search for ${activeTab}...`}
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={clearSearch}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+                {searchTerm && (
+                  <div className="text-sm text-gray-600">
+                    {filteredData.length} result{filteredData.length !== 1 ? 's' : ''} found
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-3">
                 <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
@@ -459,19 +511,25 @@ const Customers = () => {
           {/* Table */}
           <div className="">
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    {renderTableHeaders()}
-                  </tr>
-                </thead>
-                <tbody className="bg-white rounded-lg border border-gray-200 shadow-sm">
-                  {renderTableRows()}
-                </tbody>
-              </table>
+              {currentItems.length > 0 ? (
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      {renderTableHeaders()}
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                    {renderTableRows()}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                  {renderEmptyState()}
+                </div>
+              )}
             </div>
 
-            {/* Pagination */}
+            {/* Pagination - only show if there are results */}
             {filteredData.length > 0 && (
               <Pagination
                 currentPage={currentPage}
@@ -483,7 +541,7 @@ const Customers = () => {
                   setCurrentPage(1);
                 }}
                 indexOfFirstProduct={indexOfFirstProduct}
-                indexOfLastProduct={indexOfLastProduct}
+                indexOfLastProduct={Math.min(indexOfLastProduct, filteredData.length)}
                 totalEntries={filteredData.length}
               />
             )}

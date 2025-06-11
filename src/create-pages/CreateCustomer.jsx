@@ -92,14 +92,43 @@ const CreateCustomer = () => {
   };
 
   const isFormValid = () => {
-    const requiredFields = [
+    // Order details required fields
+    const orderDetailsFields = [
       "firstName",
       "lastName", 
       "email",
       "phone",
-      "address"
+      "address",
+      "customer"
     ];
-    return requiredFields.every((field) => formData[field].trim() !== "");
+    
+    // Shipping details required fields
+    const shippingDetailsFields = [
+      "shippingAddress",
+      "country",
+      "state",
+      "city"
+    ];
+    
+    // Check if all order details fields are filled
+    const orderDetailsValid = orderDetailsFields.every((field) => formData[field].trim() !== "");
+    
+    // Check if all shipping details fields are filled
+    const shippingDetailsValid = shippingDetailsFields.every((field) => formData[field].trim() !== "");
+    
+    // Check billing address fields only if "same as shipping" is not checked
+    let billingDetailsValid = true;
+    if (!formData.sameAsShipping) {
+      const billingDetailsFields = [
+        "billingAddress",
+        "billingCountry",
+        "billingState",
+        "billingCity"
+      ];
+      billingDetailsValid = billingDetailsFields.every((field) => formData[field].trim() !== "");
+    }
+    
+    return orderDetailsValid && shippingDetailsValid && billingDetailsValid;
   };
 
   const isProceedDisabled = !isFormValid();
