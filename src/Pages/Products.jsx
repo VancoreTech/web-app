@@ -14,12 +14,13 @@ import {
   MoreVertical,
   ColumnsIcon,
   ListFilter,
+  ArrowDown01,
 } from "lucide-react";
 import { StatsCard } from "../components/StatsCard";
 import DateSelector from "../components/DateSelector";
-import { useDateSelection } from '../hooks/UseDateSelection';
+import { useDateSelection } from "../hooks/UseDateSelection";
 import Pagination from "../components/Pagination";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const bagIcon = () => (
   <svg
@@ -67,7 +68,6 @@ const AvailabilityToggle = ({ status }) => {
 };
 
 const ProductsTable = ({ currentProducts }) => {
-  const modal = () => <div className="flex flex-col"></div>;
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
@@ -182,8 +182,98 @@ const ProductsTable = ({ currentProducts }) => {
   );
 };
 
-const CategoriesTable = () => {
-  return <h1>Categories</h1>;
+const CategoriesTable = ({ currentProducts, categoryFilter }) => {
+  // const indexOfLastProduct = currentPage * productsPerPage;
+  // const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  // const currentProducts = filteredProducts.slice(
+  //   indexOfFirstProduct,
+  //   indexOfLastProduct
+  // );
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead className="bg-gray-50">
+          <tr>
+            <th className="px-6 py-3 text-left">
+              <input type="checkbox" className="rounded border-gray-300" />
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
+              <div className="flex items-center gap-2">
+                ACTION
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
+                  <path d="M5 0L0 5H10L5 0Z" fill="#98A2B3" />
+                  <path d="M5 16L10 11H0L5 16Z" fill="#98A2B3" />
+                </svg>
+              </div>
+            </th>
+
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex gap-2">
+              <div className="flex items-center gap-2">
+                CATEGORY NAME
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
+                  <path d="M5 0L0 5H10L5 0Z" fill="#98A2B3" />
+                  <path d="M5 16L10 11H0L5 16Z" fill="#98A2B3" />
+                </svg>
+              </div>
+            </th>
+
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <div className="flex items-center gap-2">
+                DESCRIPTION
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
+                  <path d="M5 0L0 5H10L5 0Z" fill="#98A2B3" />
+                  <path d="M5 16L10 11H0L5 16Z" fill="#98A2B3" />
+                </svg>
+              </div>
+            </th>
+
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex gap-2">
+              <div className="flex items-center gap-2">
+                PRODUCTS
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
+                  <path d="M5 0L0 5H10L5 0Z" fill="#98A2B3" />
+                  <path d="M5 16L10 11H0L5 16Z" fill="#98A2B3" />
+                </svg>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {currentProducts &&
+            currentProducts.map((product, index) => {
+              return (
+                <tr key={index} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">
+                    <input
+                      type="checkbox"
+                      className="rounded border-gray-300"
+                    />
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      className="text-gray-400 hover:text-gray-600"
+                      onClick={() => setShowMore(!showMore)}
+                    >
+                      <MoreVertical className="w-5 h-5" />
+                    </button>
+                  </td>
+
+                  <td className="px-6 py-4 text-xs text-gray-900">
+                    {product.category}
+                  </td>
+                  <td className="px-6 py-4 text-xs text-gray-900">
+                    {product.title}
+                  </td>
+                  <td className="px-6 py-4 text-xs text-gray-900">
+                    {product.stock}
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 const Products = () => {
@@ -197,12 +287,58 @@ const Products = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showMore, setShowMore] = useState(false);
 
+  const [showFilter, setShowFilter] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [categories, setCategories] = useState([]);
+  const [tempCategoryFilter, setTempCategoryFilter] = useState([]);
+  const [appliedCategoryFilter, setAppliedCategoryFilter] = useState([]);
+
+  const categoryFilter = searchParams.get("category");
+
+  const handleCategorySelect = (category) => {
+    if (tempCategoryFilter.includes(category)) {
+      setTempCategoryFilter((prev) => prev.filter((item) => item !== category));
+    } else {
+      setTempCategoryFilter((prev) => [...prev, category]);
+    }
+  };
+
+  const applyFilters = () => {
+    setAppliedCategoryFilter([...tempCategoryFilter]);
+    setSearchParams({ categories: tempCategoryFilter.join(",") });
+  };
+
+  const resetFilters = () => {
+    setTempCategoryFilter([]);
+    setAppliedCategoryFilter([]);
+  };
+
+  function handleFilterChange(key, value) {
+    setSearchParams((prevParams) => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+      return prevParams;
+    });
+  }
+
   useEffect(() => {
-    fetch("https://dummyjson.com/products")
+    fetch(
+      "https://dummyjson.com/products?limit=100&skip=10&select=images,title,price,stock,availabilityStatus,category"
+    )
       .then((res) => res.json())
       // .then((data) => console.log(data.products))
       .then((data) => setProductData(data.products));
   }, []);
+
+  useEffect(() => {
+    fetch("https://dummyjson.com/products/category-list?limit=6")
+      .then((res) => res.json())
+      .then((data) => setCategories(data));
+  });
 
   useEffect(() => {
     setCurrentPage(1);
@@ -212,7 +348,13 @@ const Products = () => {
     setCurrentPage(1);
   }, [entriesPerPage]);
 
-  const displayedProducts = productData.filter((product) =>
+  const filteredProducts = appliedCategoryFilter.length
+    ? productData.filter((product) =>
+        appliedCategoryFilter.includes(product.category)
+      )
+    : productData;
+
+  const displayedProducts = filteredProducts.filter((product) =>
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -324,12 +466,68 @@ const Products = () => {
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                  <button
+                    onClick={() => setShowFilter(!showFilter)}
+                    className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                  >
                     <ListFilter className="w-4 h-4 mr-2" />
                     Filter
                   </button>
                   <DateSelector {...dateSelection} />
                 </div>
+
+                {showFilter && (
+                  <div className="bg-white flex flex-col">
+                    <div className="flex items-center justify-center">
+                      <ListFilter className="w-4 h-4 mr-2" />
+                      <p>Filter</p>
+                    </div>
+
+                    <p className="flex ">
+                      <ArrowDown className="w-5" />
+                      By Category Name
+                    </p>
+
+                    <div className="flex flex-col text-left">
+                      {categories.map((category) => (
+                        <button
+                          onClick={() => handleCategorySelect(category)}
+                          className="border-t border-[#EBEBEB]"
+                        >
+                          {category}
+                        </button>
+                      ))}
+                      {/* <button
+                        // onClick={() => handleCategorySelect()}
+                        className="border-t border-[#EBEBEB]"
+                      >
+                        All
+                      </button>
+
+                      <button
+                        onClick={() => handleCategorySelect(category)}
+                        className="border-t border-[#EBEBEB]"
+                      >
+                        Fragrances
+                      </button>
+                      <button
+                        onClick={() => handleCategorySelect(category)}
+                        className="border-t border-[#EBEBEB]"
+                      >
+                        Furniture
+                      </button>
+                      <button
+                        onClick={() => handleCategorySelect(category)}
+                        className="border-y border-[#EBEBEB]"
+                      >
+                        Groceries
+                      </button> */}
+                    </div>
+
+                    <button onClick={applyFilters}>Apply</button>
+                    <button onClick={resetFilters}>Reset All</button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -345,7 +543,16 @@ const Products = () => {
               setShowMore={setShowMore}
             />
           ) : (
-            <CategoriesTable />
+            <CategoriesTable
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              // productData={productData}
+              // products={productData}
+              currentProducts={currentProducts}
+              showMore={showMore}
+              setShowMore={setShowMore}
+              categoryFilter={categoryFilter}
+            />
           )}
 
           {/* Pagination */}

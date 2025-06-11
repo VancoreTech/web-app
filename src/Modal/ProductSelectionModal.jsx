@@ -16,9 +16,15 @@ const ProductSelectionModal = ({
 }) => {
   if (!isOpen) return null;
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+    if (product.title) {
+      return product.title.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+
+    if (product.name) {
+      return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+  });
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -84,37 +90,51 @@ const ProductSelectionModal = ({
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredProducts.map((product) => (
-                  <tr 
-                    key={product.id} 
+                  <tr
+                    key={product.id}
                     className={`hover:bg-gray-50 ${
-                      tempSelectedProducts.some(p => p.id === product.id) ? 'bg-blue-50' : ''
+                      tempSelectedProducts.some((p) => p.id === product.id)
+                        ? "bg-blue-50"
+                        : ""
                     }`}
                   >
                     <td className="p-3">
                       <input
                         type="checkbox"
-                        checked={tempSelectedProducts.some(p => p.id === product.id)}
+                        checked={tempSelectedProducts.some(
+                          (p) => p.id === product.id
+                        )}
                         onChange={() => onProductSelection(product)}
                         className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                       />
                     </td>
                     <td className="p-3">
                       <img
-                        src={product.image}
+                        src={product.image ? product.image : product.images[0]}
                         alt={product.name}
                         className="w-12 h-12 rounded object-cover border border-gray-200"
                         onError={onImageError}
                       />
                     </td>
                     <td className="p-3">
-                      <div className="text-sm text-gray-900">{product.name}</div>
+                      <div className="text-sm text-gray-900">
+                        {product.name || product.title}
+                      </div>
                     </td>
                     <td className="p-3">
-                      <span className="text-sm text-gray-900">{product.inStock}</span>
+                      <span className="text-sm text-gray-900">
+                        {product.inStock
+                          ? product.inStock
+                          : product.stock + " in stock"}
+                      </span>
                     </td>
                     <td className="p-3">
                       <div className="text-sm text-gray-900 font-medium">
-                        ₦{product.price.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        ₦
+                        {product.price.toLocaleString("en-NG", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </div>
                     </td>
                   </tr>
