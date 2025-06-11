@@ -13,7 +13,11 @@ import {
 import { Link } from "react-router-dom";
 import DateSelector from "../components/DateSelector";
 import { useDateSelection } from "../hooks/UseDateSelection";
-import { customersData, customerGroupData, customerSubscribersData } from "../data/data";
+import {
+  customersData,
+  customerGroupData,
+  customerSubscribersData,
+} from "../data/data";
 import { StatsCard } from "../components/StatsCard";
 import Pagination from "../components/Pagination";
 import { ArrowupDown } from "./Orders";
@@ -177,7 +181,10 @@ const Customers = () => {
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
   const indexOfFirstProduct = (currentPage - 1) * entriesPerPage;
   const indexOfLastProduct = indexOfFirstProduct + entriesPerPage;
-  const currentItems = filteredData.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentItems = filteredData.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -311,7 +318,10 @@ const Customers = () => {
 
       if (activeTab === "groups") {
         return (
-          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+          <tr
+            key={item.id}
+            className="border-b border-gray-200 hover:bg-gray-50"
+          >
             {baseCells}
             <td className="p-4">
               <Link to={``} className="hover:text-blue-600 transition-colors">
@@ -324,14 +334,20 @@ const Customers = () => {
         );
       } else if (activeTab === "subscribers") {
         return (
-          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+          <tr
+            key={item.id}
+            className="border-b border-gray-200 hover:bg-gray-50"
+          >
             <td className="p-4 text-gray-600">{item.dateAdded}</td>
             <td className="p-4 text-gray-600">{item.email}</td>
           </tr>
         );
       } else {
         return (
-          <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
+          <tr
+            key={item.id}
+            className="border-b border-gray-200 hover:bg-gray-50"
+          >
             {baseCells}
             <td className="p-4">
               <Link to={``} className="hover:text-blue-600 transition-colors">
@@ -357,10 +373,9 @@ const Customers = () => {
           No {activeTab} found
         </h3>
         <p className="text-gray-500 mb-4">
-          {searchTerm 
+          {searchTerm
             ? `No ${activeTab} match your search for "${searchTerm}"`
-            : `No ${activeTab} available`
-          }
+            : `No ${activeTab} available`}
         </p>
         {searchTerm && (
           <button
@@ -391,11 +406,18 @@ const Customers = () => {
               <Upload className="h-4 w-4 text-blue-600" />
               <span className="text-blue-600">Export CSV</span>
             </button>
-            <Link to="/dashboard/create-customer">
-              <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
-                <Plus className="h-4 w-4" />
-                Add new customer
-              </button>
+            <Link
+              to={
+                activeTab === "groups" || activeTab === "subscribers"
+                  ? "/dashboard/create-group"
+                  : "/dashboard/create-customer"
+              }
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              <Plus size={18} />
+              {activeTab === "groups" || activeTab === "subscribers"
+                ? "Add New Group"
+                : "Add New Customer"}
             </Link>
           </div>
         </div>
@@ -491,7 +513,8 @@ const Customers = () => {
                 </div>
                 {searchTerm && (
                   <div className="text-sm text-gray-600">
-                    {filteredData.length} result{filteredData.length !== 1 ? 's' : ''} found
+                    {filteredData.length} result
+                    {filteredData.length !== 1 ? "s" : ""} found
                   </div>
                 )}
               </div>
@@ -541,7 +564,10 @@ const Customers = () => {
                   setCurrentPage(1);
                 }}
                 indexOfFirstProduct={indexOfFirstProduct}
-                indexOfLastProduct={Math.min(indexOfLastProduct, filteredData.length)}
+                indexOfLastProduct={Math.min(
+                  indexOfLastProduct,
+                  filteredData.length
+                )}
                 totalEntries={filteredData.length}
               />
             )}

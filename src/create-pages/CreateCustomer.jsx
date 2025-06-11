@@ -132,7 +132,7 @@ const CreateCustomer = () => {
   const isProceedDisabled = !isFormValid();
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] ">
+    <div className="min-h-screen bg-[#F9FAFB]">
       <Navbar />
       <div className=" mx-auto p-6">
         <div className="flex items-center gap-4">
