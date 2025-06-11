@@ -58,7 +58,7 @@ const SideNav = () => {
       icon: <Users2 className="w-5 h-5" />,
       label: "Customers",
       path: "/dashboard/customers",
-      subPaths: ["/dashboard/create-customer", "/dashboard/customer-details", "/dashboard/edit-customer", "/dashboard/create-group", "/dashboard/customer-group-details"],
+      subPaths: ["/dashboard/create-customer", "/dashboard/customer-details", "/dashboard/edit-customer", "/dashboard/create-group", "/dashboard/customer-group-details", "/dashboard/edit-group"],
     },
     {
       icon: <BarChart3 className="w-5 h-5" />,
