@@ -92,7 +92,6 @@ const CreateCustomer = () => {
   };
 
   const isFormValid = () => {
-    // Order details required fields
     const orderDetailsFields = [
       "firstName",
       "lastName", 
@@ -102,7 +101,6 @@ const CreateCustomer = () => {
       "customer"
     ];
     
-    // Shipping details required fields
     const shippingDetailsFields = [
       "shippingAddress",
       "country",
@@ -585,7 +583,6 @@ const CreateCustomer = () => {
           </div>
         </div>
 
-        {/* Confirm Customer Creation Modal */}
         <ConfirmModal
           isOpen={showConfirmModal}
           title="Confirm action"
@@ -594,7 +591,6 @@ const CreateCustomer = () => {
           onCancel={handleCancelConfirm}
         />
 
-        {/* Success Modal */}
         <SuccessModal
           isOpen={showSuccessModal}
           title="Success"
@@ -602,7 +598,6 @@ const CreateCustomer = () => {
           onDone={handleSuccessDone}
         />
 
-        {/* Cancel Confirm Modal */}
         <ConfirmModal
           isOpen={showCancelConfirmModal}
           title="Confirm action"
@@ -611,7 +606,6 @@ const CreateCustomer = () => {
           onCancel={handleCancelCancelConfirm}
         />
 
-        {/* Cancel Success Modal */}
         <SuccessModal
           isOpen={showCancelSuccessModal}
           title="Success"

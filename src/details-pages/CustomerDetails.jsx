@@ -9,7 +9,7 @@ import {
   Users2,
   UserCircle,
 } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import DateSelector from "../components/DateSelector";
 import { useDateSelection } from "../hooks/UseDateSelection";
@@ -19,14 +19,34 @@ import { ArrowupDown } from "../Pages/Orders";
 
 const CustomerDetails = () => {
   const { id } = useParams();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
 
   const dateSelection = useDateSelection();
 
-  // Customer data (placeholder/dummy data)
-  const customerData = {
+  // Get customer data from navigation state (from CreateCustomer page or EditCustomer page)
+  const customerFormData = location.state?.customerData;
+
+  // Use form data if available, otherwise fallback to dummy data
+  const customerData = customerFormData ? {
+    name: `${customerFormData.firstName} ${customerFormData.lastName}`,
+    avatar: <UserCircle className="w-20 h-20 text-[#444444CC]" />,
+    activeStatus: "Active: 17 days ago", 
+    lastOrder: "23-09-2023 16:19:05", 
+    totalAmountSpent: "₦96,300.00", 
+    totalOrders: 30, 
+    totalOrderValue: "₦96,300.00", 
+    address: customerFormData.address,
+    mobileNumber: customerFormData.phone,
+    email: customerFormData.email,
+    billingAddress: customerFormData.sameAsShipping 
+      ? `${customerFormData.shippingAddress}, ${customerFormData.city}, ${customerFormData.state}, ${customerFormData.country}${customerFormData.zipCode ? ', ' + customerFormData.zipCode : ''}`
+      : `${customerFormData.billingAddress || ''}, ${customerFormData.billingCity || ''}, ${customerFormData.billingState || ''}, ${customerFormData.billingCountry || ''}${customerFormData.billingZipCode ? ', ' + customerFormData.billingZipCode : ''}`,
+    shippingAddress: `${customerFormData.shippingAddress}, ${customerFormData.city}, ${customerFormData.state}, ${customerFormData.country}${customerFormData.zipCode ? ', ' + customerFormData.zipCode : ''}`,
+  } : {
+    // Fallback dummy data when no form data is available
     name: "Susan Sheidu",
     avatar: <UserCircle className="w-20 h-20 text-[#444444CC]" />,
     activeStatus: "Active: 17 days ago",
@@ -61,7 +81,7 @@ const CustomerDetails = () => {
     {
       id: 3,
       name: "Thrift wears",
-      icon: <Users2 className="w-5 h-5 text-[#0FB338]" />,
+      icon: <Users2 className="w-5 h-5 text-[#0A6DEE]" />,
       dateAdded: "13-11-2025",
       totalCustomers: 8,
       color: "green",
@@ -142,14 +162,17 @@ const CustomerDetails = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/dashboard/customers">
+            <Link to="/dashboard/create-customer">
               <button className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
                 <ArrowLeft className="h-4 w-4" />
                 Back
               </button>
             </Link>
           </div>
-          <Link to={`/dashboard/edit-customer/${id}`}>
+          <Link 
+            to={`/dashboard/edit-customer`}
+            state={{ customerData: customerFormData }}
+          >
             <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
               <Edit className="h-4 w-4" />
               Edit details
@@ -178,7 +201,7 @@ const CustomerDetails = () => {
                 </span>
               </div>
 
-              <div className="grid grid-rows-4 gap-6 mb-6">
+              <div className="grid grid-rows-4 gap-5 mb-6">
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Last order</p>
                   <p className="font-base text-gray-700">
@@ -209,7 +232,7 @@ const CustomerDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-rows-4 gap-6 w-[50%] border-l-2 border-gray-200 pl-14">
+            <div className="grid grid-rows-4 gap-5 w-[50%] border-l-2 border-gray-200 pl-14">
               <div>
                 <p className="text-sm text-gray-500 mb-1">Address</p>
                 <p className="font-base text-gray-700">
