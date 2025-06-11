@@ -354,7 +354,7 @@ const CreateCustomer = () => {
                       }
                       className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                      <option value="">Select country</option>
+                      <option value="" className="text-gray-400">Select country</option>
                       <option value="nigeria">Nigeria</option>
                       <option value="usa">United States</option>
                     </select>
@@ -378,7 +378,7 @@ const CreateCustomer = () => {
                       }
                       className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                      <option value="">Select state</option>
+                      <option value="" className="text-gray-400">Select state</option>
                       <option value="lagos">Lagos</option>
                       <option value="abuja">Abuja</option>
                     </select>
@@ -485,7 +485,7 @@ const CreateCustomer = () => {
                           }
                           className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                          <option value="">Select country</option>
+                          <option value="" className="text-gray-400">Select country</option>
                           <option value="nigeria">Nigeria</option>
                           <option value="usa">United States</option>
                         </select>
@@ -509,7 +509,7 @@ const CreateCustomer = () => {
                           }
                           className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                          <option value="">Select state</option>
+                          <option value="" className="text-gray-400">Select state</option>
                           <option value="lagos">Lagos</option>
                           <option value="abuja">Abuja</option>
                         </select>
@@ -586,7 +586,7 @@ const CreateCustomer = () => {
         <ConfirmModal
           isOpen={showConfirmModal}
           title="Confirm action"
-          message="Are you sure you want to create this customer?"
+          message="Are you sure you want to add this customer?"
           onConfirm={handleConfirmCustomer}
           onCancel={handleCancelConfirm}
         />
@@ -594,7 +594,7 @@ const CreateCustomer = () => {
         <SuccessModal
           isOpen={showSuccessModal}
           title="Success"
-          message="You have successfully created this customer."
+          message="You have successfully added this customer."
           onDone={handleSuccessDone}
         />
 

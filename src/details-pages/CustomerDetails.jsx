@@ -313,16 +313,16 @@ const CustomerDetails = () => {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">Order history</h3>
 
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+          <div className="bg-white rounded-lg ">
             {/* Search and Filters */}
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4 border rounded-t-lg border-gray-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <div className="relative">
                     <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
                       type="text"
-                      placeholder="Search orders by ID, name, amount, status..."
+                      placeholder="Search for order no, name, amount..."
                       value={searchTerm}
                       onChange={handleSearchChange}
                       className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80"
@@ -409,7 +409,7 @@ const CustomerDetails = () => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white rounded-b-lg border border-gray-200 divide-y divide-gray-200">
                     {currentOrders.map((order, index) => (
                       <tr key={index} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
