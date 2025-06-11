@@ -20,6 +20,7 @@ import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
 import DashboardLayout from "./components/DashboardLayout"; 
+import EditGroup from "./Pages/EditGroup";
 
 // Details Pages
 import ProductDetails from "./details-pages/ProductDetails";
@@ -128,6 +129,7 @@ export default function App() {
         <Route path="edit-customer" element={<EditCustomer />} />
         <Route path="create-group" element={<CreateGroup />} />
         <Route path="customer-group-details" element={<CustomerGroupDetails />} />
+        <Route path="edit-group" element={<EditGroup />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="campaigns" element={<Campaigns />} />
         <Route path="discounts" element={<DiscountsCoupons />} />

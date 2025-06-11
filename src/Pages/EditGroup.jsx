@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import { ArrowLeft, ChevronDown } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import ConfirmModal from "../Modal/ConfirmModal";
 import SuccessModal from "../Modal/SuccessModal";
-import { useNavigate } from "react-router-dom";
 
-const CreateGroup = () => {
+const EditGroup = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const groupFormData = location.state?.groupData;
   const [formData, setFormData] = useState({
     groupName: "",
     customer: "",
@@ -25,17 +26,12 @@ const CreateGroup = () => {
     }));
   };
 
-  const handleCancel = () => {
-    const hasFormData = Object.values(formData).some((value) => {
-      if (typeof value === "boolean") return false;
-      return value.trim() !== "";
-    });
+  // Check if form is valid for proceed button
+  const isProceedDisabled =
+  !formData.groupName || !formData.customer;
 
-    if (hasFormData) {
-      setShowCancelConfirmModal(true);
-    } else {
-      navigate("/dashboard/customers");
-    }
+  const handleCancel = () => {
+    setShowCancelConfirmModal(true);
   };
 
   const handleProceed = () => {
@@ -43,8 +39,9 @@ const CreateGroup = () => {
   };
 
   const handleConfirmCustomer = () => {
-    console.log("Customer created successfully", formData);
     setShowConfirmModal(false);
+    // Add your customer update logic here
+    console.log("Customer updated:", formData);
     setShowSuccessModal(true);
   };
 
@@ -54,15 +51,13 @@ const CreateGroup = () => {
 
   const handleSuccessDone = () => {
     setShowSuccessModal(false);
+    // Pass the updated customer data back to the Customer Details page
     navigate("/dashboard/customer-group-details", {
-      state: {
-        groupData: formData,
-      },
+      state: { groupData: formData },
     });
   };
 
   const handleConfirmCancel = () => {
-    console.log("Customer creation cancelled");
     setShowCancelConfirmModal(false);
     setShowCancelSuccessModal(true);
   };
@@ -73,37 +68,56 @@ const CreateGroup = () => {
 
   const handleCancelSuccessDone = () => {
     setShowCancelSuccessModal(false);
-    navigate("/dashboard/customers");
+    navigate("/dashboard/customer-group-details", {
+      state: { groupData: groupFormData },
+    });
   };
 
-  const isFormValid = () => {
-    const groupDetailsFields = ["groupName", "customer"];
-
-    const groupDetailsValid = groupDetailsFields.every(
-      (field) => formData[field].trim() !== ""
+  // Add a check to handle case where no customer data is provided
+  if (!groupFormData) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <Navbar />
+        <div className="mx-auto space-y-6 ">
+          <div className="flex items-center gap-4">
+            <Link to="/dashboard/customer-group-details">
+              <button className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                <ArrowLeft className="h-4 w-4" />
+                Back
+              </button>
+            </Link>
+          </div>
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+            <p className="text-center text-gray-500">
+              No Group data found. Please go back and select a Group to edit.
+            </p>
+          </div>
+        </div>
+      </div>
     );
-
-    return groupDetailsValid;
-  };
-
-  const isProceedDisabled = !isFormValid();
+  }
 
   return (
     <div className="min-h-screen bg-[#F9FAFB]">
       <Navbar />
       <div className=" mx-auto p-6">
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => navigate("/dashboard/customers")}
-            className="flex items-center mb-4 gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+          <Link
+            to="/dashboard/customer-group-details"
+            state={{ groupData: groupFormData }}
           >
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </button>
+            <button
+              onClick={() => navigate("/dashboard/customer-group-details")}
+              className="flex items-center mb-4 gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </button>
+          </Link>
         </div>
 
         <h1 className="text-2xl font-semibold text-gray-900 mb-6">
-          Add a new group
+          Edit group
         </h1>
 
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
@@ -135,7 +149,6 @@ const CreateGroup = () => {
                   />
                 </div>
 
-                {/* Customer Select Dropdown */}
                 <div className="flex items-center justify-between">
                   <div className="space-y-2 flex-1">
                     <div className="flex justify-between">
@@ -199,13 +212,13 @@ const CreateGroup = () => {
                   : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
             >
-              Create group
+              Save changes
             </button>
 
             <ConfirmModal
               isOpen={showConfirmModal}
               title="Confirm action"
-              message="Are you sure you want to create this customer group?"
+              message="Are you sure you want to save the changes made to the customer group?"
               onConfirm={handleConfirmCustomer}
               onCancel={handleCancelConfirm}
             />
@@ -213,7 +226,7 @@ const CreateGroup = () => {
             <SuccessModal
               isOpen={showSuccessModal}
               title="Success"
-              message="You have successfully created this customer group."
+              message="You have successfully saved the changes made to the customer group."
               onDone={handleSuccessDone}
             />
 
@@ -238,4 +251,4 @@ const CreateGroup = () => {
   );
 };
 
-export default CreateGroup;
+export default EditGroup;
