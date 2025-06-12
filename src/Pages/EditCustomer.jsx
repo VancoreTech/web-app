@@ -122,8 +122,9 @@ const EditCustomer = () => {
     <div className="min-h-scren bg-gray-50">
       <Navbar />
       <div className="mx-auto p-6">
-        <div className="flex items-center gap-4">
-          <Link
+
+        <div className="flex items-center gap-4 pb-6">
+          <Link 
             to="/dashboard/customer-details"
             state={{ customerData: customerFormData }}
           >
@@ -134,7 +135,7 @@ const EditCustomer = () => {
           </Link>
         </div>
 
-        <h1 className="text-2xl font-semibold text-gray-900">
+        <h1 className="text-2xl font-semibold text-gray-900 pb-4">
           Edit customer details
         </h1>
 
@@ -551,7 +552,7 @@ const EditCustomer = () => {
           </form>
 
           {/* Action buttons */}
-          <div className="border-t border-gray-200 px-6 py-4 flex justify-end gap-3">
+          <div className=" px-6 py-4 flex justify-end gap-3">
             <button
               onClick={handleCancel}
               className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"

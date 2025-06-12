@@ -64,6 +64,7 @@ const SideNav = () => {
         "/dashboard/edit-customer",
         "/dashboard/create-group",
         "/dashboard/customer-group-details",
+        "/dashboard/edit-group",
       ],
     },
     {
