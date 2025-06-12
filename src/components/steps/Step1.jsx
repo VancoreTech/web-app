@@ -21,7 +21,8 @@ export default function Step1({ onNext, isValid, onNavigateToSignIn }) {
 
       <div className="space-y-3 mb-6">
         <button
-          onClick={onNext}
+          disabled={!agreedToTerms}
+          onClick={agreedToTerms ? onNext : null}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-lg font-medium flex items-center justify-center transition-colors duration-200"
         >
           <Mail className="w-5 h-5 mr-2" />
@@ -60,7 +61,7 @@ export default function Step1({ onNext, isValid, onNavigateToSignIn }) {
 
       <p className="text-center text-gray-600 mb-4">
         Already have an account?
-        <Link to="/signin" className="text-blue-600 hover:underline">
+        <Link to="/signin" className="text-blue-600 hover:underline ml-1">
           Sign in
         </Link>
       </p>
@@ -69,8 +70,9 @@ export default function Step1({ onNext, isValid, onNavigateToSignIn }) {
         <input
           type="checkbox"
           id="terms-checkbox"
+          required
           checked={agreedToTerms}
-          onChange={(e) => setAgreedToTerms(e.checked)}
+          onChange={(e) => setAgreedToTerms(e.target.checked)}
           className="h-4 w-4 "
         />
         <label
