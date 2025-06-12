@@ -102,10 +102,11 @@ function Analytics() {
             color="bg-[#307F9A]"
           />
         </div>
+
         {/* Graph box */}
         <div
           style={{ boxShadow: "1px 2px 6px 0px #00000026" }}
-          className="bg-white py-6 pl-6 rounded-lg"
+          className="bg-white py-6 pl-6  rounded-lg"
         >
           <div className="flex justify-between mr-5">
             <div>
@@ -122,6 +123,7 @@ function Analytics() {
                   className="inline-flex justify-center items-center gap-2 rounded-lg border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
                   id="menu-button"
                   aria-expanded={isOpen}
+                  aria-live="polite"
                   aria-haspopup="true"
                   onClick={() => setIsOpen(!isOpen)}
                 >
@@ -168,12 +170,16 @@ function Analytics() {
             )}
           </div>
 
-          <img src={graph} alt="" />
+          <img
+            src={graph}
+            alt={`Graph of sales overview`}
+            className="block ml-auto"
+          />
         </div>
 
         <div className=" mt-5 min-h-auto flex items-center justify-center gap-6">
-          <div className="bg-white rounded-xl shadow-md p-4 w-full min-w-5xl border border-gray-200">
-            <div className="flex justify-between w-full items-center mb-4">
+          <div className="bg-white rounded-xl shadow-md p-6 w-full min-w-5xl border border-gray-200">
+            <div className="flex justify-between w-full mb-4">
               <div>
                 <h2 className="text-xl font-semibold text-gray-800">
                   Top 5 customers
@@ -181,20 +187,21 @@ function Analytics() {
                 <p className="text-sm text-gray-500 mb-6">Last 7 days</p>
               </div>
 
-              <div className="relative text-left" ref={dropdownRef}>
+              <div className="relative text-left">
                 <button
                   type="button"
                   className="inline-flex justify-center items-center gap-2 rounded-lg border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
                   id="menu-button"
                   aria-expanded={isOpen}
                   aria-haspopup="true"
-                  onClick={() => setIsOpen(!isOpen)}
+                  // onClick={() => setIsOpen(!isOpen)}
                 >
-                  <Calendar /> <span>{selectedOption.label}</span>
+                  <Calendar /> <span>Last 7 days</span>
                   <ChevronDown
-                    className={`-mr-1  h-5 w-5 transition-transform duration-200 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
+                    // className={`-mr-1  h-5 w-5 transition-transform duration-200 ${
+                    //   isOpen ? "rotate-180" : ""
+                    // }`}
+                    className="-mr-1 h-5 w-5 transition-transform duration-200"
                   />
                 </button>
               </div>
@@ -269,7 +276,7 @@ function Analytics() {
           </div>
 
           <div className="bg-white rounded-xl shadow-md p-6 w-4/5 max-w-lg border border-gray-200">
-            <div className="flex justify-between w-full items-center mb-4">
+            <div className="flex justify-between w-full mb-4">
               <div>
                 <h2 className="text-xl font-semibold text-gray-800">
                   Best selling products
@@ -277,77 +284,74 @@ function Analytics() {
                 <p className="text-sm text-gray-500 mb-6">Last 7 days</p>
               </div>
 
-              <div className="relative text-left" ref={dropdownRef}>
+              <div className="relative text-left">
                 <button
                   type="button"
                   className="inline-flex justify-center items-center gap-2 rounded-lg border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
                   id="menu-button"
                   aria-expanded={isOpen}
                   aria-haspopup="true"
-                  onClick={() => setIsOpen(!isOpen)}
+                  // onClick={() => setIsOpen(!isOpen)}
                 >
-                  <Calendar /> <span>{selectedOption.label}</span>
+                  <Calendar /> <span>Last 7 days</span>
                   <ChevronDown
-                    className={`-mr-1  h-5 w-5 transition-transform duration-200 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
+                    // className={`-mr-1  h-5 w-5 transition-transform duration-200 ${
+                    //   isOpen ? "rotate-180" : ""
+                    // }`}
+                    className={
+                      "-mr-1  h-5 w-5 transition-transform duration-200"
+                    }
                   />
                 </button>
               </div>
             </div>
             <div className="w-full flex h-1.5 rounded-full overflow-hidden mb-6">
               <div
-                className="bg-blue-500 rounded-full"
+                className="bg-[#62B2FD] rounded-full"
                 style={{ width: "40%" }}
               ></div>
               <div
-                className="bg-pink-400 rounded-full"
+                className="bg-[#F99BAB] rounded-full"
                 style={{ width: "25%" }}
               ></div>
               <div
-                className="bg-purple-500 rounded-full"
+                className="bg-[#9F97F7] rounded-full"
                 style={{ width: "20%" }}
               ></div>
               <div
-                className="bg-yellow-400 rounded-full"
+                className="bg-[#FFD49B] rounded-full"
                 style={{ width: "15%" }}
               ></div>
             </div>
 
-            <div className="space-y-4">
-              {/* Product 1 */}
+            <div className="space-y-8">
               <div className="flex items-center text-sm">
-                <span className="w-3 h-2 rounded-full bg-blue-500 mr-2 flex-shrink-0"></span>
+                <span className="w-3 h-2 rounded-full bg-[#62B2FD] mr-2 flex-shrink-0"></span>
                 <span className="text-gray-800">Thread Muse</span>
                 <span className="text-gray-500 ml-1">(231 Pieces Sold)</span>
               </div>
 
-              {/* Product 2 */}
               <div className="flex items-center text-sm">
-                <span className="w-3 h-2 rounded-full bg-pink-400 mr-2 flex-shrink-0"></span>
+                <span className="w-3 h-2 rounded-full bg-[#F99BAB] mr-2 flex-shrink-0"></span>
                 <span className="text-gray-800">Thrift Wears</span>
                 <span className="text-gray-500 ml-1">(178 Pieces Sold)</span>
               </div>
 
-              {/* Product 3 */}
               <div className="flex items-center text-sm">
-                <span className="w-3 h-2 rounded-full bg-purple-500 mr-2 flex-shrink-0"></span>
+                <span className="w-3 h-2 rounded-full bg-[#9F97F7] mr-2 flex-shrink-0"></span>
                 <span className="text-gray-800">Flip Flops</span>
                 <span className="text-gray-500 ml-1">(120 Pieces Sold)</span>
               </div>
 
-              {/* Product 4 */}
               <div className="flex items-center text-sm">
-                <span className="w-3 h-2 rounded-full bg-yellow-400 mr-2 flex-shrink-0"></span>
+                <span className="w-3 h-2 rounded-full bg-[#FFD49B] mr-2 flex-shrink-0"></span>
                 <span className="text-gray-800">Sweat Pants</span>
                 <span className="text-gray-500 ml-1">(99 Pieces Sold)</span>
               </div>
             </div>
-            {/* </div> */}
           </div>
         </div>
       </div>
-      //{" "}
     </div>
   );
 }

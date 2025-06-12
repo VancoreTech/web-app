@@ -203,7 +203,9 @@ export default function RegistrationFlow({
         <div
           className={`flex-1 flex ${
             currentStep === 7 ? "items-center" : "items-start"
-          } justify-center px-8 ${currentStep === 7 ? "" : "pt-20"}`}
+          } justify-center px-8 ${
+            currentStep === 7 ? "" : currentStep === 3 ? "pt-8" : "pt-16"
+          }`}
         >
           <div
             className={`w-full ${currentStep === 7 ? "max-w-md" : "max-w-lg"}`}
