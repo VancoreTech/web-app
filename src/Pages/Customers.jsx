@@ -1,14 +1,14 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import {
   Search,
-  Filter,
-  Calendar,
   Plus,
   Upload,
   Users2,
   Newspaper,
   MoreVertical,
   ListFilter,
+  Check,
+  ChevronDown,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import DateSelector from "../components/DateSelector";
@@ -22,8 +22,9 @@ import { StatsCard } from "../components/StatsCard";
 import Pagination from "../components/Pagination";
 import { ArrowupDown } from "./Orders";
 import Navbar from "../components/Navbar";
+import More from "../Modal/More";
 
-const groupIcon = () => {
+export const groupIcon = () => {
   return (
     <svg
       width="61"
@@ -137,6 +138,29 @@ const Customers = () => {
   const [activeTab, setActiveTab] = useState("customers");
   const dateSelection = useDateSelection();
 
+  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+  const dropDownRef = useRef(null);
+
+  // Filter states
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedGender, setSelectedGender] = useState("All");
+  const filterRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+        setOpenDropdownIndex(null);
+      }
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const getCurrentData = () => {
     switch (activeTab) {
       case "groups":
@@ -150,33 +174,41 @@ const Customers = () => {
 
   const filteredData = useMemo(() => {
     const currentData = getCurrentData();
-    if (!searchTerm.trim()) {
-      return currentData;
+    let filtered = currentData;
+
+    // Apply search filter
+    if (searchTerm.trim()) {
+      const searchLower = searchTerm.toLowerCase();
+      filtered = filtered.filter((item) => {
+        if (activeTab === "customers") {
+          return (
+            item.name.toLowerCase().includes(searchLower) ||
+            item.email.toLowerCase().includes(searchLower) ||
+            item.phone.toLowerCase().includes(searchLower) ||
+            item.id.toString().toLowerCase().includes(searchLower)
+          );
+        } else if (activeTab === "groups") {
+          return (
+            item.groupName.toLowerCase().includes(searchLower) ||
+            item.id.toString().toLowerCase().includes(searchLower)
+          );
+        } else if (activeTab === "subscribers") {
+          return (
+            item.email.toLowerCase().includes(searchLower) ||
+            item.id.toString().toLowerCase().includes(searchLower)
+          );
+        }
+        return false;
+      });
     }
 
-    return currentData.filter((item) => {
-      const searchLower = searchTerm.toLowerCase();
-      if (activeTab === "customers") {
-        return (
-          item.name.toLowerCase().includes(searchLower) ||
-          item.email.toLowerCase().includes(searchLower) ||
-          item.phone.toLowerCase().includes(searchLower) ||
-          item.id.toString().toLowerCase().includes(searchLower)
-        );
-      } else if (activeTab === "groups") {
-        return (
-          item.groupName.toLowerCase().includes(searchLower) ||
-          item.id.toString().toLowerCase().includes(searchLower)
-        );
-      } else if (activeTab === "subscribers") {
-        return (
-          item.email.toLowerCase().includes(searchLower) ||
-          item.id.toString().toLowerCase().includes(searchLower)
-        );
-      }
-      return false;
-    });
-  }, [searchTerm, activeTab]);
+    // Apply gender filter for customers tab
+    if (activeTab === "customers" && selectedGender !== "All") {
+      filtered = filtered.filter((item) => item.gender === selectedGender);
+    }
+
+    return filtered;
+  }, [searchTerm, activeTab, selectedGender]);
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
   const indexOfFirstProduct = (currentPage - 1) * entriesPerPage;
@@ -196,6 +228,7 @@ const Customers = () => {
     setActiveTab(tab);
     setCurrentPage(1);
     setSearchTerm("");
+    setSelectedGender("All"); // Reset gender filter when switching tabs
   };
 
   // Handle search input change
@@ -208,9 +241,25 @@ const Customers = () => {
     setSearchTerm("");
   };
 
+  // Filter functions
+  const handleGenderSelect = (gender) => {
+    setSelectedGender(gender);
+    setCurrentPage(1);
+  };
+
+  const handleResetFilters = () => {
+    setSelectedGender("All");
+    setCurrentPage(1);
+  };
+
+  const handleApplyFilters = () => {
+    setIsFilterOpen(false);
+    setCurrentPage(1);
+  };
+
   React.useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm]);
+  }, [searchTerm, selectedGender]);
 
   const renderTableHeaders = () => {
     const baseHeaders = (
@@ -218,7 +267,7 @@ const Customers = () => {
         <th className="text-left p-4">
           <input type="checkbox" className="rounded" />
         </th>
-        <th className="text-left p-4 font-medium text-xs text-gray-700">
+        <th className="text-left p-4 font-medium text-xs text-[#687182]">
           <div className="flex items-center gap-2">
             ACTION
             <ArrowupDown className="h-4 w-4" />
@@ -231,19 +280,19 @@ const Customers = () => {
       return (
         <>
           {baseHeaders}
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               GROUP NAME
               <ArrowupDown className="h-4 w-4" />
             </div>
           </th>
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               NO. OF CUSTOMERS
               <ArrowupDown className="h-4 w-4" />
             </div>
           </th>
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               DATE ADDED
               <ArrowupDown className="h-4 w-4" />
@@ -254,13 +303,13 @@ const Customers = () => {
     } else if (activeTab === "subscribers") {
       return (
         <>
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               DATE ADDED
               <ArrowupDown className="h-4 w-4" />
             </div>
           </th>
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               EMAIL ADDRESS
               <ArrowupDown className="h-4 w-4" />
@@ -272,25 +321,25 @@ const Customers = () => {
       return (
         <>
           {baseHeaders}
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               NAME
               <ArrowupDown className="h-4 w-4" />
             </div>
           </th>
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               EMAIL ADDRESS
               <ArrowupDown className="h-4 w-4" />
             </div>
           </th>
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               PHONE NUMBER
               <ArrowupDown className="h-4 w-4" />
             </div>
           </th>
-          <th className="text-left p-4 font-medium text-xs text-gray-700">
+          <th className="text-left p-4 font-medium text-xs text-[#687182]">
             <div className="flex items-center gap-2">
               DATE ADDED
               <ArrowupDown className="h-4 w-4" />
@@ -302,16 +351,45 @@ const Customers = () => {
   };
 
   const renderTableRows = () => {
-    return currentItems.map((item) => {
+    return currentItems.map((item, index) => {
       const baseCells = (
         <>
           <td className="p-4">
             <input type="checkbox" className="rounded" />
           </td>
           <td className="p-4">
-            <button className="p-1 text-gray-400 hover:text-gray-600 rounded">
-              <MoreVertical className="h-4 w-4" />
-            </button>
+            <div
+              className="relative inline-block"
+              ref={openDropdownIndex === index ? dropDownRef : null}
+            >
+              <button
+                className="text-gray-400 hover:text-gray-600"
+                onClick={() =>
+                  setOpenDropdownIndex(
+                    openDropdownIndex === index ? null : index
+                  )
+                }
+              >
+                <MoreVertical className="w-5 h-5" />
+              </button>
+              {openDropdownIndex === index && (
+                <More
+                  destinations={
+                    activeTab === "groups"
+                      ? [
+                          "/dashboard/customer-group-details",
+                          "/dashboard/edit-group",
+                          "/dashboard/customers",
+                        ]
+                      : [
+                          "/dashboard/customer-details",
+                          "/dashboard/edit-customer",
+                          "/dashboard/customers",
+                        ]
+                  }
+                />
+              )}
+            </div>
           </td>
         </>
       );
@@ -320,7 +398,7 @@ const Customers = () => {
         return (
           <tr
             key={item.id}
-            className="border-b border-gray-200 hover:bg-gray-50"
+            className="border-b border-gray-200 hover:bg-gray-50 text-xs"
           >
             {baseCells}
             <td className="p-4">
@@ -336,7 +414,7 @@ const Customers = () => {
         return (
           <tr
             key={item.id}
-            className="border-b border-gray-200 hover:bg-gray-50"
+            className="border-b border-gray-200 hover:bg-gray-50 text-xs"
           >
             <td className="p-4 text-gray-600">{item.dateAdded}</td>
             <td className="p-4 text-gray-600">{item.email}</td>
@@ -346,7 +424,7 @@ const Customers = () => {
         return (
           <tr
             key={item.id}
-            className="border-b border-gray-200 hover:bg-gray-50"
+            className="border-b border-gray-200 hover:bg-gray-50 text-xs"
           >
             {baseCells}
             <td className="p-4">
@@ -384,6 +462,73 @@ const Customers = () => {
           >
             Clear search
           </button>
+        )}
+      </div>
+    );
+  };
+
+  const renderFilterDropdown = () => {
+    if (activeTab !== "customers") return null;
+
+    return (
+      <div className="relative" ref={filterRef}>
+        <button
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+        >
+          <ListFilter className="h-4 w-4" />
+          Filter
+          <ChevronDown className="h-4 w-4" />
+        </button>
+
+        {isFilterOpen && (
+          <div className="absolute right-0 top-full mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+            <div className="p-4">
+              <div className="flex items-center gap-2 mb-4">
+                <ListFilter className="h-4 w-4 text-gray-600" />
+                <span className="font-medium text-gray-900">Filter</span>
+              </div>
+
+              <div className="mb-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <ChevronDown className="h-4 w-4 text-blue-600" />
+                  <span className="text-sm font-medium text-blue-600">
+                    By gender
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  {["All", "Male", "Female"].map((gender) => (
+                    <button
+                      key={gender}
+                      onClick={() => handleGenderSelect(gender)}
+                      className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+                    >
+                      <span>{gender}</span>
+                      {selectedGender === gender && (
+                        <Check className="h-4 w-4 text-green-600" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex gap-2 pt-4 border-t border-gray-200">
+                <button
+                  onClick={handleResetFilters}
+                  className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  Reset all
+                </button>
+                <button
+                  onClick={handleApplyFilters}
+                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  Apply
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     );
@@ -519,10 +664,7 @@ const Customers = () => {
                 )}
               </div>
               <div className="flex items-center gap-3">
-                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                  <ListFilter className="h-4 w-4" />
-                  Filter
-                </button>
+                {renderFilterDropdown()}
                 <DateSelector
                   {...dateSelection}
                   className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"

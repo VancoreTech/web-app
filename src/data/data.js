@@ -87,7 +87,7 @@ export const ordersData = [
     amount: "₦5,000.00",
     date: "24/09/23, 12:45:20",
     payment: "Unpaid",
-    status: "Pending",
+    status: "Incomplete",
   },
   {
     orderId: "00003",
@@ -103,7 +103,7 @@ export const ordersData = [
     amount: "₦9,800.00",
     date: "26/09/23, 11:10:05",
     payment: "Paid",
-    status: "Shipped",
+    status: "Incomplete",
   },
   {
     orderId: "00005",
@@ -111,7 +111,7 @@ export const ordersData = [
     amount: "₦1,800.00",
     date: "27/09/23, 08:20:30",
     payment: "Unpaid",
-    status: "Cancelled",
+    status: "Incomplete",
   },
   {
     orderId: "00006",
@@ -127,7 +127,7 @@ export const ordersData = [
     amount: "₦2,500.00",
     date: "28/09/23, 13:21:40",
     payment: "Paid",
-    status: "Delivered",
+    status: "Completed",
   },
   {
     orderId: "00008",
@@ -135,7 +135,7 @@ export const ordersData = [
     amount: "₦4,200.00",
     date: "28/09/23, 16:00:00",
     payment: "Unpaid",
-    status: "Pending",
+    status: "Incomplete",
   },
   {
     orderId: "00009",
@@ -159,7 +159,7 @@ export const ordersData = [
     amount: "₦3,000.00",
     date: "30/09/23, 14:22:18",
     payment: "Unpaid",
-    status: "Cancelled",
+    status: "Incomplete",
   },
   {
     orderId: "00012",
@@ -167,7 +167,7 @@ export const ordersData = [
     amount: "₦3,800.00",
     date: "30/09/23, 15:55:10",
     payment: "Paid",
-    status: "Delivered",
+    status: "Completed",
   },
   {
     orderId: "00013",
@@ -183,7 +183,7 @@ export const ordersData = [
     amount: "₦900.00",
     date: "01/10/23, 11:30:45",
     payment: "Paid",
-    status: "Delivered",
+    status: "Completed",
   },
   {
     orderId: "00015",
@@ -191,7 +191,7 @@ export const ordersData = [
     amount: "₦4,000.00",
     date: "01/10/23, 16:10:09",
     payment: "Unpaid",
-    status: "Pending",
+    status: "Incomplete",
   },
   {
     orderId: "00016",
@@ -207,7 +207,7 @@ export const ordersData = [
     amount: "₦8,200.00",
     date: "02/10/23, 12:15:30",
     payment: "Paid",
-    status: "Shipped",
+    status: "Incomplete",
   },
   {
     orderId: "00018",
@@ -215,7 +215,7 @@ export const ordersData = [
     amount: "₦3,900.00",
     date: "02/10/23, 15:40:14",
     payment: "Paid",
-    status: "Delivered",
+    status: "Completed",
   },
   {
     orderId: "00019",
@@ -223,7 +223,7 @@ export const ordersData = [
     amount: "₦2,700.00",
     date: "03/10/23, 09:00:00",
     payment: "Unpaid",
-    status: "Pending",
+    status: "Incomplete",
   },
   {
     orderId: "00020",
@@ -255,7 +255,7 @@ export const ordersData = [
     amount: "₦2,300.00",
     date: "04/10/23, 13:10:50",
     payment: "Unpaid",
-    status: "Cancelled",
+    status: "Incomplete",
   },
   {
     orderId: "00024",
@@ -263,7 +263,7 @@ export const ordersData = [
     amount: "₦3,750.00",
     date: "05/10/23, 15:30:22",
     payment: "Paid",
-    status: "Delivered",
+    status: "Completed",
   },
   {
     orderId: "00025",
@@ -287,7 +287,7 @@ export const ordersData = [
     amount: "₦4,400.00",
     date: "06/10/23, 12:50:30",
     payment: "Unpaid",
-    status: "Pending",
+    status: "Incomplete",
   },
   {
     orderId: "00028",
@@ -295,7 +295,7 @@ export const ordersData = [
     amount: "₦7,000.00",
     date: "07/10/23, 08:00:00",
     payment: "Paid",
-    status: "Shipped",
+    status: "Incomplete",
   },
   {
     orderId: "00029",
@@ -303,7 +303,7 @@ export const ordersData = [
     amount: "₦6,500.00",
     date: "07/10/23, 10:10:10",
     payment: "Paid",
-    status: "Delivered",
+    status: "Completed",
   },
   {
     orderId: "00030",
@@ -311,9 +311,10 @@ export const ordersData = [
     amount: "₦1,300.00",
     date: "07/10/23, 13:13:13",
     payment: "Unpaid",
-    status: "Pending",
+    status: "Incomplete",
   },
 ];
+
 
 export const customersData = [
   {
@@ -322,6 +323,7 @@ export const customersData = [
     email: 'debbie.baker@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 2,
@@ -329,6 +331,7 @@ export const customersData = [
     email: 'jessica.hanson@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 3,
@@ -336,6 +339,7 @@ export const customersData = [
     email: 'deanna.curtis@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 4,
@@ -343,6 +347,7 @@ export const customersData = [
     email: 'tanya.hill@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 5,
@@ -350,6 +355,7 @@ export const customersData = [
     email: 'tim.jennings@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 6,
@@ -357,6 +363,7 @@ export const customersData = [
     email: 'jackson.graham@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 7,
@@ -364,6 +371,7 @@ export const customersData = [
     email: 'alma.lawson@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 8,
@@ -371,6 +379,7 @@ export const customersData = [
     email: 'nathan.roberts@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 9,
@@ -378,6 +387,7 @@ export const customersData = [
     email: 'debra.holt@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 10,
@@ -385,6 +395,7 @@ export const customersData = [
     email: 'dolores.chambers@example.com',
     phone: '09065228897',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 11,
@@ -392,6 +403,7 @@ export const customersData = [
     email: 'emeka.chukwu@example.com',
     phone: '08123456789',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 12,
@@ -399,6 +411,7 @@ export const customersData = [
     email: 'aisha.musa@example.com',
     phone: '09011223344',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 13,
@@ -406,6 +419,7 @@ export const customersData = [
     email: 'gbenga.afolabi@example.com',
     phone: '08033445566',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 14,
@@ -413,6 +427,7 @@ export const customersData = [
     email: 'ngozi.okafor@example.com',
     phone: '09112233445',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 15,
@@ -420,6 +435,7 @@ export const customersData = [
     email: 'yusuf.abdullahi@example.com',
     phone: '07099887766',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 16,
@@ -427,6 +443,7 @@ export const customersData = [
     email: 'omolara.shola@example.com',
     phone: '08155667788',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 17,
@@ -434,6 +451,7 @@ export const customersData = [
     email: 'chinedu.okeke@example.com',
     phone: '08022334455',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 18,
@@ -441,6 +459,7 @@ export const customersData = [
     email: 'fatima.ibrahim@example.com',
     phone: '09087654321',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 19,
@@ -448,6 +467,7 @@ export const customersData = [
     email: 'femi.ojo@example.com',
     phone: '08190807060',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 20,
@@ -455,6 +475,7 @@ export const customersData = [
     email: 'halima.sani@example.com',
     phone: '09122334455',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 21,
@@ -462,6 +483,7 @@ export const customersData = [
     email: 'ifeanyi.nwachukwu@example.com',
     phone: '08034455667',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 22,
@@ -469,6 +491,7 @@ export const customersData = [
     email: 'amaka.johnson@example.com',
     phone: '08111223344',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 23,
@@ -476,6 +499,7 @@ export const customersData = [
     email: 'tolu.adebayo@example.com',
     phone: '09033445566',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 24,
@@ -483,6 +507,7 @@ export const customersData = [
     email: 'blessing.nnaji@example.com',
     phone: '07066778899',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 25,
@@ -490,6 +515,7 @@ export const customersData = [
     email: 'kelvin.edet@example.com',
     phone: '09155667788',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 26,
@@ -497,6 +523,7 @@ export const customersData = [
     email: 'chiamaka.eze@example.com',
     phone: '08144332211',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 27,
@@ -504,6 +531,7 @@ export const customersData = [
     email: 'rasaq.mustapha@example.com',
     phone: '08089997766',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 28,
@@ -511,6 +539,7 @@ export const customersData = [
     email: 'oyinade.adeola@example.com',
     phone: '09011224433',
     dateAdded: '22-09-2025',
+    gender: 'Female',
   },
   {
     id: 29,
@@ -518,6 +547,7 @@ export const customersData = [
     email: 'obinna.uche@example.com',
     phone: '07044332211',
     dateAdded: '22-09-2025',
+    gender: 'Male',
   },
   {
     id: 30,
@@ -525,8 +555,10 @@ export const customersData = [
     email: 'salma.garba@example.com',
     phone: '08166778899',
     dateAdded: '22-09-2025',
-  }  
+    gender: 'Female',
+  }
 ];
+
 
 export const customerGroupData = [
   { 
@@ -742,6 +774,464 @@ export const customerSubscribersData = [
   { id: 28, email: "brian.nelson@example.com", dateAdded: "2025-05-14" },
   { id: 29, email: "clara.olsen@example.com", dateAdded: "2025-05-18" },
   { id: 30, email: "daniel.perez@example.com", dateAdded: "2025-05-22" },
+];
+
+// Transaction History Data (30 objects)
+export const transactionHistoryData = [
+  {
+    id: 1,
+    date: "3-11-2025",
+    orderId: "00001",
+    amount: 3200.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 2,
+    date: "3-11-2025",
+    orderId: "00002",
+    amount: 5500.00,
+    transactionType: "Card payment",
+    status: "Completed"
+  },
+  {
+    id: 3,
+    date: "2-11-2025",
+    orderId: "00003",
+    amount: 1800.00,
+    transactionType: "Online payment",
+    status: "Pending"
+  },
+  {
+    id: 4,
+    date: "2-11-2025",
+    orderId: "00004",
+    amount: 7200.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 5,
+    date: "1-11-2025",
+    orderId: "00005",
+    amount: 2400.00,
+    transactionType: "Card payment",
+    status: "Failed"
+  },
+  {
+    id: 6,
+    date: "1-11-2025",
+    orderId: "00006",
+    amount: 9800.00,
+    transactionType: "Online payment",
+    status: "Completed"
+  },
+  {
+    id: 7,
+    date: "31-10-2025",
+    orderId: "00007",
+    amount: 4500.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 8,
+    date: "31-10-2025",
+    orderId: "00008",
+    amount: 3300.00,
+    transactionType: "Card payment",
+    status: "Pending"
+  },
+  {
+    id: 9,
+    date: "30-10-2025",
+    orderId: "00009",
+    amount: 6700.00,
+    transactionType: "Online payment",
+    status: "Completed"
+  },
+  {
+    id: 10,
+    date: "30-10-2025",
+    orderId: "00010",
+    amount: 2100.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 11,
+    date: "29-10-2025",
+    orderId: "00011",
+    amount: 8900.00,
+    transactionType: "Card payment",
+    status: "Completed"
+  },
+  {
+    id: 12,
+    date: "29-10-2025",
+    orderId: "00012",
+    amount: 1500.00,
+    transactionType: "Online payment",
+    status: "Failed"
+  },
+  {
+    id: 13,
+    date: "28-10-2025",
+    orderId: "00013",
+    amount: 5200.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 14,
+    date: "28-10-2025",
+    orderId: "00014",
+    amount: 3800.00,
+    transactionType: "Card payment",
+    status: "Pending"
+  },
+  {
+    id: 15,
+    date: "27-10-2025",
+    orderId: "00015",
+    amount: 7600.00,
+    transactionType: "Online payment",
+    status: "Completed"
+  },
+  {
+    id: 16,
+    date: "27-10-2025",
+    orderId: "00016",
+    amount: 2900.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 17,
+    date: "26-10-2025",
+    orderId: "00017",
+    amount: 4200.00,
+    transactionType: "Card payment",
+    status: "Completed"
+  },
+  {
+    id: 18,
+    date: "26-10-2025",
+    orderId: "00018",
+    amount: 6300.00,
+    transactionType: "Online payment",
+    status: "Failed"
+  },
+  {
+    id: 19,
+    date: "25-10-2025",
+    orderId: "00019",
+    amount: 1700.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 20,
+    date: "25-10-2025",
+    orderId: "00020",
+    amount: 8400.00,
+    transactionType: "Card payment",
+    status: "Pending"
+  },
+  {
+    id: 21,
+    date: "24-10-2025",
+    orderId: "00021",
+    amount: 3600.00,
+    transactionType: "Online payment",
+    status: "Completed"
+  },
+  {
+    id: 22,
+    date: "24-10-2025",
+    orderId: "00022",
+    amount: 5900.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 23,
+    date: "23-10-2025",
+    orderId: "00023",
+    amount: 2800.00,
+    transactionType: "Card payment",
+    status: "Completed"
+  },
+  {
+    id: 24,
+    date: "23-10-2025",
+    orderId: "00024",
+    amount: 7100.00,
+    transactionType: "Online payment",
+    status: "Failed"
+  },
+  {
+    id: 25,
+    date: "22-10-2025",
+    orderId: "00025",
+    amount: 4800.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 26,
+    date: "22-10-2025",
+    orderId: "00026",
+    amount: 3100.00,
+    transactionType: "Card payment",
+    status: "Pending"
+  },
+  {
+    id: 27,
+    date: "21-10-2025",
+    orderId: "00027",
+    amount: 6500.00,
+    transactionType: "Online payment",
+    status: "Completed"
+  },
+  {
+    id: 28,
+    date: "21-10-2025",
+    orderId: "00028",
+    amount: 2200.00,
+    transactionType: "Bank transfer",
+    status: "Completed"
+  },
+  {
+    id: 29,
+    date: "20-10-2025",
+    orderId: "00029",
+    amount: 9200.00,
+    transactionType: "Card payment",
+    status: "Completed"
+  },
+  {
+    id: 30,
+    date: "20-10-2025",
+    orderId: "00030",
+    amount: 1900.00,
+    transactionType: "Online payment",
+    status: "Pending"
+  }
+];
+
+// Settlement History Data (30 objects)
+export const settlementHistoryData = [
+  {
+    id: 1,
+    date: "3-11-2025",
+    settlementId: "STL001",
+    amount: 25600.00,
+    status: "Completed"
+  },
+  {
+    id: 2,
+    date: "2-11-2025",
+    settlementId: "STL002",
+    amount: 18200.00,
+    status: "Pending"
+  },
+  {
+    id: 3,
+    date: "1-11-2025",
+    settlementId: "STL003",
+    amount: 32400.00,
+    status: "Completed"
+  },
+  {
+    id: 4,
+    date: "31-10-2025",
+    settlementId: "STL004",
+    amount: 14800.00,
+    status: "Completed"
+  },
+  {
+    id: 5,
+    date: "30-10-2025",
+    settlementId: "STL005",
+    amount: 21300.00,
+    status: "Failed"
+  },
+  {
+    id: 6,
+    date: "29-10-2025",
+    settlementId: "STL006",
+    amount: 39700.00,
+    status: "Completed"
+  },
+  {
+    id: 7,
+    date: "28-10-2025",
+    settlementId: "STL007",
+    amount: 27500.00,
+    status: "Pending"
+  },
+  {
+    id: 8,
+    date: "27-10-2025",
+    settlementId: "STL008",
+    amount: 16900.00,
+    status: "Completed"
+  },
+  {
+    id: 9,
+    date: "26-10-2025",
+    settlementId: "STL009",
+    amount: 33800.00,
+    status: "Completed"
+  },
+  {
+    id: 10,
+    date: "25-10-2025",
+    settlementId: "STL010",
+    amount: 19600.00,
+    status: "Failed"
+  },
+  {
+    id: 11,
+    date: "24-10-2025",
+    settlementId: "STL011",
+    amount: 42100.00,
+    status: "Completed"
+  },
+  {
+    id: 12,
+    date: "23-10-2025",
+    settlementId: "STL012",
+    amount: 28700.00,
+    status: "Pending"
+  },
+  {
+    id: 13,
+    date: "22-10-2025",
+    settlementId: "STL013",
+    amount: 15400.00,
+    status: "Completed"
+  },
+  {
+    id: 14,
+    date: "21-10-2025",
+    settlementId: "STL014",
+    amount: 36200.00,
+    status: "Completed"
+  },
+  {
+    id: 15,
+    date: "20-10-2025",
+    settlementId: "STL015",
+    amount: 22800.00,
+    status: "Failed"
+  },
+  {
+    id: 16,
+    date: "19-10-2025",
+    settlementId: "STL016",
+    amount: 31500.00,
+    status: "Completed"
+  },
+  {
+    id: 17,
+    date: "18-10-2025",
+    settlementId: "STL017",
+    amount: 17300.00,
+    status: "Pending"
+  },
+  {
+    id: 18,
+    date: "17-10-2025",
+    settlementId: "STL018",
+    amount: 24900.00,
+    status: "Completed"
+  },
+  {
+    id: 19,
+    date: "16-10-2025",
+    settlementId: "STL019",
+    amount: 38600.00,
+    status: "Completed"
+  },
+  {
+    id: 20,
+    date: "15-10-2025",
+    settlementId: "STL020",
+    amount: 20100.00,
+    status: "Failed"
+  },
+  {
+    id: 21,
+    date: "14-10-2025",
+    settlementId: "STL021",
+    amount: 29400.00,
+    status: "Completed"
+  },
+  {
+    id: 22,
+    date: "13-10-2025",
+    settlementId: "STL022",
+    amount: 35800.00,
+    status: "Pending"
+  },
+  {
+    id: 23,
+    date: "12-10-2025",
+    settlementId: "STL023",
+    amount: 16700.00,
+    status: "Completed"
+  },
+  {
+    id: 24,
+    date: "11-10-2025",
+    settlementId: "STL024",
+    amount: 41200.00,
+    status: "Completed"
+  },
+  {
+    id: 25,
+    date: "10-10-2025",
+    settlementId: "STL025",
+    amount: 23500.00,
+    status: "Failed"
+  },
+  {
+    id: 26,
+    date: "9-10-2025",
+    settlementId: "STL026",
+    amount: 30700.00,
+    status: "Completed"
+  },
+  {
+    id: 27,
+    date: "8-10-2025",
+    settlementId: "STL027",
+    amount: 18900.00,
+    status: "Pending"
+  },
+  {
+    id: 28,
+    date: "7-10-2025",
+    settlementId: "STL028",
+    amount: 26300.00,
+    status: "Completed"
+  },
+  {
+    id: 29,
+    date: "6-10-2025",
+    settlementId: "STL029",
+    amount: 37400.00,
+    status: "Completed"
+  },
+  {
+    id: 30,
+    date: "5-10-2025",
+    settlementId: "STL030",
+    amount: 21800.00,
+    status: "Failed"
+  }
 ];
 
 
