@@ -20,7 +20,7 @@ import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
 
-import DashboardLayout from "./components/DashboardLayout"; 
+import DashboardLayout from "./components/DashboardLayout";
 import EditGroup from "./Pages/EditGroup";
 
 // Details Pages
@@ -46,6 +46,7 @@ import History from "./Pages/product-details/History";
 import AllOrders from "./Pages/product-details/AllOrders";
 import Inventory from "./Pages/product-details/Inventory";
 import EditCategory from "./Pages/EditCategory";
+import CreateDiscount from "./create-pages/CreateDiscount";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -146,11 +147,17 @@ export default function App() {
         <Route path="edit-customer" element={<EditCustomer />} />
         <Route path="create-group" element={<CreateGroup />} />
 
-        <Route path="customer-group-details" element={<CustomerGroupDetails />} />
+        <Route
+          path="customer-group-details"
+          element={<CustomerGroupDetails />}
+        />
         <Route path="edit-group" element={<EditGroup />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="campaigns" element={<Campaigns />} />
+
         <Route path="discounts" element={<DiscountsCoupons />} />
+        <Route path="create-discount" element={<CreateDiscount />} />
+
         <Route path="transactions" element={<Transactions />} />
         <Route path="connected-apps" element={<ConnectedApps />} />
         <Route path="payment-methods" element={<PaymentsMethods />} />
