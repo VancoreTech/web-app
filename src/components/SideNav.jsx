@@ -26,7 +26,7 @@ const SideNav = () => {
     }
     // Check if current path matches any sub-paths
     if (item.subPaths) {
-      return item.subPaths.some(subPath => location.pathname === subPath);
+      return item.subPaths.some((subPath) => location.pathname === subPath);
     }
     return false;
   };
@@ -58,7 +58,13 @@ const SideNav = () => {
       icon: <Users2 className="w-5 h-5" />,
       label: "Customers",
       path: "/dashboard/customers",
-      subPaths: ["/dashboard/create-customer", "/dashboard/customer-details", "/dashboard/edit-customer", "/dashboard/create-group", "/dashboard/customer-group-details"],
+      subPaths: [
+        "/dashboard/create-customer",
+        "/dashboard/customer-details",
+        "/dashboard/edit-customer",
+        "/dashboard/create-group",
+        "/dashboard/customer-group-details",
+      ],
     },
     {
       icon: <BarChart3 className="w-5 h-5" />,
@@ -98,7 +104,7 @@ const SideNav = () => {
   ];
 
   return (
-    <div className="w-64 h-screen bg-[#0A0B1C] text-white p-4 flex flex-col fixed">
+    <div className="w-64 h-screen bg-[#01042D] text-white p-4 flex flex-col fixed">
       {/* Logo and Store URL */}
       <div className="mb-4">
         <div className="flex items-center justify-center mb-1">
@@ -123,7 +129,7 @@ const SideNav = () => {
               to={item.path}
               className={`flex items-center space-x-3 px-3 py-1.5 rounded-lg transition-colors ${
                 isMenuItemActive(item)
-                  ? "bg-white/10 text-white"
+                  ? "bg-white/10 text-white border-l-8 border-white"
                   : "text-gray-500 hover:bg-white/10 hover:text-white"
               }`}
             >
