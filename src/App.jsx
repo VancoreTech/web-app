@@ -47,6 +47,8 @@ import AllOrders from "./Pages/product-details/AllOrders";
 import Inventory from "./Pages/product-details/Inventory";
 import EditCategory from "./Pages/EditCategory";
 import CreateDiscount from "./create-pages/CreateDiscount";
+import CreateCoupon from "./create-pages/CreateCoupon";
+import CreateCampaign from "./create-pages/CreateCampaign";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -153,10 +155,13 @@ export default function App() {
         />
         <Route path="edit-group" element={<EditGroup />} />
         <Route path="analytics" element={<Analytics />} />
+
         <Route path="campaigns" element={<Campaigns />} />
+        <Route path="create-campaign" element={<CreateCampaign />} />
 
         <Route path="discounts" element={<DiscountsCoupons />} />
         <Route path="create-discount" element={<CreateDiscount />} />
+        <Route path="create-coupon" element={<CreateCoupon />} />
 
         <Route path="transactions" element={<Transactions />} />
         <Route path="connected-apps" element={<ConnectedApps />} />

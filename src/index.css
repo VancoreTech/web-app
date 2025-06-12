@@ -61,6 +61,10 @@ button:disabled {
   cursor: not-allowed;
 }
 
+input {
+  background-color: #f6f8fa;
+}
+
 input:focus,
 select:focus,
 textarea:focus {

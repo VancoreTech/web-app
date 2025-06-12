@@ -415,278 +415,274 @@ const Products = () => {
   const totalPages = Math.ceil(displayedProducts.length / entriesPerPage);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <div className="flex-1 overflow-y-auto bg-[#F9FAFB]">
-        <Navbar />
+    <div className="flex-1 overflow-y-auto bg-[#F9FAFB]">
+      <Navbar />
 
-        <div className="p-6">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-2xl font-semibold text-gray-900">Products</h1>
-              <p className="text-sm text-gray-500">23 products</p>
-            </div>
-            <div className="flex items-center space-x-3">
-              <button className="flex items-center px-4 py-2 border border-blue-600 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                <ArrowUp className="w-4 h-4 mr-2 text-blue-600" />
-                <span className="text-blue-600">Export CSV</span>
-              </button>
-              <Link
-                to={
-                  activeTab === "products"
-                    ? "/dashboard/create-product"
-                    : "/dashboard/create-category"
-                }
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
-              >
-                <span className="mr-2">+</span>
-                {activeTab === "products" ? "Add a product" : "Add a category"}
-              </Link>
-            </div>
+      <div className="p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-900">Products</h2>
+            <p className="text-sm text-gray-500">23 products</p>
           </div>
-          {/* StatsCards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <StatsCard
-              icon={LucideWallet2}
-              title="Total inventory value"
-              value="₦90,200.00"
-              change={-24.5}
-              period="vs 7 days ago"
-              color="bg-[#6E90C7]"
-            />
-            <StatsCard
-              icon={Box}
-              title="Products sold"
-              value="4"
-              change={-24.5}
-              period="vs 7 days ago"
-              color="bg-[#B867BA]"
-            />
-            <StatsCard
-              icon={bagIcon}
-              title="Out of stock"
-              value="2"
-              change={+45}
-              period="vs 7 days ago"
-              color="bg-[#4A8F5E]"
-            />
+          <div className="flex items-center space-x-3">
+            <button className="flex items-center px-4 py-2 border border-blue-600 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+              <ArrowUp className="w-4 h-4 mr-2 text-blue-600" />
+              <span className="text-blue-600">Export CSV</span>
+            </button>
+            <Link
+              to={
+                activeTab === "products"
+                  ? "/dashboard/create-product"
+                  : "/dashboard/create-category"
+              }
+              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
+            >
+              <span className="mr-2">+</span>
+              {activeTab === "products" ? "Add a product" : "Add a category"}
+            </Link>
           </div>
+        </div>
+        {/* StatsCards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <StatsCard
+            icon={LucideWallet2}
+            title="Total inventory value"
+            value="₦90,200.00"
+            change={-24.5}
+            period="vs 7 days ago"
+            color="bg-[#6E90C7]"
+          />
+          <StatsCard
+            icon={Box}
+            title="Products sold"
+            value="4"
+            change={-24.5}
+            period="vs 7 days ago"
+            color="bg-[#B867BA]"
+          />
+          <StatsCard
+            icon={bagIcon}
+            title="Out of stock"
+            value="2"
+            change={+45}
+            period="vs 7 days ago"
+            color="bg-[#4A8F5E]"
+          />
+        </div>
 
-          <section className="p-4">
-            {/* Tabs */}
-            <div className="flex border-b border-gray-200 mb-4 space-x-4">
-              <button
-                onClick={() => setActiveTab("products")}
-                className={`pb-2 text-sm font-medium ${
-                  activeTab === "products"
-                    ? "text-primary border-b-2 border-primary"
-                    : "text-gray-500"
-                }`}
-              >
-                Products
-              </button>
-              <button
-                onClick={() => setActiveTab("categories")}
-                className={`pb-2 text-sm font-medium ${
-                  activeTab === "categories"
-                    ? "text-primary border-b-2 border-primary"
-                    : "text-gray-500"
-                }`}
-              >
-                Categories
-              </button>
-            </div>
-          </section>
+        <section className="p-4">
+          {/* Tabs */}
+          <div className="flex border-b border-gray-200 mb-4 space-x-4">
+            <button
+              onClick={() => setActiveTab("products")}
+              className={`pb-2 text-sm font-medium ${
+                activeTab === "products"
+                  ? "text-primary border-b-2 border-primary"
+                  : "text-gray-500"
+              }`}
+            >
+              Products
+            </button>
+            <button
+              onClick={() => setActiveTab("categories")}
+              className={`pb-2 text-sm font-medium ${
+                activeTab === "categories"
+                  ? "text-primary border-b-2 border-primary"
+                  : "text-gray-500"
+              }`}
+            >
+              Categories
+            </button>
+          </div>
+        </section>
 
-          {/* Filter Box */}
-          <div className="bg-white rounded-lg border border-gray-200 ">
-            <div className="p-4 border-b border-none">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="relative">
-                    <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-[#667085]" />
-                    <input
-                      type="text"
-                      placeholder="Search for user name, ID etc.."
-                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80 text-[]"
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="relative inline-block">
-                  <div className="flex items-center space-x-3 ">
-                    <button
-                      onClick={() => setShowFilter(!showFilter)}
-                      className="flex items-center  px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                    >
-                      <ListFilter className="w-4 h-4 mr-2" />
-                      Filter
-                    </button>
-                    <DateSelector {...dateSelection} />
-                  </div>
-
-                  {activeTab === "categories"
-                    ? showFilter && (
-                        <div className="bg-slate-100 flex text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
-                          <div className="flex items-center mt-2 mb-5 pl-4">
-                            <ListFilter className="w-4 h-4 mr-2" />
-                            <p>Filter</p>
-                          </div>
-
-                          <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
-                            <ArrowDownIcon className="w-5" />
-                            By category name
-                          </p>
-
-                          <div className="flex flex-col items-start w-full">
-                            {categories.slice(0, 7).map((category) => {
-                              const isSelected = tempCategoryFilter.includes(
-                                category.toLowerCase()
-                              );
-
-                              return (
-                                <button
-                                  key={category}
-                                  onClick={() => {
-                                    // setSelectedFilter(category.toLowerCase());
-                                    handleCategorySelect(
-                                      category.toLowerCase()
-                                    );
-                                  }}
-                                  className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
-                                >
-                                  {category}
-                                  {isSelected && (
-                                    <Check className="w-4 h-4 text-green-600" />
-                                  )}
-                                </button>
-                              );
-                            })}
-                          </div>
-
-                          <div className="mt-3 px-2">
-                            <button
-                              onClick={resetFilters}
-                              className="px-5 py-2 mr-5 bg-white border text-sm border-[#ECEFF3] rounded-md"
-                            >
-                              Reset All
-                            </button>
-                            <button
-                              onClick={applyFilters}
-                              className="bg-[#0A6DEE] px-5 py-2 text-white text-sm rounded-md"
-                            >
-                              Apply
-                            </button>
-                          </div>
-                        </div>
-                      )
-                    : activeTab === "products"
-                    ? showFilter && (
-                        <div className="bg-slate-100  flex gap-5 text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
-                          <div className="flex items-center mt-2 mb-5 pl-4">
-                            <ListFilter className="w-4 h-4 mr-2" />
-                            <p>Filter</p>
-                          </div>
-
-                          <div className="flex flex-col items-start w-full">
-                            <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
-                              <ArrowDownIcon className="w-5" />
-                              By stock
-                            </p>
-                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                              All
-                            </button>
-                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                              Limited{" "}
-                              {/* {isSelected && (
-                                <Check className="w-4 h-4 text-green-600" />
-                              )} */}
-                            </button>
-                            <button className=" border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                              Unlimited
-                            </button>
-                          </div>
-
-                          <div>
-                            <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
-                              <ArrowDownIcon className="w-5" />
-                              By status
-                            </p>
-                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                              All
-                            </button>
-                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                              Enabled
-                            </button>
-                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                              Disabled
-                            </button>
-                          </div>
-
-                          <div className="mt-3 px-2">
-                            <button
-                              onClick={resetFilters}
-                              className="px-5 py-2 mr-5 bg-white border text-sm border-[#ECEFF3] rounded-md"
-                            >
-                              Reset All
-                            </button>
-                            <button
-                              onClick={applyFilters}
-                              className="bg-[#0A6DEE] px-5 py-2 text-white text-sm rounded-md"
-                            >
-                              Apply
-                            </button>
-                          </div>
-                        </div>
-                      )
-                    : null}
+        {/* Filter Box */}
+        <div className="bg-white rounded-lg border border-gray-200 ">
+          <div className="p-4 border-b border-none">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="relative">
+                  <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-[#667085]" />
+                  <input
+                    type="text"
+                    placeholder="Search for user name, ID etc.."
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80 text-[]"
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
                 </div>
               </div>
+              <div className="relative inline-block">
+                <div className="flex items-center space-x-3 ">
+                  <button
+                    onClick={() => setShowFilter(!showFilter)}
+                    className="flex items-center  px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                  >
+                    <ListFilter className="w-4 h-4 mr-2" />
+                    Filter
+                  </button>
+                  <DateSelector {...dateSelection} />
+                </div>
+
+                {activeTab === "categories"
+                  ? showFilter && (
+                      <div className="bg-slate-100 flex text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                        <div className="flex items-center mt-2 mb-5 pl-4">
+                          <ListFilter className="w-4 h-4 mr-2" />
+                          <p>Filter</p>
+                        </div>
+
+                        <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
+                          <ArrowDownIcon className="w-5" />
+                          By category name
+                        </p>
+
+                        <div className="flex flex-col items-start w-full">
+                          {categories.slice(0, 7).map((category) => {
+                            const isSelected = tempCategoryFilter.includes(
+                              category.toLowerCase()
+                            );
+
+                            return (
+                              <button
+                                key={category}
+                                onClick={() => {
+                                  // setSelectedFilter(category.toLowerCase());
+                                  handleCategorySelect(category.toLowerCase());
+                                }}
+                                className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                              >
+                                {category}
+                                {isSelected && (
+                                  <Check className="w-4 h-4 text-green-600" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        <div className="mt-3 px-2">
+                          <button
+                            onClick={resetFilters}
+                            className="px-5 py-2 mr-5 bg-white border text-sm border-[#ECEFF3] rounded-md"
+                          >
+                            Reset All
+                          </button>
+                          <button
+                            onClick={applyFilters}
+                            className="bg-[#0A6DEE] px-5 py-2 text-white text-sm rounded-md"
+                          >
+                            Apply
+                          </button>
+                        </div>
+                      </div>
+                    )
+                  : activeTab === "products"
+                  ? showFilter && (
+                      <div className="bg-slate-100  flex gap-5 text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                        <div className="flex items-center mt-2 mb-5 pl-4">
+                          <ListFilter className="w-4 h-4 mr-2" />
+                          <p>Filter</p>
+                        </div>
+
+                        <div className="">
+                          <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
+                            <ArrowDownIcon className="w-5" />
+                            By stock
+                          </p>
+                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                            All
+                          </button>
+                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                            Limited{" "}
+                            {/* {isSelected && (
+                                <Check className="w-4 h-4 text-green-600" />
+                              )} */}
+                          </button>
+                          <button className=" border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                            Unlimited
+                          </button>
+                        </div>
+
+                        <div>
+                          <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
+                            <ArrowDownIcon className="w-5" />
+                            By status
+                          </p>
+                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                            All
+                          </button>
+                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                            Enabled
+                          </button>
+                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                            Disabled
+                          </button>
+                        </div>
+
+                        <div className="mt-3 px-2">
+                          <button
+                            onClick={resetFilters}
+                            className="px-5 py-2 mr-5 bg-white border text-sm border-[#ECEFF3] rounded-md"
+                          >
+                            Reset All
+                          </button>
+                          <button
+                            onClick={applyFilters}
+                            className="bg-[#0A6DEE] px-5 py-2 text-white text-sm rounded-md"
+                          >
+                            Apply
+                          </button>
+                        </div>
+                      </div>
+                    )
+                  : null}
+              </div>
             </div>
-
-            {/* Tab content */}
-            {activeTab === "products" ? (
-              <ProductsTable
-                currentPage={currentPage}
-                productsPerPage={productsPerPage}
-                productData={productData}
-                currentProducts={currentProducts}
-                showMore={showMore}
-                setShowMore={setShowMore}
-                openDropdownIndex={openDropdownIndex}
-                setOpenDropdownIndex={setOpenDropdownIndex}
-                dropDownRef={dropDownRef}
-              />
-            ) : (
-              <CategoriesTable
-                currentPage={currentPage}
-                productsPerPage={productsPerPage}
-                // productData={productData}
-                // products={productData}
-                currentProducts={currentProducts}
-                showMore={showMore}
-                setShowMore={setShowMore}
-                categoryFilter={categoryFilter}
-                openDropdownIndex={openDropdownIndex}
-                setOpenDropdownIndex={setOpenDropdownIndex}
-                dropDownRef={dropDownRef}
-              />
-            )}
-
-            {/* Pagination */}
-            {productData && (
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-                entriesPerPage={entriesPerPage}
-                setEntriesPerPage={setEntriesPerPage}
-                indexOfFirstProduct={indexOfFirstProduct}
-                indexOfLastProduct={indexOfLastProduct}
-                totalEntries={displayedProducts.length}
-              />
-            )}
           </div>
+
+          {/* Tab content */}
+          {activeTab === "products" ? (
+            <ProductsTable
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              productData={productData}
+              currentProducts={currentProducts}
+              showMore={showMore}
+              setShowMore={setShowMore}
+              openDropdownIndex={openDropdownIndex}
+              setOpenDropdownIndex={setOpenDropdownIndex}
+              dropDownRef={dropDownRef}
+            />
+          ) : (
+            <CategoriesTable
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+              // productData={productData}
+              // products={productData}
+              currentProducts={currentProducts}
+              showMore={showMore}
+              setShowMore={setShowMore}
+              categoryFilter={categoryFilter}
+              openDropdownIndex={openDropdownIndex}
+              setOpenDropdownIndex={setOpenDropdownIndex}
+              dropDownRef={dropDownRef}
+            />
+          )}
+
+          {/* Pagination */}
+          {productData && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              entriesPerPage={entriesPerPage}
+              setEntriesPerPage={setEntriesPerPage}
+              indexOfFirstProduct={indexOfFirstProduct}
+              indexOfLastProduct={indexOfLastProduct}
+              totalEntries={displayedProducts.length}
+            />
+          )}
         </div>
       </div>
     </div>
