@@ -347,7 +347,7 @@ const CouponsTable = ({
 }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full uppercase">
+      <table className="w-full">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left">
@@ -363,9 +363,21 @@ const CouponsTable = ({
               </div>
             </th>
 
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
+              <div className="flex items-center gap-2">
+                Date created
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
+                  <path d="M5 0L0 5H10L5 0Z" fill="#98A2B3" />
+                  <path d="M5 16L10 11H0L5 16Z" fill="#98A2B3" />
+                </svg>
+              </div>
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
+              Coupon Type
+            </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex gap-2">
               <div className="flex items-center gap-2">
-                CATEGORY NAME
+                Description
                 <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
                   <path d="M5 0L0 5H10L5 0Z" fill="#98A2B3" />
                   <path d="M5 16L10 11H0L5 16Z" fill="#98A2B3" />
@@ -375,7 +387,7 @@ const CouponsTable = ({
 
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               <div className="flex items-center gap-2">
-                DESCRIPTION
+                Coupon code
                 <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
                   <path d="M5 0L0 5H10L5 0Z" fill="#98A2B3" />
                   <path d="M5 16L10 11H0L5 16Z" fill="#98A2B3" />
@@ -385,7 +397,7 @@ const CouponsTable = ({
 
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex gap-2">
               <div className="flex items-center gap-2">
-                PRODUCTS
+                STATUS
                 <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
                   <path d="M5 0L0 5H10L5 0Z" fill="#98A2B3" />
                   <path d="M5 16L10 11H0L5 16Z" fill="#98A2B3" />
@@ -431,14 +443,28 @@ const CouponsTable = ({
                     </div>
                   </td>
 
+                  <td className="px-6 py-4">{coupon.dateCreated}</td>
+
                   <td className="px-6 py-4 text-xs text-gray-900">
-                    {product.category}
+                    {coupon.couponType}
                   </td>
                   <td className="px-6 py-4 text-xs text-gray-900">
-                    {product.title}
+                    {coupon.description}
                   </td>
                   <td className="px-6 py-4 text-xs text-gray-900">
-                    {product.stock}
+                    {coupon.couponCode}
+                  </td>
+
+                  <td className="px-6 py-4 text-xs text-gray-900">
+                    <span
+                      className={` py-2 px-4 rounded-2xl ${
+                        coupon.status === "Active"
+                          ? "bg-[#ECFDF3] text-[#027A48]"
+                          : "bg-[#FEF3F2] text-[#B42318]"
+                      }`}
+                    >
+                      {coupon.status}
+                    </span>
                   </td>
                 </tr>
               );
@@ -568,11 +594,11 @@ function DiscountsCoupons() {
 
         <section className="p-4">
           {/* Tabs */}
-          <div className="flex border-b border-gray-200 mb-4 space-x-4">
+          <div className="flex border-gray-200 mb-4 space-x-4">
             <button
               onClick={() => setActiveTab("discounts")}
               className={`pb-2 text-sm font-medium ${
-                activeTab === "products"
+                activeTab === "discounts"
                   ? "text-primary border-b-2 border-primary"
                   : "text-gray-500"
               }`}
