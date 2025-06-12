@@ -25,7 +25,7 @@ function More({ destinations }) {
         <Edit3 className="w-4" />
         Edit
       </Link>
-      <Link to="/dashboard/product-details" className="flex gap-2">
+      <Link to={destinations[2]} className="flex gap-2">
         <Trash2 className="w-4" />
         Trash
       </Link>

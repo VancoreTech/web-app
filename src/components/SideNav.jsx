@@ -98,7 +98,7 @@ const SideNav = () => {
   ];
 
   return (
-    <div className="w-64 h-screen bg-[#0A0B1C] text-white p-4 flex flex-col fixed">
+    <div className="w-64 h-screen bg-[#01042D] text-white p-4 flex flex-col fixed">
       {/* Logo and Store URL */}
       <div className="mb-4">
         <div className="flex items-center justify-center mb-1">
@@ -123,7 +123,7 @@ const SideNav = () => {
               to={item.path}
               className={`flex items-center space-x-3 px-3 py-1.5 rounded-lg transition-colors ${
                 isMenuItemActive(item)
-                  ? "bg-white/10 text-white"
+                  ? "bg-[#FFFFFF1A] text-white "
                   : "text-gray-500 hover:bg-white/10 hover:text-white"
               }`}
             >

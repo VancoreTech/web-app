@@ -158,6 +158,7 @@ const ProductsTable = ({
                           destinations={[
                             "/dashboard/product-details",
                             "/dashboard/edit-product",
+                            "/dashboard/product-details",
                           ]}
                         />
                       )}
