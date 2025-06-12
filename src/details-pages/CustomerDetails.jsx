@@ -365,43 +365,43 @@ const CustomerDetails = () => {
                           className="rounded border-gray-300"
                         />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-[#687182] uppercase tracking-wider">
                         <div className="flex items-center">
                           ACTION
                           <ArrowupDown className="w-4 h-4 ml-1" />
                         </div>
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-[#687182] uppercase tracking-wider">
                         <div className="flex items-center">
                           ORDER NO.
                           <ArrowupDown className="w-4 h-4 ml-1" />
                         </div>
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-[#687182] uppercase tracking-wider">
                         <div className="flex items-center">
                           ORDER NAME
                           <ArrowupDown className="w-4 h-4 ml-1" />
                         </div>
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-[#687182] uppercase tracking-wider">
                         <div className="flex items-center">
                           AMOUNT
                           <ArrowupDown className="w-4 h-4 ml-1" />
                         </div>
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-[#687182] uppercase tracking-wider">
                         <div className="flex items-center">
                           DATE
                           <ArrowupDown className="w-4 h-4 ml-1" />
                         </div>
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-[#687182] uppercase tracking-wider">
                         <div className="flex items-center">
                           PAYMENT
                           <ArrowupDown className="w-4 h-4 ml-1" />
                         </div>
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-[#687182] uppercase tracking-wider">
                         <div className="flex items-center">
                           STATUS
                           <ArrowupDown className="w-4 h-4 ml-1" />
@@ -411,7 +411,7 @@ const CustomerDetails = () => {
                   </thead>
                   <tbody className="bg-white rounded-b-lg border border-gray-200 divide-y divide-gray-200">
                     {currentOrders.map((order, index) => (
-                      <tr key={index} className="hover:bg-gray-50">
+                      <tr key={index} className="hover:bg-gray-50 ">
                         <td className="px-6 py-4">
                           <input
                             type="checkbox"
@@ -423,19 +423,19 @@ const CustomerDetails = () => {
                             <MoreVertical className="w-5 h-5" />
                           </button>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-900 font-medium">
+                        <td className="px-6 py-4 text-gray-900 font-medium text-xs">
                           {order.orderId || order.orderNo || order.id || "N/A"}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-900">
+                        <td className="px-6 py-4 text-gray-900 text-xs">
                           {order.orderName ||
                             order.name ||
                             order.productName ||
                             "N/A"}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-900">
+                        <td className="px-6 py-4 text-gray-900 text-xs">
                           {order.amount || order.price || order.total || "N/A"}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
+                        <td className="px-6 py-4 text-gray-500 text-xs">
                           {order.date || order.createdAt || "N/A"}
                         </td>
                         <td className="px-6 py-4">
@@ -449,7 +449,7 @@ const CustomerDetails = () => {
                             • {order.payment || order.paymentStatus || "N/A"}
                           </span>
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-6 py-4 text-xs">
                           <span
                             className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
                               order.status === "Completed"

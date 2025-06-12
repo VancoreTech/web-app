@@ -16,7 +16,7 @@ export const StatsCard = ({
         {Icon && <Icon className="w-6 h-6 text-white" />}
       </div>
     </div>
-    <div className="space-y-1">
+    <div className="space-y-2">
       <p className="text-sm text-gray-500">{title}</p>
       <p className="text-2xl font-semibold text-gray-900">{value}</p>
       <div className="flex items-center text-sm">

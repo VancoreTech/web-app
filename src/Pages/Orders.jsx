@@ -9,6 +9,8 @@ import {
   ArrowUpToLine,
   ListFilter,
   MoreVertical,
+  ChevronDown,
+  ArrowDown,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import DateSelector from "../components/DateSelector";
@@ -44,15 +46,25 @@ const Orders = () => {
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
   const [showMore, setShowMore] = useState(false);
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState("All");
+  const [orderStatus, setOrderStatus] = useState("All");
   const navigate = useNavigate();
 
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   const dropDownRef = useRef(null);
+  const filterDropdownRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
         setOpenDropdownIndex(null);
+      }
+      if (
+        filterDropdownRef.current &&
+        !filterDropdownRef.current.contains(event.target)
+      ) {
+        setShowFilterDropdown(false);
       }
     }
 
@@ -64,14 +76,25 @@ const Orders = () => {
   // Use the custom hook for date selection
   const dateSelection = useDateSelection();
 
-  // Filter and paginate orders
+  // Filter orders based on search term, payment status, and order status
   const filteredOrders = useMemo(() => {
-    return ordersData.filter(
-      (order) =>
+    return ordersData.filter((order) => {
+      // Search filter
+      const matchesSearch =
         order.orderName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.orderId.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm]);
+        order.orderId.toLowerCase().includes(searchTerm.toLowerCase());
+
+      // Payment status filter
+      const matchesPaymentStatus =
+        paymentStatus === "All" || order.payment === paymentStatus;
+
+      // Order status filter
+      const matchesOrderStatus =
+        orderStatus === "All" || order.status === orderStatus;
+
+      return matchesSearch && matchesPaymentStatus && matchesOrderStatus;
+    });
+  }, [searchTerm, paymentStatus, orderStatus]);
 
   const totalPages = Math.ceil(filteredOrders.length / entriesPerPage);
   const indexOfFirstProduct = (currentPage - 1) * entriesPerPage;
@@ -85,6 +108,29 @@ const Orders = () => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
+  };
+
+  const handleResetFilters = () => {
+    setPaymentStatus("All");
+    setOrderStatus("All");
+    setSearchTerm("");
+    setCurrentPage(1);
+  };
+
+  const handleApplyFilters = () => {
+    setShowFilterDropdown(false);
+    setCurrentPage(1); // Reset to first page when applying filters
+  };
+
+  // Handle filter changes and reset pagination
+  const handlePaymentStatusChange = (status) => {
+    setPaymentStatus(status);
+    setCurrentPage(1);
+  };
+
+  const handleOrderStatusChange = (status) => {
+    setOrderStatus(status);
+    setCurrentPage(1);
   };
 
   return (
@@ -137,7 +183,7 @@ const Orders = () => {
             <StatsCard
               icon={Users2}
               title="Completed orders"
-              value="14"
+              value={filteredOrders.filter(order => order.status === "Completed").length}
               change={-24.5}
               period="vs 7 days ago"
               color="bg-[#A4845D]"
@@ -145,7 +191,7 @@ const Orders = () => {
             <StatsCard
               icon={Command}
               title="Unpaid orders"
-              value="6"
+              value={filteredOrders.filter(order => order.payment === "Unpaid").length}
               change={45}
               period="vs 7 days ago"
               color="bg-[#307F9A]"
@@ -163,16 +209,161 @@ const Orders = () => {
                       type="text"
                       placeholder="Search for user name, ID etc.."
                       value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        setCurrentPage(1);
+                      }}
                       className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80"
                     />
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    <ListFilter className="w-4 h-4 mr-2" />
-                    Filter
-                  </button>
+                  <div className="relative" ref={filterDropdownRef}>
+                    <button
+                      onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+                      className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                    >
+                      <ListFilter className="w-4 h-4 mr-2" />
+                      Filter
+                      {(paymentStatus !== "All" || orderStatus !== "All") && (
+                        <span className="ml-2 w-2 h-2 bg-blue-600 rounded-full"></span>
+                      )}
+                    </button>
+
+                    {/* Filter Dropdown */}
+                    {showFilterDropdown && (
+                      <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                        <div className="p-4">
+                          {/* Header */}
+                          <div className="flex items-center justify-between mb-4">
+                            <span className="text-sm font-medium text-gray-900">
+                              Filter
+                            </span>
+                          </div>
+
+                          {/* By payment status */}
+                          <div className="mb-6">
+                            <div className="flex items-center mb-3">
+                              <ArrowDown className="w-4 h-4 text-blue-600 mr-2" />
+                              <span className="text-sm font-medium text-blue-600">
+                                By payment status
+                              </span>
+                            </div>
+                            <div className="ml-6 space-y-3">
+                              {["All", "Paid", "Unpaid"].map((status) => (
+                                <label
+                                  key={status}
+                                  className="flex items-center border-b border-gray-200 pb-2 cursor-pointer"
+                                  onClick={() => handlePaymentStatusChange(status)}
+                                >
+                                  <input
+                                    type="radio"
+                                    name="paymentStatus"
+                                    value={status}
+                                    checked={paymentStatus === status}
+                                    onChange={() => handlePaymentStatusChange(status)}
+                                    className="sr-only"
+                                  />
+                                  <div className="flex items-center">
+                                    <span
+                                      className={`text-sm ${
+                                        paymentStatus === status
+                                          ? "text-gray-900 font-medium"
+                                          : "text-gray-600"
+                                      }`}
+                                    >
+                                      {status}
+                                    </span>
+                                    {paymentStatus === status && (
+                                      <svg
+                                        className="w-4 h-4 ml-2 text-gray-600"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                      >
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    )}
+                                  </div>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* By status */}
+                          <div className="mb-6">
+                            <div className="flex items-center mb-3">
+                              <ArrowDown className="w-4 h-4 text-blue-600 mr-2" />
+                              <span className="text-sm font-medium text-blue-600">
+                                By status
+                              </span>
+                            </div>
+                            <div className="ml-6 space-y-3">
+                              {["All", "Incomplete", "Completed"].map((status) => (
+                                <label
+                                  key={status}
+                                  className="flex items-center border-b border-gray-200 pb-2 cursor-pointer"
+                                  onClick={() => handleOrderStatusChange(status)}
+                                >
+                                  <input
+                                    type="radio"
+                                    name="orderStatus"
+                                    value={status}
+                                    checked={orderStatus === status}
+                                    onChange={() => handleOrderStatusChange(status)}
+                                    className="sr-only"
+                                  />
+                                  <div className="flex items-center">
+                                    <span
+                                      className={`text-sm ${
+                                        orderStatus === status
+                                          ? "text-gray-900 font-medium"
+                                          : "text-gray-600"
+                                      }`}
+                                    >
+                                      {status}
+                                    </span>
+                                    {orderStatus === status && (
+                                      <svg
+                                        className="w-4 h-4 ml-2 text-gray-600"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                      >
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    )}
+                                  </div>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Action buttons */}
+                          <div className="flex justify-between">
+                            <button
+                              onClick={handleResetFilters}
+                              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+                            >
+                              Reset all
+                            </button>
+                            <button
+                              onClick={handleApplyFilters}
+                              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                            >
+                              Apply
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   <DateSelector {...dateSelection} />
                 </div>
               </div>
@@ -261,25 +452,26 @@ const Orders = () => {
                             <More
                               destinations={[
                                 "/dashboard/order-details",
-                                "/dashboard/edit-category",
+                                "/dashboard/orders",
+                                "/dashboard/orders",
                               ]}
                             />
                           )}
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-gray-900 text-xs">
                         {order.orderId}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-gray-900 text-xs">
                         {order.orderName}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-gray-900 text-xs">
                         {order.amount}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-gray-900 text-xs">
                         {order.date}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 text-xs">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
                             order.payment === "Paid"
@@ -290,8 +482,14 @@ const Orders = () => {
                           • {order.payment}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                      <td className="px-6 py-4 text-xs">
+                        <span
+                          className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                            order.status === "Completed"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                          }`}
+                        >
                           • {order.status}
                         </span>
                       </td>
