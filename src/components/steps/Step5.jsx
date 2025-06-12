@@ -175,7 +175,7 @@ export default function Step5({ formData, setFormData, onNext, isValid }) {
 
         <p className="text-center text-[15px] text-gray-600">
           Already have an account?
-          <Link to="/signin" className="text-blue-600 hover:underline">
+          <Link to="/signin" className="text-blue-600 hover:underline ml-1">
             Sign in
           </Link>
         </p>

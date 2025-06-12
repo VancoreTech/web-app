@@ -17,7 +17,7 @@ export default function Step3({
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <div className=" w-[25rem] max-sm:w-full mx-auto px-2">
+    <div className=" w-[25rem] max-sm:w-full mx-auto px-2 pb-4">
       <div className="lg:hidden flex justify-center mb-6">
         <img src="/vancore-logo.png" alt="Vancore Logo" className="h-8" />
       </div>
@@ -210,9 +210,9 @@ export default function Step3({
           Proceed
         </button>
 
-        <p className="text-center text-gray-600 text-xs">
-          Already have an account?{" "}
-          <Link to="/signin" className="text-blue-600 hover:underline">
+        <p className="text-center text-gray-600 text-sm">
+          Already have an account?
+          <Link to="/signin" className="text-blue-600 hover:underline ml-1">
             Sign in
           </Link>
         </p>
