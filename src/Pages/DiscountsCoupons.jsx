@@ -197,9 +197,9 @@ const DiscountsTable = ({
   dropDownRef,
 }) => {
   return (
-    <div className="overflow-x-auto relative inline-block">
-      <table className="w-full uppercase">
-        <thead className="bg-gray-50">
+    <div className="overflow-x-auto relative">
+      <table className="w-full ">
+        <thead className="bg-gray-50 uppercase">
           <tr>
             <th className="px-6 py-3 text-left">
               <input type="checkbox" className="rounded border-gray-300" />
