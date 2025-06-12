@@ -144,6 +144,7 @@ const CustomerGroupDetails = () => {
     indexOfLastProduct
   );
 
+
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
