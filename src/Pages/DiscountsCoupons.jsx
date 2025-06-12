@@ -12,184 +12,10 @@ import DateSelector from "../components/DateSelector";
 import { useDateSelection } from "../hooks/UseDateSelection";
 import Pagination from "../components/Pagination";
 import { Link, useSearchParams } from "react-router-dom";
-import More from "../Modal/More";
+import More, { MorewButtons } from "../Modal/More";
+import { discountsData, couponsData } from "../data/data";
 
 // Coupons Table Data
-const couponsData = [
-  {
-    id: 1,
-    dateCreated: "23-10-2025",
-    couponType: "Cart coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Active",
-  },
-  {
-    id: 2,
-    dateCreated: "23-10-2025",
-    couponType: "Product coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Active",
-  },
-  {
-    id: 3,
-    dateCreated: "23-10-2025",
-    couponType: "Product coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Inactive",
-  },
-  {
-    id: 4,
-    dateCreated: "23-10-2025",
-    couponType: "Product coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Inactive",
-  },
-  {
-    id: 5,
-    dateCreated: "23-10-2025",
-    couponType: "Product coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Active",
-  },
-  {
-    id: 6,
-    dateCreated: "23-10-2025",
-    couponType: "Product coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Active",
-  },
-  {
-    id: 7,
-    dateCreated: "23-10-2025",
-    couponType: "Cart coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Active",
-  },
-  {
-    id: 8,
-    dateCreated: "23-10-2025",
-    couponType: "Cart coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Active",
-  },
-  {
-    id: 9,
-    dateCreated: "23-10-2025",
-    couponType: "Cart coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Active",
-  },
-  {
-    id: 10,
-    dateCreated: "23-10-2025",
-    couponType: "Cart coupon",
-    description: "Black friday",
-    couponCode: "ASER34",
-    status: "Active",
-  },
-];
-
-const discountsData = [
-  {
-    id: 1,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Active",
-  },
-  {
-    id: 2,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Active",
-  },
-  {
-    id: 3,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Inactive",
-  },
-  {
-    id: 4,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Inactive",
-  },
-  {
-    id: 5,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Active",
-  },
-  {
-    id: 6,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Active",
-  },
-  {
-    id: 7,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Active",
-  },
-  {
-    id: 8,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Active",
-  },
-  {
-    id: 9,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Active",
-  },
-  {
-    id: 10,
-    dateCreated: "23-10-2025",
-    description: "Susan Sheidu",
-    discountType: "Fixed account",
-    discounts: "₦3,200.00",
-    products: 1,
-    status: "Active",
-  },
-];
 
 const DiscountsTable = ({
   openDropdownIndex,
@@ -264,7 +90,7 @@ const DiscountsTable = ({
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y text-xs divide-gray-200">
           {discountsData ? (
             discountsData.map((discount, index) => {
               return (
@@ -291,30 +117,27 @@ const DiscountsTable = ({
                         <MoreVertical className="w-5 h-5" />
                       </button>
                       {openDropdownIndex === index && (
-                        <More
-                          destinations={[
-                            "/dashboard/product-details",
-                            "/dashboard/edit-product",
-                          ]}
+                        <MorewButtons
+                          actions={["View details", "Deactivate", "Trash"]}
                         />
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4">{discount.dateCreated}</td>
-                  <td className="px-6 py-4 text-xs text-gray-900">
+                  <td className="px-6 py-4 ">{discount.dateCreated}</td>
+                  <td className="px-6 py-4 text-gray-900">
                     {discount.description}
                   </td>
-                  <td className="px-6 py-4 text-xs text-gray-900">
+                  <td className="px-6 py-4 text-gray-900">
                     {discount.discountType}
                   </td>
-                  <td className="px-6 py-4 text-xs text-gray-900">
+                  <td className="px-6 py-4 text-gray-900">
                     {discount.discounts}
                   </td>
-                  <td className="px-6 py-4 text-xs text-gray-900">
+                  <td className="px-6 py-4 text-gray-900">
                     {discount.products}
                   </td>
 
-                  <td className="px-6 py-4 text-xs text-gray-900">
+                  <td className="px-6 py-4 text-gray-900">
                     <span
                       className={` py-2 px-4 rounded-2xl ${
                         discount.status === "Active"
@@ -344,6 +167,8 @@ const CouponsTable = ({
   openDropdownIndex,
   setOpenDropdownIndex,
   dropDownRef,
+  filter,
+  setFilter,
 }) => {
   return (
     <div className="overflow-x-auto">
@@ -406,7 +231,7 @@ const CouponsTable = ({
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y text-xs divide-gray-200">
           {couponsData &&
             couponsData.map((coupon, index) => {
               return (
@@ -433,11 +258,8 @@ const CouponsTable = ({
                         <MoreVertical className="w-5 h-5" />
                       </button>
                       {openDropdownIndex === index && (
-                        <More
-                          destinations={[
-                            "/dashboard/category-details",
-                            "/dashboard/edit-category",
-                          ]}
+                        <MorewButtons
+                          actions={["View Details", "Deactivate", "Trash"]}
                         />
                       )}
                     </div>
@@ -483,6 +305,8 @@ function DiscountsCoupons() {
 
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   const dropDownRef = useRef(null);
+  const [filter, setFilter] = useState("");
+  const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -510,18 +334,6 @@ function DiscountsCoupons() {
   const [appliedCategoryFilter, setAppliedCategoryFilter] = useState([]);
 
   const categoryFilter = searchParams.get("category");
-
-  const handleCategorySelect = (category) => {
-    if (category === "all") {
-      setTempCategoryFilter([]);
-      return;
-    }
-    if (tempCategoryFilter.includes(category)) {
-      setTempCategoryFilter((prev) => prev.filter((item) => item !== category));
-    } else {
-      setTempCategoryFilter((prev) => [...prev, category]);
-    }
-  };
 
   const applyFilters = () => {
     setAppliedCategoryFilter([...tempCategoryFilter]);
@@ -561,7 +373,7 @@ function DiscountsCoupons() {
   const totalPages = Math.ceil(displayedProducts.length / entriesPerPage);
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen  overflow-hidden">
       <div className="flex-1 overflow-y-auto bg-[#F9FAFB]">
         <Navbar />
 
@@ -593,7 +405,6 @@ function DiscountsCoupons() {
         </div>
 
         <section className="p-4">
-          {/* Tabs */}
           <div className="flex border-gray-200 mb-4 space-x-4">
             <button
               onClick={() => setActiveTab("discounts")}
@@ -618,8 +429,7 @@ function DiscountsCoupons() {
           </div>
         </section>
 
-        {/* Filter Box */}
-        <div className="bg-white rounded-lg border border-gray-200 ">
+        <div className="bg-white mx-6 rounded-lg border border-gray-200 ">
           <div className="p-4 border-b border-none">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
@@ -645,44 +455,82 @@ function DiscountsCoupons() {
                   <DateSelector {...dateSelection} />
                 </div>
 
-                {activeTab === "categories"
+                {activeTab === "discounts"
                   ? showFilter && (
-                      <div className="bg-slate-100 flex text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
-                        <div className="flex items-center mt-2 mb-5 pl-4">
+                      <div className="bg-slate-100 flex gap-5 text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                        <div className="flex items-center mt-2 pl-4">
                           <ListFilter className="w-4 h-4 mr-2" />
                           <p>Filter</p>
                         </div>
 
-                        <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
-                          <ArrowDownIcon className="w-5" />
-                          By category name
-                        </p>
-
-                        <div className="flex flex-col items-start w-full">
-                          {categories.slice(0, 7).map((category) => {
-                            const isSelected = tempCategoryFilter.includes(
+                        <div>
+                          {/* const isSelected = filter.includes(
                               category.toLowerCase()
-                            );
-
-                            return (
-                              <button
-                                key={category}
-                                onClick={() => {
-                                  // setSelectedFilter(category.toLowerCase());
-                                  handleCategorySelect(category.toLowerCase());
-                                }}
-                                className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
-                              >
-                                {category}
-                                {isSelected && (
-                                  <Check className="w-4 h-4 text-green-600" />
-                                )}
-                              </button>
-                            );
-                          })}
+                            ); */}
+                          <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
+                            <ArrowDownIcon className="w-5" />
+                            By discount type
+                          </p>
+                          <button
+                            onClick={() => {
+                              // setSelectedFilter(category.toLowerCase());
+                              handleCategorySelect(category.toLowerCase());
+                            }}
+                            className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                          >
+                            Fixed
+                            {isSelected && (
+                              <Check className="w-4 h-4 text-green-600" />
+                            )}
+                          </button>
+                          <button
+                            onClick={() => {
+                              // setSelectedFilter(category.toLowerCase());
+                              handleCategorySelect(category.toLowerCase());
+                            }}
+                            className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                          >
+                            Percentage
+                            {isSelected && (
+                              <Check className="w-4 h-4 text-green-600" />
+                            )}
+                          </button>
+                        </div>
+                        <div className="">
+                          {/* const isSelected = filter.includes(
+                              category.toLowerCase()
+                            ); */}
+                          <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
+                            <ArrowDownIcon className="w-5" />
+                            By status
+                          </p>
+                          <button
+                            onClick={() => {
+                              // setSelectedFilter(category.toLowerCase());
+                              handleCategorySelect(category.toLowerCase());
+                            }}
+                            className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                          >
+                            Active
+                            {isSelected && (
+                              <Check className="w-4 h-4 text-green-600" />
+                            )}
+                          </button>
+                          <button
+                            onClick={() => {
+                              // setSelectedFilter(category.toLowerCase());
+                              handleCategorySelect(category.toLowerCase());
+                            }}
+                            className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                          >
+                            Inactive
+                            {isSelected && (
+                              <Check className="w-4 h-4 text-green-600" />
+                            )}
+                          </button>
                         </div>
 
-                        <div className="mt-3 px-2">
+                        <div className=" px-2">
                           <button
                             onClick={resetFilters}
                             className="px-5 py-2 mr-5 bg-white border text-sm border-[#ECEFF3] rounded-md"
@@ -698,7 +546,7 @@ function DiscountsCoupons() {
                         </div>
                       </div>
                     )
-                  : activeTab === "products"
+                  : activeTab === "coupons"
                   ? showFilter && (
                       <div className="bg-slate-100  flex gap-5 text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
                         <div className="flex items-center mt-2 mb-5 pl-4">
@@ -709,23 +557,22 @@ function DiscountsCoupons() {
                         <div className="flex flex-col items-start w-full">
                           <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
                             <ArrowDownIcon className="w-5" />
-                            By stock
+                            By status
                           </p>
                           <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
                             All
                           </button>
                           <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                            Limited{" "}
+                            Active
                             {/* {isSelected && (
                                 <Check className="w-4 h-4 text-green-600" />
                               )} */}
                           </button>
                           <button className=" border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                            Unlimited
+                            Inactive
                           </button>
                         </div>
-
-                        <div>
+                        <div className="flex flex-col items-start w-full">
                           <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
                             <ArrowDownIcon className="w-5" />
                             By status
@@ -734,10 +581,13 @@ function DiscountsCoupons() {
                             All
                           </button>
                           <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                            Enabled
+                            Active
+                            {/* {isSelected && (
+                                <Check className="w-4 h-4 text-green-600" />
+                              )} */}
                           </button>
-                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                            Disabled
+                          <button className=" border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                            Inactive
                           </button>
                         </div>
 

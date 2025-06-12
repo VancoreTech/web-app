@@ -1,26 +1,37 @@
-import React from 'react';
-import { Calendar } from 'lucide-react';
+import React, { useEffect, useRef, useState } from "react";
+import { Calendar } from "lucide-react";
 
-const DateSelector = ({ 
-  showCalendar, 
-  selectedDate, 
-  handleDateSelect, 
-  formatDisplayDate, 
-  toggleCalendar, 
+const DateSelector = ({
+  // showCalendar,
+  selectedDate,
+  handleDateSelect,
+  formatDisplayDate,
+  toggleCalendar,
   closeCalendar,
   className = "flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50",
-  placeholder = "Select Date"
+  placeholder = "Select Date",
 }) => {
+  const [showCalendar, setShowCalendar] = useState(false);
+  const calendarRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setShowCalendar(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
-    <div className="relative">
-      <button 
-        onClick={toggleCalendar}
-        className={className}
-      >
+    <div className="relative" ref={calendarRef}>
+      <button onClick={toggleCalendar} className={className}>
         <Calendar className="w-4 h-4 mr-2" />
         {formatDisplayDate(selectedDate) || placeholder}
       </button>
-      
+
       {showCalendar && (
         <div className="absolute top-full right-0 mt-2 p-4 bg-white border border-gray-300 rounded-md shadow-lg z-10 min-w-[250px]">
           <input

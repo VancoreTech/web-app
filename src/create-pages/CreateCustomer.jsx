@@ -42,7 +42,7 @@ const CreateCustomer = () => {
 
   const handleCancel = () => {
     const hasFormData = Object.values(formData).some((value) => {
-      if (typeof value === 'boolean') return false;
+      if (typeof value === "boolean") return false;
       return value.trim() !== "";
     });
 
@@ -71,8 +71,8 @@ const CreateCustomer = () => {
     setShowSuccessModal(false);
     navigate("/dashboard/customer-details", {
       state: {
-        customerData: formData
-      }
+        customerData: formData,
+      },
     });
   };
 
@@ -94,26 +94,30 @@ const CreateCustomer = () => {
   const isFormValid = () => {
     const orderDetailsFields = [
       "firstName",
-      "lastName", 
+      "lastName",
       "email",
       "phone",
       "address",
-      "customer"
+      "customer",
     ];
-    
+
     const shippingDetailsFields = [
       "shippingAddress",
       "country",
       "state",
-      "city"
+      "city",
     ];
-    
+
     // Check if all order details fields are filled
-    const orderDetailsValid = orderDetailsFields.every((field) => formData[field].trim() !== "");
-    
+    const orderDetailsValid = orderDetailsFields.every(
+      (field) => formData[field].trim() !== ""
+    );
+
     // Check if all shipping details fields are filled
-    const shippingDetailsValid = shippingDetailsFields.every((field) => formData[field].trim() !== "");
-    
+    const shippingDetailsValid = shippingDetailsFields.every(
+      (field) => formData[field].trim() !== ""
+    );
+
     // Check billing address fields only if "same as shipping" is not checked
     let billingDetailsValid = true;
     if (!formData.sameAsShipping) {
@@ -121,11 +125,13 @@ const CreateCustomer = () => {
         "billingAddress",
         "billingCountry",
         "billingState",
-        "billingCity"
+        "billingCity",
       ];
-      billingDetailsValid = billingDetailsFields.every((field) => formData[field].trim() !== "");
+      billingDetailsValid = billingDetailsFields.every(
+        (field) => formData[field].trim() !== ""
+      );
     }
-    
+
     return orderDetailsValid && shippingDetailsValid && billingDetailsValid;
   };
 
@@ -136,7 +142,7 @@ const CreateCustomer = () => {
       <Navbar />
       <div className=" mx-auto p-6">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => navigate("/dashboard/customers")}
             className="flex items-center mb-4 gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
           >
@@ -145,9 +151,9 @@ const CreateCustomer = () => {
           </button>
         </div>
 
-        <h1 className="text-2xl font-semibold text-gray-900 mb-6">
+        <h3 className="text-2xl font-semibold text-gray-900 mb-6">
           Add new customer
-        </h1>
+        </h3>
 
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
           <form className="p-6 space-y-8">
@@ -269,7 +275,7 @@ const CreateCustomer = () => {
 
               <div className="flex items-center justify-between">
                 <div className="space-y-2 flex-1">
-                  <div className="flex justify-between" >
+                  <div className="flex justify-between">
                     <label
                       htmlFor="customer"
                       className="text-sm font-medium text-gray-700"
@@ -354,7 +360,9 @@ const CreateCustomer = () => {
                       }
                       className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                      <option value="" className="text-gray-400">Select country</option>
+                      <option value="" className="text-gray-400">
+                        Select country
+                      </option>
                       <option value="nigeria">Nigeria</option>
                       <option value="usa">United States</option>
                     </select>
@@ -378,7 +386,9 @@ const CreateCustomer = () => {
                       }
                       className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                      <option value="" className="text-gray-400">Select state</option>
+                      <option value="" className="text-gray-400">
+                        Select state
+                      </option>
                       <option value="lagos">Lagos</option>
                       <option value="abuja">Abuja</option>
                     </select>
@@ -485,7 +495,9 @@ const CreateCustomer = () => {
                           }
                           className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                          <option value="" className="text-gray-400">Select country</option>
+                          <option value="" className="text-gray-400">
+                            Select country
+                          </option>
                           <option value="nigeria">Nigeria</option>
                           <option value="usa">United States</option>
                         </select>
@@ -509,7 +521,9 @@ const CreateCustomer = () => {
                           }
                           className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                          <option value="" className="text-gray-400">Select state</option>
+                          <option value="" className="text-gray-400">
+                            Select state
+                          </option>
                           <option value="lagos">Lagos</option>
                           <option value="abuja">Abuja</option>
                         </select>
