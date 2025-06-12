@@ -11,7 +11,7 @@ const EditCustomer = () => {
 
   // Get customer data from navigation state (from CreateCustomer page)
   const customerFormData = location.state?.customerData;
-  
+
   // Initialize formData state with the customer data or empty values as fallback
   const [formData, setFormData] = useState({
     firstName: customerFormData?.firstName || "",
@@ -47,7 +47,8 @@ const EditCustomer = () => {
   };
 
   // Check if form is valid for proceed button
-  const isProceedDisabled = !formData.firstName || !formData.lastName || !formData.email;
+  const isProceedDisabled =
+    !formData.firstName || !formData.lastName || !formData.email;
 
   const handleCancel = () => {
     setShowCancelConfirmModal(true);
@@ -72,7 +73,7 @@ const EditCustomer = () => {
     setShowSuccessModal(false);
     // Pass the updated customer data back to the Customer Details page
     navigate("/dashboard/customer-details", {
-      state: { customerData: formData }
+      state: { customerData: formData },
     });
   };
 
@@ -88,7 +89,7 @@ const EditCustomer = () => {
   const handleCancelSuccessDone = () => {
     setShowCancelSuccessModal(false);
     navigate("/dashboard/customer-details", {
-      state: { customerData: customerFormData }
+      state: { customerData: customerFormData },
     });
   };
 
@@ -107,7 +108,10 @@ const EditCustomer = () => {
             </Link>
           </div>
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-            <p className="text-center text-gray-500">No customer data found. Please go back and select a customer to edit.</p>
+            <p className="text-center text-gray-500">
+              No customer data found. Please go back and select a customer to
+              edit.
+            </p>
           </div>
         </div>
       </div>
@@ -118,6 +122,7 @@ const EditCustomer = () => {
     <div className="min-h-scren bg-gray-50">
       <Navbar />
       <div className="mx-auto p-6">
+
         <div className="flex items-center gap-4 pb-6">
           <Link 
             to="/dashboard/customer-details"
@@ -195,9 +200,7 @@ const EditCustomer = () => {
                     type="email"
                     placeholder="Enter email address"
                     value={formData.email}
-                    onChange={(e) =>
-                      handleInputChange("email", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -213,9 +216,7 @@ const EditCustomer = () => {
                     type="tel"
                     placeholder="Enter phone number"
                     value={formData.phone}
-                    onChange={(e) =>
-                      handleInputChange("phone", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
                     className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -233,9 +234,7 @@ const EditCustomer = () => {
                   type="text"
                   placeholder="Enter address"
                   value={formData.address}
-                  onChange={(e) =>
-                    handleInputChange("address", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("address", e.target.value)}
                   className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -391,9 +390,7 @@ const EditCustomer = () => {
                     type="text"
                     placeholder="Enter city"
                     value={formData.city}
-                    onChange={(e) =>
-                      handleInputChange("city", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("city", e.target.value)}
                     className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -474,10 +471,7 @@ const EditCustomer = () => {
                           id="billingCountry"
                           value={formData.billingCountry}
                           onChange={(e) =>
-                            handleInputChange(
-                              "billingCountry",
-                              e.target.value
-                            )
+                            handleInputChange("billingCountry", e.target.value)
                           }
                           className="w-full px-3 py-2 border bg-[#F6F8FA] border-[#ECEFF3] rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
@@ -597,7 +591,7 @@ const EditCustomer = () => {
         />
 
         {/* Cancel Confirm Modal */}
-        <ConfirmModal 
+        <ConfirmModal
           isOpen={showCancelConfirmModal}
           title="Confirm action"
           message="Are you sure you want to cancel this edit?"

@@ -1,26 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import {
   ArrowUp,
-  ArrowDown,
   LucideWallet2,
   Box,
-  ChevronUp,
-  ChevronDown,
   Search,
-  Calendar,
-  Filter,
-  Users,
   MoreVertical,
-  ColumnsIcon,
   ListFilter,
-  ArrowDown01,
+  ArrowDownIcon,
+  Check,
 } from "lucide-react";
 import { StatsCard } from "../components/StatsCard";
 import DateSelector from "../components/DateSelector";
 import { useDateSelection } from "../hooks/UseDateSelection";
 import Pagination from "../components/Pagination";
 import { Link, useSearchParams } from "react-router-dom";
+import More from "../Modal/More";
 
 const bagIcon = () => (
   <svg
@@ -67,9 +62,14 @@ const AvailabilityToggle = ({ status }) => {
   );
 };
 
-const ProductsTable = ({ currentProducts }) => {
+const ProductsTable = ({
+  currentProducts,
+  openDropdownIndex,
+  setOpenDropdownIndex,
+  dropDownRef,
+}) => {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto relative inline-block">
       <table className="w-full">
         <thead className="bg-gray-50">
           <tr>
@@ -139,12 +139,29 @@ const ProductsTable = ({ currentProducts }) => {
                     />
                   </td>
                   <td className="px-6 py-4">
-                    <button
-                      className="text-gray-400 hover:text-gray-600"
-                      onClick={() => setShowMore(!showMore)}
+                    <div
+                      className="relative inline-block"
+                      ref={openDropdownIndex === index ? dropDownRef : null}
                     >
-                      <MoreVertical className="w-5 h-5" />
-                    </button>
+                      <button
+                        className="text-gray-400 hover:text-gray-600"
+                        onClick={() =>
+                          setOpenDropdownIndex(
+                            openDropdownIndex === index ? null : index
+                          )
+                        }
+                      >
+                        <MoreVertical className="w-5 h-5" />
+                      </button>
+                      {openDropdownIndex === index && (
+                        <More
+                          destinations={[
+                            "/dashboard/product-details",
+                            "/dashboard/edit-product",
+                          ]}
+                        />
+                      )}
+                    </div>
                   </td>
                   <td className="px-6 py-4">
                     <img
@@ -182,13 +199,12 @@ const ProductsTable = ({ currentProducts }) => {
   );
 };
 
-const CategoriesTable = ({ currentProducts, categoryFilter }) => {
-  // const indexOfLastProduct = currentPage * productsPerPage;
-  // const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  // const currentProducts = filteredProducts.slice(
-  //   indexOfFirstProduct,
-  //   indexOfLastProduct
-  // );
+const CategoriesTable = ({
+  currentProducts,
+  openDropdownIndex,
+  setOpenDropdownIndex,
+  dropDownRef,
+}) => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
@@ -250,12 +266,29 @@ const CategoriesTable = ({ currentProducts, categoryFilter }) => {
                     />
                   </td>
                   <td className="px-6 py-4">
-                    <button
-                      className="text-gray-400 hover:text-gray-600"
-                      onClick={() => setShowMore(!showMore)}
+                    <div
+                      className="relative inline-block"
+                      ref={openDropdownIndex === index ? dropDownRef : null}
                     >
-                      <MoreVertical className="w-5 h-5" />
-                    </button>
+                      <button
+                        className="text-gray-400 hover:text-gray-600"
+                        onClick={() =>
+                          setOpenDropdownIndex(
+                            openDropdownIndex === index ? null : index
+                          )
+                        }
+                      >
+                        <MoreVertical className="w-5 h-5" />
+                      </button>
+                      {openDropdownIndex === index && (
+                        <More
+                          destinations={[
+                            "/dashboard/category-details",
+                            "/dashboard/edit-category",
+                          ]}
+                        />
+                      )}
+                    </div>
                   </td>
 
                   <td className="px-6 py-4 text-xs text-gray-900">
@@ -282,6 +315,23 @@ const Products = () => {
   const productsPerPage = 10;
   const dateSelection = useDateSelection();
 
+  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+  const dropDownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+        setOpenDropdownIndex(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [productData, setProductData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -290,13 +340,17 @@ const Products = () => {
   const [showFilter, setShowFilter] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [tempCategoryFilter, setTempCategoryFilter] = useState([]);
   const [appliedCategoryFilter, setAppliedCategoryFilter] = useState([]);
 
   const categoryFilter = searchParams.get("category");
 
   const handleCategorySelect = (category) => {
+    if (category === "all") {
+      setTempCategoryFilter([]);
+      return;
+    }
     if (tempCategoryFilter.includes(category)) {
       setTempCategoryFilter((prev) => prev.filter((item) => item !== category));
     } else {
@@ -312,18 +366,8 @@ const Products = () => {
   const resetFilters = () => {
     setTempCategoryFilter([]);
     setAppliedCategoryFilter([]);
+    setSearchParams("");
   };
-
-  function handleFilterChange(key, value) {
-    setSearchParams((prevParams) => {
-      if (value === null) {
-        prevParams.delete(key);
-      } else {
-        prevParams.set(key, value);
-      }
-      return prevParams;
-    });
-  }
 
   useEffect(() => {
     fetch(
@@ -334,11 +378,14 @@ const Products = () => {
       .then((data) => setProductData(data.products));
   }, []);
 
-  useEffect(() => {
-    fetch("https://dummyjson.com/products/category-list?limit=6")
-      .then((res) => res.json())
-      .then((data) => setCategories(data));
-  });
+  const categories = [
+    "All",
+    "Furniture",
+    "Groceries",
+    "Home-decoration",
+    "Kitchen-accessories",
+    "Laptops",
+  ];
 
   useEffect(() => {
     setCurrentPage(1);
@@ -451,7 +498,7 @@ const Products = () => {
           </section>
 
           {/* Filter Box */}
-          <div className="bg-white rounded-lg border border-gray-200">
+          <div className="bg-white rounded-lg border border-gray-200 ">
             <div className="p-4 border-b border-none">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -465,109 +512,180 @@ const Products = () => {
                     />
                   </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() => setShowFilter(!showFilter)}
-                    className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                  >
-                    <ListFilter className="w-4 h-4 mr-2" />
-                    Filter
-                  </button>
-                  <DateSelector {...dateSelection} />
-                </div>
-
-                {showFilter && (
-                  <div className="bg-white flex flex-col">
-                    <div className="flex items-center justify-center">
+                <div className="relative inline-block">
+                  <div className="flex items-center space-x-3 ">
+                    <button
+                      onClick={() => setShowFilter(!showFilter)}
+                      className="flex items-center  px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                    >
                       <ListFilter className="w-4 h-4 mr-2" />
-                      <p>Filter</p>
-                    </div>
-
-                    <p className="flex ">
-                      <ArrowDown className="w-5" />
-                      By Category Name
-                    </p>
-
-                    <div className="flex flex-col text-left">
-                      {categories.map((category) => (
-                        <button
-                          onClick={() => handleCategorySelect(category)}
-                          className="border-t border-[#EBEBEB]"
-                        >
-                          {category}
-                        </button>
-                      ))}
-                      {/* <button
-                        // onClick={() => handleCategorySelect()}
-                        className="border-t border-[#EBEBEB]"
-                      >
-                        All
-                      </button>
-
-                      <button
-                        onClick={() => handleCategorySelect(category)}
-                        className="border-t border-[#EBEBEB]"
-                      >
-                        Fragrances
-                      </button>
-                      <button
-                        onClick={() => handleCategorySelect(category)}
-                        className="border-t border-[#EBEBEB]"
-                      >
-                        Furniture
-                      </button>
-                      <button
-                        onClick={() => handleCategorySelect(category)}
-                        className="border-y border-[#EBEBEB]"
-                      >
-                        Groceries
-                      </button> */}
-                    </div>
-
-                    <button onClick={applyFilters}>Apply</button>
-                    <button onClick={resetFilters}>Reset All</button>
+                      Filter
+                    </button>
+                    <DateSelector {...dateSelection} />
                   </div>
-                )}
+
+                  {activeTab === "categories"
+                    ? showFilter && (
+                        <div className="bg-slate-100 flex text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                          <div className="flex items-center mt-2 mb-5 pl-4">
+                            <ListFilter className="w-4 h-4 mr-2" />
+                            <p>Filter</p>
+                          </div>
+
+                          <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
+                            <ArrowDownIcon className="w-5" />
+                            By category name
+                          </p>
+
+                          <div className="flex flex-col items-start w-full">
+                            {categories.slice(0, 7).map((category) => {
+                              const isSelected = tempCategoryFilter.includes(
+                                category.toLowerCase()
+                              );
+
+                              return (
+                                <button
+                                  key={category}
+                                  onClick={() => {
+                                    // setSelectedFilter(category.toLowerCase());
+                                    handleCategorySelect(
+                                      category.toLowerCase()
+                                    );
+                                  }}
+                                  className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                                >
+                                  {category}
+                                  {isSelected && (
+                                    <Check className="w-4 h-4 text-green-600" />
+                                  )}
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          <div className="mt-3 px-2">
+                            <button
+                              onClick={resetFilters}
+                              className="px-5 py-2 mr-5 bg-white border text-sm border-[#ECEFF3] rounded-md"
+                            >
+                              Reset All
+                            </button>
+                            <button
+                              onClick={applyFilters}
+                              className="bg-[#0A6DEE] px-5 py-2 text-white text-sm rounded-md"
+                            >
+                              Apply
+                            </button>
+                          </div>
+                        </div>
+                      )
+                    : activeTab === "products"
+                    ? showFilter && (
+                        <div className="bg-slate-100  flex gap-5 text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                          <div className="flex items-center mt-2 mb-5 pl-4">
+                            <ListFilter className="w-4 h-4 mr-2" />
+                            <p>Filter</p>
+                          </div>
+
+                          <div className="flex flex-col items-start w-full">
+                            <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
+                              <ArrowDownIcon className="w-5" />
+                              By stock
+                            </p>
+                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                              All
+                            </button>
+                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                              Limited{" "}
+                              {/* {isSelected && (
+                                <Check className="w-4 h-4 text-green-600" />
+                              )} */}
+                            </button>
+                            <button className=" border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                              Unlimited
+                            </button>
+                          </div>
+
+                          <div>
+                            <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
+                              <ArrowDownIcon className="w-5" />
+                              By status
+                            </p>
+                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                              All
+                            </button>
+                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                              Enabled
+                            </button>
+                            <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                              Disabled
+                            </button>
+                          </div>
+
+                          <div className="mt-3 px-2">
+                            <button
+                              onClick={resetFilters}
+                              className="px-5 py-2 mr-5 bg-white border text-sm border-[#ECEFF3] rounded-md"
+                            >
+                              Reset All
+                            </button>
+                            <button
+                              onClick={applyFilters}
+                              className="bg-[#0A6DEE] px-5 py-2 text-white text-sm rounded-md"
+                            >
+                              Apply
+                            </button>
+                          </div>
+                        </div>
+                      )
+                    : null}
+                </div>
               </div>
             </div>
+
+            {/* Tab content */}
+            {activeTab === "products" ? (
+              <ProductsTable
+                currentPage={currentPage}
+                productsPerPage={productsPerPage}
+                productData={productData}
+                currentProducts={currentProducts}
+                showMore={showMore}
+                setShowMore={setShowMore}
+                openDropdownIndex={openDropdownIndex}
+                setOpenDropdownIndex={setOpenDropdownIndex}
+                dropDownRef={dropDownRef}
+              />
+            ) : (
+              <CategoriesTable
+                currentPage={currentPage}
+                productsPerPage={productsPerPage}
+                // productData={productData}
+                // products={productData}
+                currentProducts={currentProducts}
+                showMore={showMore}
+                setShowMore={setShowMore}
+                categoryFilter={categoryFilter}
+                openDropdownIndex={openDropdownIndex}
+                setOpenDropdownIndex={setOpenDropdownIndex}
+                dropDownRef={dropDownRef}
+              />
+            )}
+
+            {/* Pagination */}
+            {productData && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+                entriesPerPage={entriesPerPage}
+                setEntriesPerPage={setEntriesPerPage}
+                indexOfFirstProduct={indexOfFirstProduct}
+                indexOfLastProduct={indexOfLastProduct}
+                totalEntries={displayedProducts.length}
+              />
+            )}
           </div>
-
-          {/* Tab content */}
-          {activeTab === "products" ? (
-            <ProductsTable
-              currentPage={currentPage}
-              productsPerPage={productsPerPage}
-              productData={productData}
-              currentProducts={currentProducts}
-              showMore={showMore}
-              setShowMore={setShowMore}
-            />
-          ) : (
-            <CategoriesTable
-              currentPage={currentPage}
-              productsPerPage={productsPerPage}
-              // productData={productData}
-              // products={productData}
-              currentProducts={currentProducts}
-              showMore={showMore}
-              setShowMore={setShowMore}
-              categoryFilter={categoryFilter}
-            />
-          )}
-
-          {/* Pagination */}
-          {productData && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-              entriesPerPage={entriesPerPage}
-              setEntriesPerPage={setEntriesPerPage}
-              indexOfFirstProduct={indexOfFirstProduct}
-              indexOfLastProduct={indexOfLastProduct}
-              totalEntries={displayedProducts.length}
-            />
-          )}
         </div>
       </div>
     </div>
