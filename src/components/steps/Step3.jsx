@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import VerificationModal from "../../Modal/VerificationModal"; // adjust the path if needed
-
-export default function Step3({
-  formData,
-  setFormData,
-  onNext,
-  isValid,
-  onNavigateToSignIn,
-}) {
+import VerificationModal from "../../Modal/VerificationModal";
+export default function Step3({ formData, setFormData, onNext, isValid }) {
   const countries = [
     { code: "+234", name: "Nigeria", flag: "/nigerian-flag.svg" },
   ];
@@ -17,7 +10,7 @@ export default function Step3({
   const [showDropdown, setShowDropdown] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
-  const [verificationType, setVerificationType] = useState(""); // "email" or "phone"
+  const [verificationType, setVerificationType] = useState("");
   const [verificationCode, setVerificationCode] = useState([
     "",
     "",
@@ -28,23 +21,21 @@ export default function Step3({
   ]);
   const [isVerifying, setIsVerifying] = useState(false);
 
-  // Track verification status
   const [verificationStatus, setVerificationStatus] = useState({
     email: false,
     phone: false,
   });
 
   const handleVerifyClick = (type) => {
-    // Don't open modal if already verified
     if (verificationStatus[type]) return;
 
     setVerificationType(type);
-    setVerificationCode(["", "", "", "", "", ""]); // Reset code
+    setVerificationCode(["", "", "", "", "", ""]);
     setShowModal(true);
   };
 
   const handleCodeChange = (index, value) => {
-    if (!/^\d?$/.test(value)) return; // only allow a digit or empty
+    if (!/^\d?$/.test(value)) return;
     const newCode = [...verificationCode];
     newCode[index] = value;
     setVerificationCode(newCode);
@@ -107,6 +98,22 @@ export default function Step3({
       </p>
 
       <form className="space-y-3 max-sm:w-full w-[25rem] mx-auto">
+        <div>
+          <label className="block text-xs font-medium text-gray-700 mb-1">
+            Username
+          </label>
+          <input
+            type="text"
+            placeholder="Enter username"
+            value={formData.username}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, username: e.target.value }))
+            }
+            className="w-full p-2.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            style={{ backgroundColor: "#F6F8FA", borderColor: "#DFE1E7" }}
+            required
+          />
+        </div>
         <div>
           <label className="block text-xs font-medium text-gray-700 mb-1">
             First name

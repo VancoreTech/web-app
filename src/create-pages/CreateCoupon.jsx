@@ -129,7 +129,7 @@ function CreateCoupon() {
     setShowSuccessModal(false);
     navigate("/dashboard/discounts", {
       state: {
-        orderData: formData,
+        couponData: formData,
         selectedProducts: selectedProducts,
       },
     });
@@ -191,7 +191,7 @@ function CreateCoupon() {
           Create new coupon
         </h2>
 
-        <form className="w-full rounded-xl mx-auto p-6 mt-8 bg-white">
+        <form className="w-full rounded-xl mx-auto p-6 mt-8 bg-white shadow-md">
           <div className="mb-8">
             <h3 className="text-[#0a6dee] text-xl flex items-center gap-2 mb-6">
               <img src={arrows} alt="" />
@@ -200,7 +200,7 @@ function CreateCoupon() {
 
             <div className="mb-6 mt-6">
               <label className="block text-sm font-medium text-gray-700 mb-3">
-                Discount name
+                Coupon type
               </label>
               <div className="flex gap-4">
                 <button

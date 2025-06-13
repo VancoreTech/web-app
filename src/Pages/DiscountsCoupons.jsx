@@ -310,7 +310,6 @@ function DiscountsCoupons() {
   const [filteredData, setFilteredData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [productData, setProductData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showMore, setShowMore] = useState(false);
 
