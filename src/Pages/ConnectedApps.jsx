@@ -3,6 +3,7 @@ import { Check, Instagram, Link, MessageCircle } from "lucide-react";
 import Navbar from "../components/Navbar";
 import SuccessModal from "../Modal/SuccessModal";
 import ConnectAppModal from "../Modal/ConnectAppModal";
+import ConnectionStatusIndicator from "../components/ConnectionStatusIndicator";
 
 // Switch Component
 const Switch = ({ checked, onCheckedChange, disabled }) => {
@@ -332,6 +333,15 @@ const ConnectedApps = () => {
     setIsConnectModalOpen(true);
   };
 
+  // handleDisconnect function
+const handleDisconnect = (app) => {
+  setApps((prev) =>
+    prev.map((appItem) =>
+      appItem.id === app.id ? { ...appItem, isConnected: false } : appItem
+    )
+  );
+};
+
   const handleConnectConfirm = () => {
     if (selectedApp) {
       // Update the app to connected state
@@ -378,10 +388,10 @@ const ConnectedApps = () => {
 
         <div className="mx-auto p-6">
           <div className="mb-8">
-            <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h1 className="text-xl font-semibold text-gray-900 mb-2">
               Connected apps
             </h1>
-            <p className="text-gray-600">
+            <p className="text-xs text-gray-600">
               Supercharge your business with the tools you use everyday
             </p>
           </div>
@@ -390,10 +400,10 @@ const ConnectedApps = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div>
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     New integrations are here
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-sm text-gray-600">
                     Supercharge your business with the right tools you use
                     everyday
                   </p>
@@ -401,25 +411,43 @@ const ConnectedApps = () => {
               </div>
 
               {/* Social Media Icons */}
-              <div className="flex items-center gap-4">
-                {/* X-Twitter */}
-                <div className="bg-white rounded-lg p-3 shadow-sm">
+              <div className="relative w-80 h-32">
+                {/* Top Row */}
+                {/* X-Twitter - Top Left */}
+                <div className="absolute top-0 left-3 bg-white flex items-center justify-center rounded-lg p-2 shadow-sm">
                   <TwitterIcon />
                 </div>
 
-                {/* Instagram */}
-                <div className="bg-white rounded-lg p-3 shadow-sm">
+                {/* Instagram - Top Center */}
+                <div className="absolute top-[-5px] left-1/2 transform -translate-x-1/2 bg-white flex items-center justify-center rounded-lg p-2 shadow-sm">
                   <InstagramIcon />
                 </div>
 
-                {/* Facebook */}
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <FacebookIcon />
+                {/* Facebook - Top Right */}
+                <div className="absolute top-0 right-3 bg-white flex items-center justify-center rounded-lg p-2 shadow-sm">
+                  <FacebookIcon  />
                 </div>
 
-                {/* Vancore */}
-                <div className="bg-white rounded-lg p-3 shadow-sm">
+                {/* Bottom Row - Center */}
+                {/* Vancore - Bottom Center */}
+                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-white flex items-center justify-center rounded-lg px-2 py-4 shadow-sm">
                   <VancoreIcon />
+                </div>
+
+                {/* Connecting Lines */}
+                {/* Connecting Line 1 - From Instagram to Vancore (vertical) */}
+                <div className="absolute top-10 left-1/2 transform -translate-x-1/2">
+                  <img src="/Vector-3.png" alt="Connecting Line 1" />
+                </div>
+
+                {/* Connecting Line 2 - From X to Vancore (diagonal left) */}
+                <div className="absolute top-12 left-8">
+                  <img src="/Vector-1.png" alt="Connecting Line 2" />
+                </div>
+
+                {/* Connecting Line 3 - From Facebook to Vancore (diagonal right) */}
+                <div className="absolute top-12 right-8">
+                  <img src="/Vector-4.png" alt="Connecting Line 3" />
                 </div>
               </div>
             </div>
@@ -437,6 +465,7 @@ const ConnectedApps = () => {
                   >
                     {getAppIcon(app.id)}
                   </div>
+                  <ConnectionStatusIndicator isConnected={app.isConnected} />
                 </div>
 
                 <h3 className="font-semibold text-gray-900 mb-2">{app.name}</h3>
@@ -453,9 +482,14 @@ const ConnectedApps = () => {
                       </button>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-2 text-green-600">
-                      <Check className="w-4 h-4" />
-                      <span className="text-sm font-medium">Connected</span>
+                    <div className="flex items-center border border-[#E10000] text-[#E10000] rounded-md px-2 hover:shadow-md transition-shadow">
+                      <Link className="w-4 h-4 text-[#E10000]" />
+                      <button
+                        onClick={() => handleDisconnect(app)}
+                        className="py-2 px-2 text-xs font-medium border-[#E10000]"
+                      >
+                        Disconnect
+                      </button>
                     </div>
                   )}
                   <Switch
@@ -481,7 +515,7 @@ const ConnectedApps = () => {
         <SuccessModal
           isOpen={isSuccessModalOpen}
           title="Success!"
-          message={`${selectedApp?.name} has been successfully connected to your account.`}
+          message={`You have successfully connected your ${selectedApp?.name} to your business account.`}
           onDone={handleSuccessClose}
           buttonText="Done"
         />
