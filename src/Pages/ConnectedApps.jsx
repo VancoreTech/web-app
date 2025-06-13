@@ -334,13 +334,13 @@ const ConnectedApps = () => {
   };
 
   // handleDisconnect function
-const handleDisconnect = (app) => {
-  setApps((prev) =>
-    prev.map((appItem) =>
-      appItem.id === app.id ? { ...appItem, isConnected: false } : appItem
-    )
-  );
-};
+  const handleDisconnect = (app) => {
+    setApps((prev) =>
+      prev.map((appItem) =>
+        appItem.id === app.id ? { ...appItem, isConnected: false } : appItem
+      )
+    );
+  };
 
   const handleConnectConfirm = () => {
     if (selectedApp) {
@@ -425,7 +425,7 @@ const handleDisconnect = (app) => {
 
                 {/* Facebook - Top Right */}
                 <div className="absolute top-0 right-3 bg-white flex items-center justify-center rounded-lg p-2 shadow-sm">
-                  <FacebookIcon  />
+                  <FacebookIcon />
                 </div>
 
                 {/* Bottom Row - Center */}

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import { Check, LucideUser2, Users2 } from "lucide-react";
+import { Check, Link, LucideUser2, Users2 } from "lucide-react";
 import important from "../assets/important.svg";
 import SuccessModal from "../Modal/SuccessModal";
 import ConnectAppModal from "../Modal/ConnectAppModal";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import paystack from "../assets/paystack.svg";
+import stripe from "../assets/stripe.svg";
+import ConnectionStatusIndicator from "../components/ConnectionStatusIndicator";
 
 const Switch = ({ checked, onCheckedChange, disabled }) => {
   return (
@@ -39,17 +42,18 @@ function PaymentsMethods() {
     {
       id: "paystack",
       name: "Paystack",
-      // icon:
+      icon: paystack,
       description: "Receive naira payments online with Paystack",
       isConnected: false,
-      availability: "Not connected",
+      isAvailable: true,
     },
     {
       id: "stripe",
       name: "Stripe",
+      icon: stripe,
       description: "Receive naira payments online with Stripe",
       isConnected: false,
-      availability: "Coming soon",
+      isAvailable: false,
     },
   ]);
 
@@ -166,14 +170,19 @@ function PaymentsMethods() {
             {methods.map((method) => (
               <div
                 key={method.id}
+                style={{ boxShadow: "0px 1px 30px 2px #1018281A" }}
                 className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div
                     className={`w-12 h-12 rounded-lg ${method.color} flex items-center justify-center text-white`}
                   >
-                    {/* {getAppIcon(app.id)} */}
+                    <img src={method.icon} alt={`${method.name} Icon`} />
                   </div>
+                  <ConnectionStatusIndicator
+                    isConnected={method.isConnected}
+                    isAvailable={method.isAvailable}
+                  />
                 </div>
 
                 <h3 className="font-semibold text-gray-900 mb-2">
@@ -182,29 +191,38 @@ function PaymentsMethods() {
                 <p className="text-sm text-gray-600 mb-4">
                   {method.description}
                 </p>
-                <div className="flex items-center justify-between border-t border-[#EBEBEB] pt-4 ">
-                  {!method.isConnected ? (
-                    <div className="flex items-center border border-[#EBEBEB] text-gray-600 rounded-md px-2 hover:bg-blue-700 hover:text-white transition-colors">
-                      <Link className="w-4 h-4 " />
-                      <button
-                        onClick={() => handleConnect(method)}
-                        className="py-2 px-2 text-xs font-medium"
-                      >
-                        Connect
-                      </button>
+                {!method.isAvailable ? (
+                  <div className="border-t border-[#EBEBEB] pt-5 mt-9">
+                    <div className="bg-[#E7E6E6] w-full text-center py-1 rounded-md">
+                      Coming soon
                     </div>
-                  ) : (
-                    <div className="flex items-center gap-2 text-green-600">
-                      <Check className="w-4 h-4" />
-                      <span className="text-sm font-medium">Connected</span>
-                    </div>
-                  )}
-                  <Switch
-                    checked={method.isConnected}
-                    onCheckedChange={() => handleToggleConnection(method.id)}
-                    disabled={!method.isConnected}
-                  />
-                </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between border-t border-[#EBEBEB] pt-4 ">
+                    {!method.isConnected ? (
+                      <div className="flex items-center border border-[#EBEBEB] text-gray-600 rounded-md px-2 hover:bg-blue-700 hover:text-white transition-colors">
+                        <Link className="w-4 h-4 " />
+                        <button
+                          onClick={() => handleConnect(method)}
+                          className="py-2 px-2 text-xs font-medium"
+                        >
+                          Connect
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 text-green-600">
+                        <Check className="w-4 h-4" />
+                        <span className="text-sm font-medium">Connected</span>
+                      </div>
+                    )}
+
+                    <Switch
+                      checked={method.isConnected}
+                      onCheckedChange={() => handleToggleConnection(method.id)}
+                      disabled={!method.isConnected}
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>
