@@ -198,7 +198,7 @@ function CreateCoupon() {
               Coupon Details
             </h3>
 
-            <div className="mb-6">
+            <div className="mb-6 mt-6">
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 Discount name
               </label>
