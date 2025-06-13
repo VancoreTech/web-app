@@ -51,32 +51,26 @@ const Orders = () => {
   const dropDownRef = useRef(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [categories, setCategories] = useState([]);
-  const [tempCategoryFilter, setTempCategoryFilter] = useState([]);
-  const [appliedCategoryFilter, setAppliedCategoryFilter] = useState([]);
-
-  const handleCategorySelect = (category) => {
-    if (category === "all") {
-      setTempCategoryFilter([]);
-      return;
-    }
-    if (tempCategoryFilter.includes(category)) {
-      setTempCategoryFilter((prev) => prev.filter((item) => item !== category));
-    } else {
-      setTempCategoryFilter((prev) => [...prev, category]);
-    }
-  };
+  const [filter, setFilter] = useState("all");
+  const [filteredCampaigns, setFilteredCampaigns] = useState([]);
 
   const applyFilters = () => {
-    setAppliedCategoryFilter([...tempCategoryFilter]);
-    setSearchParams({ categories: tempCategoryFilter.join(",") });
+    const filtered = campaignsData.filter((campaign) => {
+      return filter === "all" || campaign?.status?.toLowerCase() === filter;
+    });
+
+    setFilteredCampaigns(filtered);
+    setCurrentPage(1);
   };
 
   const resetFilters = () => {
-    setTempCategoryFilter([]);
-    setAppliedCategoryFilter([]);
-    setSearchParams("");
+    setFilter("all");
+    setFilteredCampaigns(campaignsData);
   };
+
+  useEffect(() => {
+    setFilteredCampaigns(campaignsData);
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -98,7 +92,7 @@ const Orders = () => {
 
   const dateSelection = useDateSelection();
 
-  const displayedCampaigns = campaignsData.filter((campaign) =>
+  const displayedCampaigns = filteredCampaigns.filter((campaign) =>
     campaign.campaignName.includes(searchTerm)
   );
 
@@ -143,7 +137,6 @@ const Orders = () => {
             </div>
           </div>
 
-          {/* Filters and Search */}
           <div className="bg-white rounded-lg border border-gray-200">
             <div className="p-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
@@ -189,16 +182,13 @@ const Orders = () => {
 
                         <div className="flex flex-col items-start w-full">
                           {["All", "Ongoing", "Completed"].map((status) => {
-                            const isSelected = tempCategoryFilter.includes(
-                              status.toLowerCase()
-                            );
+                            const isSelected = filter === status.toLowerCase();
 
                             return (
                               <button
                                 key={status}
                                 onClick={() => {
-                                  setSelectedFilter(status.toLowerCase());
-                                  handleCategorySelect(status.toLowerCase());
+                                  setFilter(status.toLowerCase());
                                 }}
                                 className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
                               >
