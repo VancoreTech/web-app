@@ -56,7 +56,7 @@ const Label = ({ children, className = "", ...props }) => {
 const ConnectAppModal = ({ isOpen, onClose, onConnect, app }) => {
   const [credentials, setCredentials] = useState({
     username: "",
-    apiKey: ""
+    apiKey: "",
   });
 
   if (!isOpen || !app) return null;
@@ -76,21 +76,23 @@ const ConnectAppModal = ({ isOpen, onClose, onConnect, app }) => {
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
       onClick={handleBackdropClick}
     >
       <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">Connect {app.name}</h3>
-              <p className="text-xs text-gray-600">Connect your {app.name} account to your business account</p>
-            </div>
+          <div className="flex flex-col justify-center">
+            <h3 className="text-lg font-semibold text-gray-900">
+              Connect {app.name}
+            </h3>
+            <p className="text-xs text-gray-600">
+              Connect your {app.name} account to your business account
+            </p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-500 hover:text-gray-700 mt-[-15px]"
           >
             <X className="w-5 h-5" />
           </button>
@@ -98,32 +100,42 @@ const ConnectAppModal = ({ isOpen, onClose, onConnect, app }) => {
 
         <div className="space-y-4">
           <div>
-            <Label htmlFor="username" className="text-sm font-medium text-gray-700">
-              {app.id === 'instagram' ? 'Instagram handle' : 'Business Phone Number'}
+            <Label
+              htmlFor="username"
+              className="text-sm font-medium text-gray-700"
+            >
+              {app.id === "instagram"
+                ? "Instagram handle"
+                : "Business Phone Number"}
             </Label>
             <Input
               id="username"
               type="text"
               value={credentials.username}
-              onChange={(e) => setCredentials(prev => ({ ...prev, username: e.target.value }))}
-              placeholder={app.id === 'instagram' ? 'Enter your instagram handle' : '+1234567890'}
-              className="mt-1 h-[100px] align-top text-start bg-[#F6F8FA] border border-[#ECEFF3] rounded-lg"
+              onChange={(e) =>
+                setCredentials((prev) => ({
+                  ...prev,
+                  username: e.target.value,
+                }))
+              }
+              placeholder={
+                app.id === "instagram"
+                  ? "Enter your instagram handle"
+                  : "+1234567890"
+              }
+              className="mt-1 pb-20 pt-4 !bg-[#F6F8FA] border border-[#ECEFF3] rounded-lg"
             />
           </div>
         </div>
 
         <div className="flex gap-3 mt-6">
-          <Button
-            variant="outline"
-            onClick={onClose}
-            className="flex-1"
-          >
+          <Button variant="outline" onClick={onClose} className="flex-[1]">
             Cancel
           </Button>
           <Button
             onClick={handleConnect}
             disabled={!credentials.username}
-            className="flex-1"
+            className="flex-[2]"
           >
             Connect {app.name}
           </Button>
