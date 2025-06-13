@@ -188,7 +188,7 @@ function CreateCampaign() {
         <ConfirmModal
           isOpen={showConfirmModal}
           title="Confirm action"
-          message="Are you sure you want to create this product?"
+          message="Are you sure you want to create this campaign?"
           onConfirm={handleConfirmCampaign}
           //   onCancel={handleCancelConfirm}
         />
@@ -196,7 +196,7 @@ function CreateCampaign() {
         <SuccessModal
           isOpen={showSuccessModal}
           title="Success"
-          message="You have successfully created this product."
+          message="You have successfully created this campaign."
           onDone={handleSuccessDone}
         />
       </div>
