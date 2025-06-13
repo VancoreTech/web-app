@@ -25,7 +25,7 @@ const SuccessModal = ({
             </div>
             <div>
               <h3 className="text-xl font-semibold text-gray-900 pt-4">{title}</h3>
-              <p className="text-gray-600 mt-1">{message}</p>
+              <p className="text-gray-600 mt-1 text-sm">{message}</p>
             </div>
           </div>
         </div>
