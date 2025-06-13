@@ -13,10 +13,10 @@ function More({ destinations, actions }) {
         <Edit3 className="w-4" />
         Edit
       </Link>
-      <Link to={destinations[2]} className="flex gap-2">
+      <button to={destinations[2]} className="flex gap-2">
         <Trash2 className="w-4" />
         Trash
-      </Link>
+      </button>
     </div>
   );
 }

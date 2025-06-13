@@ -1,5 +1,6 @@
 import { Edit } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ProductDetails() {
   return (
@@ -8,10 +9,10 @@ function ProductDetails() {
         <div className="flex justify-between items-center border-b">
           <h2 class="text-lg font-normal text-[#101828] mb-4">Details</h2>
 
-          <button className="flex items-center gap-3">
+          <Link to="../edit-product" className="flex items-center gap-3">
             <Edit className="w-4" />
             Edit
-          </button>
+          </Link>
         </div>
         <div class="grid grid-cols-2 gap-y-6 max-w-2xl text-sm text-gray-600 pt-4">
           <div class="font-medium">Name</div>

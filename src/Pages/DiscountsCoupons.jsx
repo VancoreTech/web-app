@@ -21,6 +21,7 @@ const DiscountsTable = ({
   openDropdownIndex,
   setOpenDropdownIndex,
   dropDownRef,
+  currentData,
 }) => {
   return (
     <div className="overflow-x-auto relative">
@@ -91,8 +92,8 @@ const DiscountsTable = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y text-xs divide-gray-200">
-          {discountsData ? (
-            discountsData.map((discount, index) => {
+          {currentData ? (
+            currentData.map((discount, index) => {
               return (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
@@ -167,8 +168,7 @@ const CouponsTable = ({
   openDropdownIndex,
   setOpenDropdownIndex,
   dropDownRef,
-  filter,
-  setFilter,
+  currentData,
 }) => {
   return (
     <div className="overflow-x-auto">
@@ -232,8 +232,8 @@ const CouponsTable = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y text-xs divide-gray-200">
-          {couponsData &&
-            couponsData.map((coupon, index) => {
+          {currentData &&
+            currentData.map((coupon, index) => {
               return (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
@@ -303,15 +303,32 @@ function DiscountsCoupons() {
   const productsPerPage = 10;
   const dateSelection = useDateSelection();
 
-  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
-  const dropDownRef = useRef(null);
-  const [filter, setFilter] = useState("");
+  const [filters, setFilters] = useState({
+    type: null,
+    status: null,
+  });
+  const [filteredData, setFilteredData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [productData, setProductData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showMore, setShowMore] = useState(false);
+
+  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+  const [showFilter, setShowFilter] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const dropDownRef = useRef(null);
+  const filterRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
         setOpenDropdownIndex(null);
+      }
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setShowFilter(false);
       }
     }
 
@@ -322,29 +339,55 @@ function DiscountsCoupons() {
     };
   }, []);
 
-  const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [productData, setProductData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showMore, setShowMore] = useState(false);
+  const handleFilterSelect = (filter) => {
+    if (["fixed", "percentage", "cart", "product"].includes(filter)) {
+      setFilters((prev) => ({ ...prev, type: filter }));
+    } else if (["active", "inactive"].includes(filter)) {
+      setFilters((prev) => ({ ...prev, status: filter }));
+    }
+  };
 
-  const [showFilter, setShowFilter] = useState(false);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [tempCategoryFilter, setTempCategoryFilter] = useState([]);
-  const [appliedCategoryFilter, setAppliedCategoryFilter] = useState([]);
-
-  const categoryFilter = searchParams.get("category");
+  const isFixedSelected = filters.type === "fixed";
+  const isPercentageSelected = filters.type === "percentage";
+  const isActiveSelected = filters.status === "active";
+  const isInactiveSelected = filters.status === "inactive";
 
   const applyFilters = () => {
-    setAppliedCategoryFilter([...tempCategoryFilter]);
-    setSearchParams({ categories: tempCategoryFilter.join(",") });
+    const sourceData = activeTab === "discounts" ? discountsData : couponsData;
+
+    const filtered = sourceData.filter((item) => {
+      const typeValue =
+        item.discountType?.toLowerCase() || item.couponType?.toLowerCase();
+      const statusValue = item.status?.toLowerCase();
+
+      const typeMatch = filters.type
+        ? typeValue === filters.type || typeValue.includes(filters.type)
+        : true;
+      const statusMatch = filters.status
+        ? statusValue === filters.status
+        : true;
+
+      return typeMatch && statusMatch;
+    });
+
+    setFilteredData(filtered);
+    setCurrentPage(1);
   };
 
   const resetFilters = () => {
-    setTempCategoryFilter([]);
-    setAppliedCategoryFilter([]);
-    setSearchParams("");
+    const sourceData = activeTab === "discounts" ? discountsData : couponsData;
+    setFilters({ type: null, status: null });
+    setFilteredData(sourceData);
+    setCurrentPage(1);
   };
+
+  useEffect(() => {
+    if (activeTab === "discounts" && discountsData) {
+      setFilteredData(discountsData);
+    } else if (activeTab === "coupons" && couponsData) {
+      setFilteredData(couponsData);
+    }
+  }, [activeTab, discountsData, couponsData]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -354,23 +397,13 @@ function DiscountsCoupons() {
     setCurrentPage(1);
   }, [entriesPerPage]);
 
-  const filteredProducts = appliedCategoryFilter.length
-    ? productData.filter((product) =>
-        appliedCategoryFilter.includes(product.category)
-      )
-    : productData;
-
-  const displayedProducts = filteredProducts.filter((product) =>
-    product.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   const indexOfLastProduct = currentPage * entriesPerPage;
   const indexOfFirstProduct = indexOfLastProduct - entriesPerPage;
-  const currentProducts = displayedProducts.slice(
+  const currentData = filteredData?.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-  const totalPages = Math.ceil(displayedProducts.length / entriesPerPage);
+  const totalPages = Math.ceil(currentData.length / entriesPerPage);
 
   return (
     <div className="flex h-screen  overflow-hidden">
@@ -457,16 +490,16 @@ function DiscountsCoupons() {
 
                 {activeTab === "discounts"
                   ? showFilter && (
-                      <div className="bg-slate-100 flex gap-5 text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                      <div
+                        className="bg-slate-100 flex gap-5 text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md"
+                        ref={filterRef}
+                      >
                         <div className="flex items-center mt-2 pl-4">
                           <ListFilter className="w-4 h-4 mr-2" />
                           <p>Filter</p>
                         </div>
 
                         <div>
-                          {/* const isSelected = filter.includes(
-                              category.toLowerCase()
-                            ); */}
                           <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
                             <ArrowDownIcon className="w-5" />
                             By discount type
@@ -474,57 +507,51 @@ function DiscountsCoupons() {
                           <button
                             onClick={() => {
                               // setSelectedFilter(category.toLowerCase());
-                              handleCategorySelect(category.toLowerCase());
+                              handleFilterSelect("fixed");
                             }}
                             className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
                           >
                             Fixed
-                            {isSelected && (
+                            {isFixedSelected && (
                               <Check className="w-4 h-4 text-green-600" />
                             )}
                           </button>
                           <button
                             onClick={() => {
-                              // setSelectedFilter(category.toLowerCase());
-                              handleCategorySelect(category.toLowerCase());
+                              handleFilterSelect("percentage");
                             }}
                             className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
                           >
                             Percentage
-                            {isSelected && (
+                            {isPercentageSelected && (
                               <Check className="w-4 h-4 text-green-600" />
                             )}
                           </button>
                         </div>
                         <div className="">
-                          {/* const isSelected = filter.includes(
-                              category.toLowerCase()
-                            ); */}
                           <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
                             <ArrowDownIcon className="w-5" />
                             By status
                           </p>
                           <button
                             onClick={() => {
-                              // setSelectedFilter(category.toLowerCase());
-                              handleCategorySelect(category.toLowerCase());
+                              handleFilterSelect("active");
                             }}
                             className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
                           >
                             Active
-                            {isSelected && (
+                            {isActiveSelected && (
                               <Check className="w-4 h-4 text-green-600" />
                             )}
                           </button>
                           <button
                             onClick={() => {
-                              // setSelectedFilter(category.toLowerCase());
-                              handleCategorySelect(category.toLowerCase());
+                              handleFilterSelect("inactive");
                             }}
                             className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
                           >
                             Inactive
-                            {isSelected && (
+                            {isInactiveSelected && (
                               <Check className="w-4 h-4 text-green-600" />
                             )}
                           </button>
@@ -548,46 +575,64 @@ function DiscountsCoupons() {
                     )
                   : activeTab === "coupons"
                   ? showFilter && (
-                      <div className="bg-slate-100  flex gap-5 text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                      <div
+                        className="bg-slate-100 flex gap-5 text-sm flex-col absolute z-50 top-10 pb-4 w-[95%] rounded-md"
+                        ref={filterRef}
+                      >
                         <div className="flex items-center mt-2 mb-5 pl-4">
                           <ListFilter className="w-4 h-4 mr-2" />
                           <p>Filter</p>
                         </div>
 
+                        {/* Status filter */}
                         <div className="flex flex-col items-start w-full">
                           <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
                             <ArrowDownIcon className="w-5" />
                             By status
                           </p>
-                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                            All
-                          </button>
-                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                          <button
+                            onClick={() => handleFilterSelect("active")}
+                            className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                          >
                             Active
-                            {/* {isSelected && (
-                                <Check className="w-4 h-4 text-green-600" />
-                              )} */}
+                            {filters.status === "active" && (
+                              <Check className="w-4 h-4 text-green-600" />
+                            )}
                           </button>
-                          <button className=" border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
+                          <button
+                            onClick={() => handleFilterSelect("inactive")}
+                            className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                          >
                             Inactive
+                            {filters.status === "inactive" && (
+                              <Check className="w-4 h-4 text-green-600" />
+                            )}
                           </button>
                         </div>
+
+                        {/* Type filter */}
                         <div className="flex flex-col items-start w-full">
                           <p className="flex items-center text-[#0A6DEE] text-sm font-semibold border-b border-[#EBEBEB] pl-4">
                             <ArrowDownIcon className="w-5" />
-                            By status
+                            By type
                           </p>
-                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                            All
+                          <button
+                            onClick={() => handleFilterSelect("cart")}
+                            className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                          >
+                            Cart
+                            {filters.type === "cart" && (
+                              <Check className="w-4 h-4 text-green-600" />
+                            )}
                           </button>
-                          <button className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                            Active
-                            {/* {isSelected && (
-                                <Check className="w-4 h-4 text-green-600" />
-                              )} */}
-                          </button>
-                          <button className=" border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center">
-                            Inactive
+                          <button
+                            onClick={() => handleFilterSelect("product")}
+                            className="border-b border-[#EBEBEB] w-full text-left pl-4 py-2 flex gap-2 items-center"
+                          >
+                            Product
+                            {filters.type === "product" && (
+                              <Check className="w-4 h-4 text-green-600" />
+                            )}
                           </button>
                         </div>
 
@@ -616,6 +661,7 @@ function DiscountsCoupons() {
           {activeTab === "discounts" ? (
             <DiscountsTable
               currentPage={currentPage}
+              currentData={currentData}
               productsPerPage={productsPerPage}
               showMore={showMore}
               setShowMore={setShowMore}
@@ -626,13 +672,10 @@ function DiscountsCoupons() {
           ) : (
             <CouponsTable
               currentPage={currentPage}
+              currentData={currentData}
               productsPerPage={productsPerPage}
-              // productData={productData}
-              // products={productData}
-              currentProducts={currentProducts}
               showMore={showMore}
               setShowMore={setShowMore}
-              categoryFilter={categoryFilter}
               openDropdownIndex={openDropdownIndex}
               setOpenDropdownIndex={setOpenDropdownIndex}
               dropDownRef={dropDownRef}
@@ -649,7 +692,7 @@ function DiscountsCoupons() {
               setEntriesPerPage={setEntriesPerPage}
               indexOfFirstProduct={indexOfFirstProduct}
               indexOfLastProduct={indexOfLastProduct}
-              totalEntries={displayedProducts.length}
+              totalEntries={currentData.length}
             />
           )}
         </div>
