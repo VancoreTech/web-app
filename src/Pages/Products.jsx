@@ -160,6 +160,7 @@ const ProductsTable = ({
                             "/dashboard/edit-product",
                             "/dashboard/product-details",
                           ]}
+                          actions={[on]}
                         />
                       )}
                     </div>
@@ -316,23 +317,6 @@ const Products = () => {
   const productsPerPage = 10;
   const dateSelection = useDateSelection();
 
-  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
-  const dropDownRef = useRef(null);
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
-        setOpenDropdownIndex(null);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [productData, setProductData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -344,6 +328,28 @@ const Products = () => {
   // const [categories, setCategories] = useState([]);
   const [tempCategoryFilter, setTempCategoryFilter] = useState([]);
   const [appliedCategoryFilter, setAppliedCategoryFilter] = useState([]);
+
+  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+  const dropDownRef = useRef(null);
+  const filterRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+        setOpenDropdownIndex(null);
+      }
+
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setShowFilter(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const categoryFilter = searchParams.get("category");
 
@@ -526,7 +532,10 @@ const Products = () => {
 
                 {activeTab === "categories"
                   ? showFilter && (
-                      <div className="bg-slate-100 flex text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                      <div
+                        className="bg-slate-100 flex text-left text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md"
+                        ref={filterRef}
+                      >
                         <div className="flex items-center mt-2 mb-5 pl-4">
                           <ListFilter className="w-4 h-4 mr-2" />
                           <p>Filter</p>
@@ -579,7 +588,10 @@ const Products = () => {
                     )
                   : activeTab === "products"
                   ? showFilter && (
-                      <div className="bg-slate-100  flex gap-5 text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md">
+                      <div
+                        className="bg-slate-100  flex gap-5 text-sm flex-col absolute z-50 top-10 pb-4  w-[95%] rounded-md"
+                        ref={filterRef}
+                      >
                         <div className="flex items-center mt-2 mb-5 pl-4">
                           <ListFilter className="w-4 h-4 mr-2" />
                           <p>Filter</p>
