@@ -441,18 +441,17 @@ const ConnectedApps = () => {
 
                 <h3 className="font-semibold text-gray-900 mb-2">{app.name}</h3>
                 <p className="text-sm text-gray-600 mb-4">{app.description}</p>
-                <div className="flex items-center justify-between border-t border-[#EBEBEB] pt-4 " >
+                <div className="flex items-center justify-between border-t border-[#EBEBEB] pt-4 ">
                   {!app.isConnected ? (
                     <div className="flex items-center border border-[#EBEBEB] text-gray-600 rounded-md px-2 hover:bg-blue-700 hover:text-white transition-colors">
-                    <Link className="w-4 h-4 " />
-                    <button
-                      onClick={() => handleConnect(app)}
-                      className="py-2 px-2 text-xs font-medium"
-                    >
-                      Connect
-                    </button>
-                  </div>
-                  
+                      <Link className="w-4 h-4 " />
+                      <button
+                        onClick={() => handleConnect(app)}
+                        className="py-2 px-2 text-xs font-medium"
+                      >
+                        Connect
+                      </button>
+                    </div>
                   ) : (
                     <div className="flex items-center gap-2 text-green-600">
                       <Check className="w-4 h-4" />

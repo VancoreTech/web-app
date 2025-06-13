@@ -42,6 +42,7 @@ export default function RegistrationFlow({
     return currentStep > lastStepInGroup;
   };
 
+  const handleVerifyClick = () => {};
   const goals = [
     "Create a website & run sales",
     "Record daily sales",
@@ -139,7 +140,7 @@ export default function RegistrationFlow({
           <Step3
             formData={formData}
             setFormData={setFormData}
-            onVerifyClick={onVerifyClick}
+            onVerifyClick={handleVerifyClick}
             onNext={() => setCurrentStep(4)}
             isValid={isValid}
             onNavigateToSignIn={onNavigateToSignIn}
