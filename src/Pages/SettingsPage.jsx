@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import ConfirmModal from "../Modal/ConfirmModal";
 import SuccessModal from "../Modal/SuccessModal";
 import Navbar from "../components/Navbar";
-import { User, Eye, Landmark, EyeOff } from "lucide-react";
+import { User, Eye, EyeOff, ChevronDown } from "lucide-react";
+import { nigerianBanks } from "../data/data";
 
 // Main Settings Component
 const SettingsPage = () => {
@@ -32,12 +33,21 @@ const SettingsPage = () => {
     confirm: false,
   });
 
+  // Password validation errors
+  const [passwordErrors, setPasswordErrors] = useState({
+    samePassword: false,
+    passwordMismatch: false,
+  });
+
   // Bank details state
   const [bankData, setBankData] = useState({
     bankName: "Sterling Bank",
     accountNumber: "9876543567",
     accountName: "SHEIDU SUSAN",
   });
+
+  // State for custom bank dropdown
+  const [isBankDropdownOpen, setIsBankDropdownOpen] = useState(false);
 
   // Modal states
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -113,18 +123,42 @@ const SettingsPage = () => {
     }));
   };
 
+  // Fixed password validation logic
+  const validatePasswords = (currentPass = passwordData.currentPassword, newPass = passwordData.newPassword, confirmPass = passwordData.confirmPassword) => {
+    const errors = {
+      samePassword: currentPass && newPass && currentPass === newPass,
+      passwordMismatch: newPass && confirmPass && newPass !== confirmPass,
+    };
+    setPasswordErrors(errors);
+    return !errors.samePassword && !errors.passwordMismatch;
+  };
+
+  // Handle password input changes with immediate validation
+  const handlePasswordChange = (field, value) => {
+    const newPasswordData = {
+      ...passwordData,
+      [field]: value
+    };
+    setPasswordData(newPasswordData);
+
+    // Validate with the new values
+    validatePasswords(
+      newPasswordData.currentPassword,
+      newPasswordData.newPassword,
+      newPasswordData.confirmPassword
+    );
+  };
+
   const handlePasswordSubmit = () => {
     if (
       !passwordData.currentPassword ||
       !passwordData.newPassword ||
       !passwordData.confirmPassword
     ) {
-      alert("Please fill in all password fields");
       return;
     }
 
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert("New passwords do not match");
+    if (!validatePasswords()) {
       return;
     }
 
@@ -143,6 +177,10 @@ const SettingsPage = () => {
           current: false,
           new: false,
           confirm: false,
+        });
+        setPasswordErrors({
+          samePassword: false,
+          passwordMismatch: false,
         });
         setShowSuccessModal(true);
         setModalConfig({
@@ -188,6 +226,18 @@ const SettingsPage = () => {
     setShowConfirmModal(true);
   };
 
+  // Get selected bank logo
+  const getSelectedBankLogo = () => {
+    const selectedBank = nigerianBanks.find(bank => bank.name === bankData.bankName);
+    return selectedBank ? selectedBank.logo : null;
+  };
+
+  // Handle bank selection from custom dropdown
+  const handleBankSelect = (bankName) => {
+    setBankData((prev) => ({ ...prev, bankName }));
+    setIsBankDropdownOpen(false); // Close dropdown after selection
+  };
+
   const tabs = [
     { id: "profile", label: "Profile" },
     { id: "password", label: "Password" },
@@ -230,9 +280,9 @@ const SettingsPage = () => {
               <div className="flex items-center space-x-4">
                 <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
                   {profilePhoto ? (
-                    <img 
-                      src={profilePhoto} 
-                      alt="Profile" 
+                    <img
+                      src={profilePhoto}
+                      alt="Profile"
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -254,7 +304,7 @@ const SettingsPage = () => {
                   className="hidden"
                   id="profilePhotoInput"
                 />
-                <label 
+                <label
                   htmlFor="profilePhotoInput"
                   className="bg-[#4705E3] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors cursor-pointer"
                 >
@@ -345,13 +395,13 @@ const SettingsPage = () => {
                     }))
                   }
                   placeholder="Enter email address"
-                  className="w-full px-3 py-2 border text-sm border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-[49%] px-3 py-2 border text-sm border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-end space-x-4 pt-4">
+            <div className="flex justify-end space-x-4 pt-4 pb-6">
               <button
                 onClick={() => handleProfileSubmit("cancel")}
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors text-sm"
@@ -384,12 +434,7 @@ const SettingsPage = () => {
                 <input
                   type={passwordVisibility.current ? "text" : "password"}
                   value={passwordData.currentPassword}
-                  onChange={(e) =>
-                    setPasswordData((prev) => ({
-                      ...prev,
-                      currentPassword: e.target.value,
-                    }))
-                  }
+                  onChange={(e) => handlePasswordChange('currentPassword', e.target.value)}
                   placeholder="Enter current password"
                   className="w-full px-3 py-2 pr-10 border text-sm border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -415,12 +460,7 @@ const SettingsPage = () => {
                 <input
                   type={passwordVisibility.new ? "text" : "password"}
                   value={passwordData.newPassword}
-                  onChange={(e) =>
-                    setPasswordData((prev) => ({
-                      ...prev,
-                      newPassword: e.target.value,
-                    }))
-                  }
+                  onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
                   placeholder="Enter new password"
                   className="w-full px-3 py-2 pr-10 border text-sm border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -436,6 +476,11 @@ const SettingsPage = () => {
                   )}
                 </button>
               </div>
+              {passwordErrors.samePassword && (
+                <p className="text-red-500 text-xs mt-1">
+                  New password cannot be the same as current password
+                </p>
+              )}
             </div>
 
             <div>
@@ -446,12 +491,7 @@ const SettingsPage = () => {
                 <input
                   type={passwordVisibility.confirm ? "text" : "password"}
                   value={passwordData.confirmPassword}
-                  onChange={(e) =>
-                    setPasswordData((prev) => ({
-                      ...prev,
-                      confirmPassword: e.target.value,
-                    }))
-                  }
+                  onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
                   placeholder="Confirm password"
                   className="w-full px-3 py-2 pr-10 border text-sm border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -467,6 +507,11 @@ const SettingsPage = () => {
                   )}
                 </button>
               </div>
+              {passwordErrors.passwordMismatch && (
+                <p className="text-red-500 text-xs mt-1">
+                  Passwords do not match
+                </p>
+              )}
             </div>
 
             {/* Action Buttons */}
@@ -483,6 +528,10 @@ const SettingsPage = () => {
                     new: false,
                     confirm: false,
                   });
+                  setPasswordErrors({
+                    samePassword: false,
+                    passwordMismatch: false,
+                  });
                 }}
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors text-sm"
               >
@@ -490,7 +539,22 @@ const SettingsPage = () => {
               </button>
               <button
                 onClick={handlePasswordSubmit}
-                className="px-6 py-2 bg-blue-600 text-white text-sm rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                disabled={
+                  !passwordData.currentPassword ||
+                  !passwordData.newPassword ||
+                  !passwordData.confirmPassword ||
+                  passwordErrors.samePassword ||
+                  passwordErrors.passwordMismatch
+                }
+                className={`px-6 py-2 text-sm rounded-lg font-medium transition-colors ${
+                  !passwordData.currentPassword ||
+                  !passwordData.newPassword ||
+                  !passwordData.confirmPassword ||
+                  passwordErrors.samePassword ||
+                  passwordErrors.passwordMismatch
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-blue-600 text-white hover:bg-blue-700"
+                }`}
               >
                 Update password
               </button>
@@ -506,22 +570,51 @@ const SettingsPage = () => {
                 Bank name
               </label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                  <Landmark className="w-4 h-4" />
-                </div>
-                <select
-                  value={bankData.bankName}
-                  onChange={(e) =>
-                    setBankData((prev) => ({ ...prev, bankName: e.target.value }))
-                  }
-                  className="w-full pl-10 pr-3 py-2 border text-sm border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                {/* Custom dropdown trigger */}
+                <div
+                  className="w-full pl-4 pr-4 py-2 border text-sm border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 flex items-center justify-between cursor-pointer bg-white"
+                  onClick={() => setIsBankDropdownOpen(!isBankDropdownOpen)}
                 >
-                  <option value="Sterling Bank">Sterling Bank</option>
-                  <option value="Access Bank">Access Bank</option>
-                  <option value="GTBank">GTBank</option>
-                  <option value="First Bank">First Bank</option>
-                  <option value="UBA">UBA</option>
-                </select>
+                  <div className="flex items-center space-x-2">
+                    {getSelectedBankLogo() && (
+                      <img
+                        src={getSelectedBankLogo()}
+                        alt={bankData.bankName}
+                        className="w-5 h-5 object-contain"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    )}
+                    <span>{bankData.bankName}</span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isBankDropdownOpen ? 'rotate-180' : ''}`} />
+                </div>
+
+                {/* Custom dropdown list */}
+                {isBankDropdownOpen && (
+                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                    {nigerianBanks.map((bank) => (
+                      <div
+                        key={bank.slug}
+                        className="px-4 py-2 flex items-center space-x-2 cursor-pointer hover:bg-gray-100"
+                        onClick={() => handleBankSelect(bank.name)}
+                      >
+                        {bank.logo && (
+                          <img
+                            src={bank.logo}
+                            alt={bank.name}
+                            className="w-5 h-5 object-contain"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                        )}
+                        <span>{bank.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 

@@ -145,25 +145,29 @@ const SideNav = () => {
 
       {/* User Profile Section */}
       <div className="mt-auto pt-2 border-t border-white/10">
-        <div className="flex items-center justify-between">
+      <Link to="/dashboard/settings">
+      <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <img
               src="https://api.dicebear.com/7.x/avataaars/svg?seed=Susan"
               alt="Profile"
-              className="w-8 h-8 rounded-full bg-white/10"
+              className="w-7 h-7 rounded-full bg-white/10"
             />
             <div>
               <div className="text-sm font-medium">Susan Sheidu</div>
               <div className="text-xs text-gray-400">sheidususan@gmail.com</div>
             </div>
           </div>
-          <Link to="/dashboard/settings">
-            <button  className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">
+            <button  className={`p-1 hover:bg-white/10 rounded-lg transition-colors ${
+                isMenuItemActive({path: "/dashboard/settings"})
+                  ? "bg-white/10 text-white  border-white"
+                  : "text-gray-500 hover:bg-white/10 hover:text-white"}`}>
               <LogOut className="w-5 h-5" />
             </button>
-          </Link>
           
         </div>
+      </Link>
+        
       </div>
     </div>
   );
