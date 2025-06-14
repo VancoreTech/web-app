@@ -157,9 +157,12 @@ const SideNav = () => {
               <div className="text-xs text-gray-400">sheidususan@gmail.com</div>
             </div>
           </div>
-          <button className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">
-            <LogOut className="w-5 h-5" />
-          </button>
+          <Link to="/dashboard/settings">
+            <button  className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">
+              <LogOut className="w-5 h-5" />
+            </button>
+          </Link>
+          
         </div>
       </div>
     </div>
