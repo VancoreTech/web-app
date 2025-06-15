@@ -6,7 +6,7 @@ const DashboardLayout = () => {
   return (
     <div className="flex ">
       <SideNav />
-      <main className="flex-1 overflow-y-auto ml-64 bg-[#F5F5F5] min-h-screen">
+      <main className="flex-1 overflow-y-auto ml-72 bg-[#F5F5F5] min-h-screen">
         <Outlet />
       </main>
     </div>
