@@ -267,7 +267,6 @@ function CreateDiscount() {
         onCancel={handleCancelConfirm}
       />
 
-      {/* Success Modal */}
       <SuccessModal
         isOpen={showSuccessModal}
         title="Success"
