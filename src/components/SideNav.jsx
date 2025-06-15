@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -40,15 +42,40 @@ const SideNav = () => {
   const location = useLocation();
   const [storesExpanded, setStoresExpanded] = useState(true);
 
-  const isMenuItemActive = (item) => {
-    if (location.pathname === item.path) {
-      return true;
-    }
+  const isParentActive = (item) => {
+    const current = location.pathname;
 
-    if (item.subPaths) {
-      return item.subPaths.some((subPath) => location.pathname === subPath);
-    }
+    if (item.path && current === item.path) return true;
+
+    // if (item.subLinks?.some((sub) => current === sub.path)) return true;
+
+    if (item.subPaths?.some((subPath) => current === subPath)) return true;
+
     return false;
+  };
+
+  const isSubLinkActive = (subItem) => {
+    return location.pathname === subItem.path;
+  };
+
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  useEffect(() => {
+    const parentItem = menuItems.find((item) =>
+      item.subLinks?.some((sub) => sub.path === location.pathname)
+    );
+    if (parentItem) {
+      setOpenDropdown(parentItem.label);
+    } else {
+      setOpenDropdown(null);
+    }
+  }, [location.pathname]);
+
+  const toggleDropdown = (label) => {
+    setOpenDropdown((prev) => {
+      const next = prev === label ? null : label;
+      return next;
+    });
   };
 
   const menuItems = [
@@ -58,15 +85,27 @@ const SideNav = () => {
       path: "/dashboard",
     },
     {
-      icon: <Users className="w-5 h-5" />,
+      icon: <User2 className="w-5 h-5" />,
       label: "User management",
-      path: "/dashboard/user-management",
+      // path: "/dashboard/user-management",
+      subLinks: [
+        { label: "Roles", path: "/dashboard/roles" },
+        { label: "Users", path: "/dashboard/users" },
+      ],
+      subPaths: ["/dashboard/create-role"],
     },
     {
       icon: <Package className="w-5 h-5" />,
       label: "Products",
       path: "/dashboard/products",
-      subPaths: ["/dashboard/create-product", "/dashboard/product-details"],
+      subPaths: [
+        "/dashboard/create-product",
+        "/dashboard/product-details",
+        "/dashboard/edit-product",
+        "/dashboard/create-category",
+        "/dashboard/category-details",
+        "/dashboard/edit-category",
+      ],
     },
     {
       icon: <ShoppingBag className="w-5 h-5" />,
@@ -161,7 +200,6 @@ const SideNav = () => {
 
   return (
     <div className="w-72 h-screen bg-[#01042D] text-white p-4 flex flex-col fixed overflow-y-auto custom-scrollbar">
-      {/* Logo and Store URL */}
       <div className="mb-4">
         <div className="flex items-center justify-center mb-1">
           <img src="/vancore-logo.png" alt="Vancore" className="h-8 mr-2" />
@@ -175,26 +213,78 @@ const SideNav = () => {
         </a>
       </div>
 
-      {/* Quick Links Section */}
       <div className="flex-1">
         <h2 className="text-sm text-gray-400 mb-2">Quick links</h2>
         <nav className="space-y-3 text-xs">
-          {menuItems.map((item, index) => (
-            <Link
-              key={index}
-              to={item.path}
-              className={`flex items-center space-x-4 px-3 py-1.5 rounded-lg transition-colors ${
-                isMenuItemActive(item)
-                  ? "bg-white/10 text-white border-l-8 border-white"
-                  : "text-gray-500 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              {item.icon}
-              <span className="" style={{ fontSize: "14px" }}>
-                {item.label}
-              </span>
-            </Link>
-          ))}
+          {menuItems.map((item, index) => {
+            const hasDropdown = item.subLinks && item.subLinks.length > 0;
+            const isOpen = openDropdown === item.label;
+
+            return (
+              <div key={index}>
+                {item.subLinks ? (
+                  <button
+                    onClick={() => toggleDropdown(item.label)}
+                    className={`flex items-center justify-between w-full text-left pl-3 pr-2 py-1.5 rounded-lg transition-colors ${
+                      isParentActive(item)
+                        ? "bg-white/10 text-white border-l-8 border-white"
+                        : "text-gray-500 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {item.icon}
+                      <span className="text-sm">{item.label}</span>
+                    </div>
+                    <ChevronDown
+                      className={`ml-auto h-4 w-4 transition-transform duration-200 ${
+                        openDropdown === item.label ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                ) : (
+                  <NavLink
+                    to={item.path}
+                    end
+                    onClick={() => {
+                      if (hasDropdown) toggleDropdown(item.label);
+                    }}
+                    // isActive={() => isParentActive(item)}
+                    // style={}
+                    className={`flex items-center space-x-3 px-3 py-1.5 rounded-lg transition-colors ${
+                      isParentActive(item)
+                        ? "bg-white/10 text-white border-l-8 border-white"
+                        : "text-gray-500 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    {item.icon}
+                    <span className="" style={{ fontSize: "14px" }}>
+                      {item.label}
+                    </span>
+                  </NavLink>
+                )}
+                {hasDropdown && isOpen && (
+                  <div className="ml-8 mt-1 space-y-1">
+                    {item.subLinks.map((subItem, subIdx) => (
+                      <NavLink
+                        key={subIdx}
+                        to={subItem.path}
+                        style={({ isActive }) =>
+                          isActive ? activeStyles : null
+                        }
+                        className={`block text-sm px-3 py-1.5 rounded-md transition-colors ${
+                          isSubLinkActive(subItem)
+                            ? "text-white bg-white/10 border-l-8 border-white"
+                            : "text-gray-400 hover:text-white hover:bg-white/10"
+                        }`}
+                      >
+                        {subItem.label}
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </nav>
       </div>
 

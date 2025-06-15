@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // SideBar Pages
 import Dashboard from "./Pages/Dashboard";
-import UserManagement from "./Pages/UserManagement";
+import UserManagement from "./Pages/user-management/UserManagementLayout";
 import Products from "./Pages/Products";
 import Orders from "./Pages/Orders";
 import Customers from "./Pages/Customers";
@@ -52,9 +52,17 @@ import History from "./Pages/product-details/History";
 import AllOrders from "./Pages/product-details/AllOrders";
 import Inventory from "./Pages/product-details/Inventory";
 import EditCategory from "./Pages/EditCategory";
+
+//DISCOUNTS AND COUPONS
 import CreateDiscount from "./create-pages/CreateDiscount";
 import CreateCoupon from "./create-pages/CreateCoupon";
+
 import CreateCampaign from "./create-pages/CreateCampaign";
+
+//ROLES
+import Roles from "./Pages/user-management/Roles";
+import Users from "./Pages/user-management/Users";
+import UserManagementLayout from "./Pages/user-management/UserManagementLayout";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("registration");
@@ -129,7 +137,11 @@ export default function App() {
 
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
-        <Route path="user-management" element={<UserManagement />} />
+        <Route path="user-management" element={<UserManagementLayout />} />
+        {/* <Route index element={Roles} /> */}
+        <Route path="roles" element={<Roles />} />
+        <Route path="users" element={<Users />} />
+        {/* </Route> */}
 
         <Route path="products" element={<Products />} />
         <Route path="create-product" element={<CreateProduct />} />

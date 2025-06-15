@@ -160,7 +160,7 @@ const ProductsTable = ({
                             "/dashboard/edit-product",
                             "/dashboard/product-details",
                           ]}
-                          actions={[on]}
+                          // actions={[on]}
                         />
                       )}
                     </div>
@@ -326,8 +326,8 @@ const Products = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   // const [categories, setCategories] = useState([]);
-  const [tempCategoryFilter, setTempCategoryFilter] = useState([]);
-  const [appliedCategoryFilter, setAppliedCategoryFilter] = useState([]);
+  const [tempCategoryFilter, setTempCategoryFilter] = useState(["all"]);
+  const [appliedCategoryFilter, setAppliedCategoryFilter] = useState(["all"]);
 
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   const dropDownRef = useRef(null);
@@ -354,7 +354,7 @@ const Products = () => {
   const categoryFilter = searchParams.get("category");
 
   const handleCategorySelect = (category) => {
-    if (category === "all") {
+    if (category.toLowerCase() === "all") {
       setTempCategoryFilter([]);
       return;
     }
@@ -402,11 +402,12 @@ const Products = () => {
     setCurrentPage(1);
   }, [entriesPerPage]);
 
-  const filteredProducts = appliedCategoryFilter.length
-    ? productData.filter((product) =>
-        appliedCategoryFilter.includes(product.category)
-      )
-    : productData;
+  const filteredProducts =
+    appliedCategoryFilter.length === 0 || appliedCategoryFilter.includes("all")
+      ? productData
+      : productData.filter((product) =>
+          appliedCategoryFilter.includes(product.category)
+        );
 
   const displayedProducts = filteredProducts.filter((product) =>
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -428,8 +429,8 @@ const Products = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900">Products</h2>
-            <p className="text-sm text-gray-500">23 products</p>
+            <h2 className="text-2xl font-semibold text-[#242424]">Products</h2>
+            <p className="text-sm text-[#666667]">23 products</p>
           </div>
           <div className="flex items-center space-x-3">
             <button className="flex items-center px-4 py-2 border border-blue-600 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
@@ -547,10 +548,20 @@ const Products = () => {
                         </p>
 
                         <div className="flex flex-col items-start w-full">
-                          {categories.slice(0, 7).map((category) => {
-                            const isSelected = tempCategoryFilter.includes(
-                              category.toLowerCase()
-                            );
+                          {[
+                            "All",
+                            "Furniture",
+                            "Groceries",
+                            "Home-decoration",
+                            "Kitchen-accessories",
+                            "Laptops",
+                          ].map((category) => {
+                            const isSelected =
+                              category.toLowerCase() === "all"
+                                ? tempCategoryFilter.length === 0
+                                : tempCategoryFilter.includes(
+                                    category.toLowerCase()
+                                  );
 
                             return (
                               <button

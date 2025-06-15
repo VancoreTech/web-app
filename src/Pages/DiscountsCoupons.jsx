@@ -413,10 +413,10 @@ function DiscountsCoupons() {
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900">
+              <h2 className="text-2xl font-semibold text-[#242424]">
                 Discount & Coupons
-              </h1>
-              <p className="text-sm text-gray-500">23 products</p>
+              </h2>
+              <p className="text-sm text-[#666667]">23 products</p>
             </div>
             <div className="flex items-center space-x-3">
               <Link

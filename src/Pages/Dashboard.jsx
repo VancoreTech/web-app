@@ -169,7 +169,7 @@ const Dashboard = () => {
   const [dateRange] = useState("Last 7 days");
   const [period] = useState("24/01/2024 - 24/02/2024");
   const [showBalance, setShowBalance] = useState(false);
-  const balance = "₦2,535,500";
+  const balance = "₦1,364,670.00";
 
   return (
     <div className="flex h-screen overflow-hidden">
