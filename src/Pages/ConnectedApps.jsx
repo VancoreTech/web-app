@@ -456,49 +456,52 @@ const ConnectedApps = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {apps.map((app) => (
               <div
-  key={app.id}
-  className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
->
-  <div className="flex items-start justify-between mb-4">
-    <div
-      className={`w-12 h-12 rounded-lg ${app.color} flex items-center justify-center text-white`}
-    >
-      {getAppIcon(app.id)}
-    </div>
-    <ConnectionStatusIndicator isConnected={app.isConnected} isAvailable={true} />
-  </div>
+                key={app.id}
+                className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div
+                    className={`w-12 h-12 rounded-lg ${app.color} flex items-center justify-center text-white`}
+                  >
+                    {getAppIcon(app.id)}
+                  </div>
+                  <ConnectionStatusIndicator
+                    isConnected={app.isConnected}
+                    isAvailable={true}
+                  />
+                </div>
 
-  <h3 className="font-semibold text-gray-900 mb-2">{app.name}</h3>
-  <p className="text-sm text-gray-600 mb-4">{app.description}</p>
-  <div className="flex items-center justify-between border-t border-[#EBEBEB] pt-4 ">
-    {!app.isConnected ? (
-      <div className="flex items-center border border-[#EBEBEB] text-gray-600 rounded-md px-2 hover:bg-blue-700 hover:text-white transition-colors">
-        <Link className="w-4 h-4 " />
-        <button
-          onClick={() => handleConnect(app)}
-          className="py-2 px-2 text-xs font-medium"
-        >
-          Connect
-        </button>
-      </div>
-    ) : (
-      <div className="flex items-center border border-[#E10000] text-[#E10000] rounded-md px-2 hover:shadow-md transition-shadow">
-        <Link className="w-4 h-4 text-[#E10000]" />
-        <button
-          onClick={() => handleDisconnect(app)}
-          className="py-2 px-2 text-xs font-medium border-[#E10000]"
-        >
-          Disconnect
-        </button>
-      </div>
-    )}
-    <Switch
-      checked={app.isConnected}
-      onCheckedChange={() => handleToggleConnection(app.id)}
-      disabled={!app.isConnected}
-    />
-  </div>
-</div>
+                <h3 className="font-semibold text-gray-900 mb-2">{app.name}</h3>
+                <p className="text-sm text-gray-600 mb-4">{app.description}</p>
+                <div className="flex items-center justify-between border-t border-[#EBEBEB] pt-4 ">
+                  {!app.isConnected ? (
+                    <div className="flex items-center border border-[#EBEBEB] text-gray-600 rounded-md px-2 hover:bg-blue-700 hover:text-white transition-colors">
+                      <Link className="w-4 h-4 " />
+                      <button
+                        onClick={() => handleConnect(app)}
+                        className="py-2 px-2 text-xs font-medium"
+                      >
+                        Connect
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center border border-[#E10000] text-[#E10000] rounded-md px-2 hover:shadow-md transition-shadow">
+                      <Link className="w-4 h-4 text-[#E10000]" />
+                      <button
+                        onClick={() => handleDisconnect(app)}
+                        className="py-2 px-2 text-xs font-medium border-[#E10000]"
+                      >
+                        Disconnect
+                      </button>
+                    </div>
+                  )}
+                  <Switch
+                    checked={app.isConnected}
+                    onCheckedChange={() => handleToggleConnection(app.id)}
+                    disabled={!app.isConnected}
+                  />
+                </div>
+              </div>
             ))}
           </div>
         </div>

@@ -1641,3 +1641,36 @@ export const nigerianBanks = [
     "logo": "https://nigerianbanks.xyz/logo/zenith-bank.png"
   }
 ];
+
+export const referralHistoryData = [
+  { id: 1, dateInvited: "22-09-2025", referralName: "Daniela Duchess", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 2, dateInvited: "22-09-2025", referralName: "Temitope Alli", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 3, dateInvited: "22-09-2025", referralName: "Mayowa Babatunde", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 4, dateInvited: "22-09-2025", referralName: "Nusrat Ahmad", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 5, dateInvited: "22-09-2025", referralName: "Wamiri Abdulrazez", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 6, dateInvited: "22-09-2025", referralName: "Chika Okafor", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 7, dateInvited: "22-09-2025", referralName: "Bisi Alade", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 8, dateInvited: "22-09-2025", referralName: "Tolu Fashola", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 9, dateInvited: "22-09-2025", referralName: "Emeka Obi", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 10, dateInvited: "22-09-2025", referralName: "Ifeoma Nwachukwu", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 11, dateInvited: "22-09-2025", referralName: "Yusuf Ibrahim", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 12, dateInvited: "22-09-2025", referralName: "Adaeze Umeh", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 13, dateInvited: "22-09-2025", referralName: "Fola Adeyemi", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 14, dateInvited: "22-09-2025", referralName: "Lanre Babalola", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 15, dateInvited: "22-09-2025", referralName: "Ngozi Okeke", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 16, dateInvited: "22-09-2025", referralName: "Hassan Bello", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 17, dateInvited: "22-09-2025", referralName: "Blessing Amos", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 18, dateInvited: "22-09-2025", referralName: "Ibrahim Sule", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 19, dateInvited: "22-09-2025", referralName: "Esther Nwosu", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 20, dateInvited: "22-09-2025", referralName: "Adekunle Oladimeji", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 21, dateInvited: "22-09-2025", referralName: "Lilian Uzo", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 22, dateInvited: "22-09-2025", referralName: "Peter Eze", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 23, dateInvited: "22-09-2025", referralName: "Funke Ogunleye", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 24, dateInvited: "22-09-2025", referralName: "Toyin Bakare", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 25, dateInvited: "22-09-2025", referralName: "Chinonso Eze", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 26, dateInvited: "22-09-2025", referralName: "Halima Sanni", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 27, dateInvited: "22-09-2025", referralName: "Gbenga Ajayi", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 28, dateInvited: "22-09-2025", referralName: "Ruth Edet", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" },
+  { id: 29, dateInvited: "22-09-2025", referralName: "Obinna Ubah", phoneNumber: "08076853544", amountEarned: 300, status: "Pending" },
+  { id: 30, dateInvited: "22-09-2025", referralName: "Zainab Idris", phoneNumber: "08076853544", amountEarned: 300, status: "Successful" }
+];

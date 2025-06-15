@@ -19,10 +19,15 @@ import Transactions from "./Pages/Transactions";
 import ConnectedApps from "./Pages/ConnectedApps";
 import PaymentsMethods from "./Pages/PaymentsMethods";
 import HelpSupport from "./Pages/HelpSupport";
-import SettingsPage from "./Pages/SettingsPage";
-
 import DashboardLayout from "./components/DashboardLayout";
 import EditGroup from "./Pages/EditGroup";
+
+
+// Other Pages
+import SettingsPage from "./other-pages/SettingsPage";
+import StoreInformation from "./other-pages/StoreInformation";
+import Referrals from "./other-pages/Referrals";
+import ReferralHistory from "./other-pages/ReferralHistory";
 
 // Details Pages
 import CategoryDetails from "./details-pages/CategoryDetails";
@@ -169,6 +174,9 @@ export default function App() {
         <Route path="payment-methods" element={<PaymentsMethods />} />
         <Route path="support" element={<HelpSupport />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="store-information" element={<StoreInformation />} />
+        <Route path="referrals" element={<Referrals />} />
+        <Route path="referral-history" element={<ReferralHistory />} />
       </Route>
 
       <Route

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Calendar } from "lucide-react";
 
 const DateSelector = ({
-  // showCalendar,
+  showCalendar,
   selectedDate,
   handleDateSelect,
   formatDisplayDate,
@@ -11,20 +11,20 @@ const DateSelector = ({
   className = "flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50",
   placeholder = "Select Date",
 }) => {
-  const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (calendarRef.current && !calendarRef.current.contains(event.target)) {
-        setShowCalendar(false);
+        closeCalendar();
       }
     }
 
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [closeCalendar]);
+
   return (
     <div className="relative" ref={calendarRef}>
       <button onClick={toggleCalendar} className={className}>
