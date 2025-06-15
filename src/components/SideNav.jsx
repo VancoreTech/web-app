@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
-  Users,
+  User2,
   Package,
   ShoppingBag,
   Users2,
@@ -266,9 +266,9 @@ const SideNav = () => {
                       <NavLink
                         key={subIdx}
                         to={subItem.path}
-                        style={({ isActive }) =>
-                          isActive ? activeStyles : null
-                        }
+                        // style={({ isActive }) =>
+                        //   isActive ? activeStyles : null
+                        // }
                         className={`block text-sm px-3 py-1.5 rounded-md transition-colors ${
                           isSubLinkActive(subItem)
                             ? "text-white bg-white/10 border-l-8 border-white"
