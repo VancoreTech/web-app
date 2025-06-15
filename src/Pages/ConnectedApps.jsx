@@ -465,7 +465,10 @@ const ConnectedApps = () => {
                   >
                     {getAppIcon(app.id)}
                   </div>
-                  <ConnectionStatusIndicator isConnected={app.isConnected} />
+                  <ConnectionStatusIndicator
+                    isConnected={app.isConnected}
+                    isAvailable={true}
+                  />
                 </div>
 
                 <h3 className="font-semibold text-gray-900 mb-2">{app.name}</h3>

@@ -32,7 +32,7 @@ const CreateCustomer = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showCancelConfirmModal, setShowCancelConfirmModal] = useState(false);
   const [showCancelSuccessModal, setShowCancelSuccessModal] = useState(false);
-
+s
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,

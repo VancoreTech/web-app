@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { X, Info, MessageCircle } from "lucide-react";
-import { InstagramIcon1, WhatsappIcon } from "../Pages/ConnectedApps";
 
 // Button Component
 const Button = ({
